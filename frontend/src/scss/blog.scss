@@ -1,0 +1,187 @@
+.blog {
+    // .blog__main
+    &__main {
+    }
+    // .blog__subscribe
+    &__subscribe {
+    }
+}
+//========================================================================================================================================================
+.main-blog {
+    @include adaptiveValue("padding-top", 152, 130);
+    @include adaptiveValue("padding-bottom", 180, 60);
+    // .main-blog__container
+    &__container {
+    }
+    // .blog-main__header
+    &__header {
+        &:not(:last-child) {
+            @include adaptiveValue("margin-bottom", 60, 20);
+        }
+    }
+    // .main-blog__top
+    &__top {
+        opacity: 0;
+        &._watcher-view {
+            transition: all 0.8s;
+            transform: translate(0px, 0px);
+            opacity: 1;
+        }
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: toRem(20);
+        @media (max-width: $tablet) {
+            flex-direction: column;
+        }
+        @media (max-width: $mobile) {
+            align-items: stretch;
+        }
+        &:not(:last-child) {
+            @include adaptiveValue("margin-bottom", 60, 20);
+        }
+    }
+    // .main-blog__block
+    &__block {
+    }
+    // .main-blog__items
+    &__items {
+        &:not(:last-child) {
+            @include adaptiveValue("margin-bottom", 80, 30);
+        }
+
+        opacity: 0;
+        &._watcher-view {
+            transition: all 0.8s;
+
+            opacity: 1;
+        }
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: toRem(30);
+        @media (max-width: $tablet) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media (max-width: em(650)) {
+            grid-template-columns: auto;
+        }
+    }
+    // .main-blog__item
+    &__item {
+        // .main-blog__item--bg
+        &--bg {
+            @media (min-width: $tablet) {
+                .item-blog__image-ibg {
+                    padding-bottom: percent(300, 800);
+                }
+                grid-column: span 2;
+            }
+        }
+    }
+}
+
+.main-block {
+    // .main-block__filter
+    &__filter {
+    }
+}
+.blog-filter {
+    display: flex;
+    align-items: center;
+    gap: toRem(12);
+    @media (max-width: $mobile) {
+        justify-content: center;
+    }
+    @media (max-width: $tablet) {
+        overflow: auto;
+    }
+    @media (max-width: em(550)) {
+        justify-content: start;
+    }
+    @extend %hidescroll;
+    // .blog-filter__button
+    &__button {
+        display: flex;
+        align-items: center;
+        gap: toRem(8);
+        color: #9a9ca5;
+        white-space: nowrap;
+        text-align: center;
+        font-weight: 700;
+        line-height: 120%;
+        border-radius: toRem(4);
+        border: toRem(1) solid transparent;
+        padding: toRem(8) toRem(20) toRem(12) toRem(20);
+        &.active {
+            color: #ff3f3a;
+            border: toRem(1) solid #ff3f3a;
+        }
+        transition: all 0.3s;
+        @media (any-hover: hover) {
+            &:hover {
+                color: #ff3f3a;
+            }
+        }
+    }
+}
+
+.block-blog {
+    display: flex;
+    align-items: center;
+    @media (max-width: $mobile) {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    @include adaptiveValue("gap", 40, 15, 0, 1440, 992);
+    justify-content: flex-end;
+    flex: 1 1 auto;
+    // .block-blog__item
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: toRem(12);
+        @media (max-width: $mobile) {
+            justify-content: center;
+        }
+    }
+    // .block-blog__label
+    &__label {
+        font-weight: 700;
+        line-height: 160%;
+    }
+    // .block-blog__search
+    &__search {
+        flex: 0 0 35%;
+        position: relative;
+    }
+    // .block-blog__line
+    &__line {
+        position: relative;
+    }
+    // .block-blog__input
+    &__input {
+        border-radius: toRem(4);
+        border: toRem(1) solid #d7dadd;
+        background-color: #fff;
+        padding: 0 toRem(30) 0 toRem(16);
+        color: #9a9ca5;
+        font-size: toRem(14);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%;
+        height: toRem(44);
+        width: 100%;
+    }
+    // .block-blog__button
+    &__button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: toRem(44);
+        width: toRem(44);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+//========================================================================================================================================================

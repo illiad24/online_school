@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+@@include('html/_head.htm',{
+"title":"courses"
+})
+
+<body>
+    <div class="wrapper">
+        @@include('html/_header.htm',{
+        "activeabout":"",
+        "activecourses":"active",
+        "activeevents":"",
+        "activeblog":"",
+        "activecontact":""
+        })
+        <main class="courses">
+            <div class="courses__main main-courses" data-coefficient="100" data-prlx data-direction="100">
+                <div class="main-courses__decor main-courses__decor--1" data-prlx-mouse data-prlx-cx="30" data-prlx-cy="30"><img src="@img/course/shapes.svg" alt="decor"></div>
+                <div class="main-courses__decor main-courses__decor--2" data-prlx-mouse data-prlx-cx="30" data-prlx-cy="50"><img src="@img/course/dots.svg" alt="decor"></div>
+                <div class="main-courses__decor main-courses__decor--3" data-prlx-mouse data-prlx-cx="30" data-prlx-cy="50"><img src="@img/course/shapes2.svg" alt="decor"></div>
+                <div class="main-courses__container">
+                    <div class="main-courses__header section-header section-header--center" data-watch data-watch-once>
+                        <div class="section-header__label">Our online courses</div>
+                        <h1 class="section-header__title title">Enjoy your studying!</h1>
+                    </div>
+                    <div class="main-courses__top" data-watch data-watch-once>
+                        <div class="main-courses__filters courses-filter">
+                            <button type="button" class="courses-filter__item active" data-type="all">All <sup class="courses-filter__counter"></sup></button>
+                            <button type="button" class="courses-filter__item " data-type="marketing">Marketing <sup class="courses-filter__counter"></sup></button>
+                            <button type="button" class="courses-filter__item" data-type="management">Management <sup class="courses-filter__counter"></sup></button>
+                            <button type="button" class="courses-filter__item" data-type="hrrecruting">HR & Recruting <sup class="courses-filter__counter"></sup></button>
+                            <button type="button" class="courses-filter__item" data-type="design">Design <sup class="courses-filter__counter"></sup></button>
+                            <button type="button" class="courses-filter__item" data-type="development">Development <sup class="courses-filter__counter"></sup></button>
+                        </div>
+                        <form action="#" class="main-courses__form search-courses">
+                            <div class="search-courses__line">
+                                <input autocomplete="off" type="text" name="form[]" data-error="Error" placeholder="Search course..." class="search-courses__input">
+                            </div>
+                            <button type="button" aria-label="button" class="search-courses__button _icon-search"></button>
+                        </form>
+                    </div>
+                    <div data-showmore="items" class="main-courses__block">
+                        <div class="main-courses__items" data-showmore-content="3">
+                            <div class="main-courses__item card-course" data-type="marketing">
+                                <a href="course.html" class="card-course__image-ibg"><img src="@img/course/01.jpg" alt="image"></a>
+                                <div class="card-course__content">
+                                    <a href="course.html" class="card-course__category card-course__category--green">Marketing</a>
+                                    <a href="course.html" class="card-course__title title--sm">The Ultimate Google Ads Training Course</a>
+                                    <div class="card-course__info">
+                                        <div class="card-course__price">$100</div>
+                                        <div class="card-course__by">by Jerome Bell</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-courses__item card-course " data-type="management">
+                                <a href="course.html" class="card-course__image-ibg"><img src="@img/course/02.jpg" alt="image"></a>
+                                <div class="card-course__content">
+                                    <a href="course.html" class="card-course__category card-course__category--blue">Management</a>
+                                    <a href="course.html" class="card-course__title title--sm">Prduct Management Fundamentals</a>
+                                    <div class="card-course__info">
+                                        <div class="card-course__price">$480</div>
+                                        <div class="card-course__by">by Marvin McKinney</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-courses__item card-course " data-type="hrrecruting">
+                                <a href="course.html" class="card-course__image-ibg"><img src="@img/course/03.jpg" alt="image"></a>
+                                <div class="card-course__content">
+                                    <a href="course.html" class="card-course__category card-course__category--orange">HR & Recruting</a>
+                                    <a href="course.html" class="card-course__title title--sm">HR Management and Analytics</a>
+                                    <div class="card-course__info">
+                                        <div class="card-course__price">$100</div>
+                                        <div class="card-course__by">by Leslie Alexander Li</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-courses__item card-course " data-type="marketing">
+                                <a href="course.html" class="card-course__image-ibg"><img src="@img/course/04.jpg" alt="image"></a>
+                                <div class="card-course__content">
+                                    <a href="course.html" class="card-course__category card-course__category--green">Marketing</a>
+                                    <a href="course.html" class="card-course__title title--sm">Brand Management & PR Communications</a>
+                                    <div class="card-course__info">
+                                        <div class="card-course__price">$530</div>
+                                        <div class="card-course__by">by Kristin Watson</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-courses__item card-course " data-type="design">
+                                <a href="course.html" class="card-course__image-ibg"><img src="@img/course/05.jpg" alt="image"></a>
+                                <div class="card-course__content">
+                                    <a href="course.html" class="card-course__category card-course__category--pink">Design</a>
+                                    <a href="course.html" class="card-course__title title--sm">Graphic Design Basic</a>
+                                    <div class="card-course__info">
+                                        <div class="card-course__price">$500</div>
+                                        <div class="card-course__by">by Guy Hawkins</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-courses__item card-course " data-type="management">
+                                <a href="course.html" class="card-course__image-ibg"><img src="@img/course/06.jpg" alt="image"></a>
+                                <div class="card-course__content">
+                                    <a href="course.html" class="card-course__category card-course__category--blue">Management</a>
+                                    <a href="course.html" class="card-course__title title--sm">Business Development Management</a>
+                                    <div class="card-course__info">
+                                        <div class="card-course__price">$400</div>
+                                        <div class="card-course__by">by Dianne Russell</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-courses__item card-course " data-type="development">
+                                <a href="course.html" class="card-course__image-ibg"><img src="@img/course/07.jpg" alt="image"></a>
+                                <div class="card-course__content">
+                                    <a href="course.html" class="card-course__category card-course__category--blue">Development</a>
+                                    <a href="course.html" class="card-course__title title--sm">Highload Software Architecture</a>
+                                    <div class="card-course__info">
+                                        <div class="card-course__price">$600</div>
+                                        <div class="card-course__by">by Brooklyn Simmons</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-courses__item card-course " data-type="hrrecruting">
+                                <a href="course.html" class="card-course__image-ibg"><img src="@img/course/08.jpg" alt="image"></a>
+                                <div class="card-course__content">
+                                    <a href="course.html" class="card-course__category card-course__category--orange">HR & Recruting</a>
+                                    <a href="course.html" class="card-course__title title--sm">Human Resources – Selection and Recruitment</a>
+                                    <div class="card-course__info">
+                                        <div class="card-course__price">$150</div>
+                                        <div class="card-course__by">by Kathryn Murphy</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-courses__item card-course " data-type="design">
+                                <a href="course.html" class="card-course__image-ibg"><img src="@img/course/09.jpg" alt="image"></a>
+                                <div class="card-course__content">
+                                    <a href="course.html" class="card-course__category card-course__category--pink">Design</a>
+                                    <a href="course.html" class="card-course__title title--sm">User Experience. Human-centered Design</a>
+                                    <div class="card-course__info">
+                                        <div class="card-course__price">$240</div>
+                                        <div class="card-course__by">by Cody Fisher</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-courses__item card-course " data-type="marketing">
+                                <a href="course.html" class="card-course__image-ibg"><img src="@img/course/04.jpg" alt="image"></a>
+                                <div class="card-course__content">
+                                    <a href="course.html" class="card-course__category card-course__category--green">Marketing</a>
+                                    <a href="course.html" class="card-course__title title--sm">Brand Management & PR Communications</a>
+                                    <div class="card-course__info">
+                                        <div class="card-course__price">$530</div>
+                                        <div class="card-course__by">by Kristin Watson</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-courses__item card-course " data-type="management">
+                                <a href="course.html" class="card-course__image-ibg"><img src="@img/course/06.jpg" alt="image"></a>
+                                <div class="card-course__content">
+                                    <a href="course.html" class="card-course__category card-course__category--blue">Management</a>
+                                    <a href="course.html" class="card-course__title title--sm">Business Development Management</a>
+                                    <div class="card-course__info">
+                                        <div class="card-course__price">$400</div>
+                                        <div class="card-course__by">by Dianne Russell</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-courses__item card-course " data-type="design">
+                                <a href="course.html" class="card-course__image-ibg"><img src="@img/course/05.jpg" alt="image"></a>
+                                <div class="card-course__content">
+                                    <a href="course.html" class="card-course__category card-course__category--pink">Design</a>
+                                    <a href="course.html" class="card-course__title title--sm">Graphic Design Basic</a>
+                                    <div class="card-course__info">
+                                        <div class="card-course__price">$500</div>
+                                        <div class="card-course__by">by Guy Hawkins</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button hidden data-showmore-button type="button" class=" main-courses__more _icon-arrow-round"><span>Load more</span><span>Hide</span></button>
+                    </div>
+                </div>
+            </div>
+            @@include('html/_testimonials.htm',{})
+            <section class="courses__certificate certificate certificate--center">
+                <div class="certificate__container">
+                    <div class="certificate__content" data-watch data-watch-once>
+                        <div class="certificate__header section-header ">
+                            <div class="section-header__label">Createx Certificate</div>
+                            <h2 class="section-header__title title">Your expertise will be confirmed</h2>
+                        </div>
+                        <div class="certificate__text text">
+                            <p>
+                                We are accredited by international professional organizations and institutes:
+                            </p>
+                        </div>
+                        <div class="certificate__copmanys">
+                            <div class="certificate__copmany"><img src="@img/certificate/copmany-1.png" alt="copmany"></div>
+                            <div class="certificate__copmany"><img src="@img/certificate/copmany-2.png" alt="copmany"></div>
+                            <div class="certificate__copmany"><img src="@img/certificate/copmany-3.png" alt="copmany"></div>
+                        </div>
+                    </div>
+                    <div class="certificate__image-ibg" data-watch data-watch-once>
+                        <img src="@img/certificate/certificate.jpg" alt="certificate">
+                    </div>
+                </div>
+            </section>
+            @@include('html/_subscribe.htm',{})
+        </main>
+        @@include('html/_footer.htm',{})
+        @@include('html/_popup.htm',{})
+        @@include('html/_preloader.htm',{})
+    </div>
+    @@include('html/_js.htm',{})
+</body>
+
+</html>

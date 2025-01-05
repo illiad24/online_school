@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+@@include('html/_head.htm',{
+"title":"Contact"
+})
+
+<body>
+    <div class="wrapper">
+        @@include('html/_header.htm',{
+        "activeabout":"",
+        "activecourses":"",
+        "activeevents":"",
+        "activeblog":"",
+        "activecontact":"active"
+        })
+        <main class="contact">
+            <section class="contact__main main-contact">
+                <div class="main-contact__container">
+                    <div class="main-contact__content" data-watch data-watch-once>
+                        <div class="main-contact__header section-header ">
+                            <div class="section-header__label">Contact info</div>
+                            <h1 class="section-header__title title">Get in touch</h1>
+                        </div>
+                        <ul class="main-contact__list">
+                            <li class="main-contact__item _icon-remainder">
+                                <div class="main-contact__wrap">
+
+                                    <div class="main-contact__label">Talk to us:</div>
+                                    <a href="mainlto:greating@crea.com" class="main-contact__link">greating@crea.com</a>
+                                </div>
+                            </li>
+                            <li class="main-contact__item _icon-phone">
+                                <div class="main-contact__wrap">
+
+                                    <div class="main-contact__label">Call us:</div>
+                                    <a href="tel:4055450243" class="main-contact__link">(405) 545-0245</a>
+                                </div>
+                            </li>
+                            <li class="main-contact__item _icon-location1">
+                                <div class="main-contact__wrap">
+
+                                    <div class="main-contact__label">Address:</div>
+                                    <div class="main-contact__link">2464 Royal Ln. Mesa, New Jersey 45463, USA</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="main-contact__block">
+                            <div class="main-contact__title">Follow us:</div>
+                            <div class="main-contact__socials">
+                                <a href="#" class="main-contact__social _icon-s-fb">.</a>
+                                <a href="#" class="main-contact__social _icon-s-tw">.</a>
+                                <a href="#" class="main-contact__social _icon-s-yt">.</a>
+                                <a href="#" class="main-contact__social _icon-s-tg">.</a>
+                                <a href="#" class="main-contact__social _icon-s-inst">.</a>
+                                <a href="#" class="main-contact__social _icon-s-in">.</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-contact__map" data-watch data-watch-once>
+                        <div class="main-contact__image-ibg"><img src="@img/contact/map.jpg" alt="map"></div>
+                    </div>
+                </div>
+            </section>
+            <section class="contact__drop drop">
+                <div class="drop__container">
+                    <div class="drop__image-ibg" data-watch data-watch-once><img src="@img/contact/image.svg" alt="Image"></div>
+                    <div class="drop__content" data-watch data-watch-once>
+                        <div class="drop__header section-header">
+                            <div class="section-header__label ">Contact info</div>
+                            <h1 class="section-header__title title">Get in touch</h1>
+                        </div>
+                        <form action="#" class="drop__form form">
+                            <div class="form__items">
+                                <div class="form__line">
+                                    <div class="form__label">First Name*</div>
+                                    <input autocomplete="off" data-required type="text" name="form[]" data-error="Error" placeholder="Your first name" class="input form__input">
+                                </div>
+                                <div class="form__line">
+                                    <div class="form__label">Last Name*</div>
+                                    <input autocomplete="off" data-required type="text" name="form[]" data-error="Error" placeholder="Your last name" class="input form__input">
+                                </div>
+                                <div class="form__line">
+                                    <div class="form__label">Email*</div>
+                                    <input autocomplete="off" data-required="email" type="text" name="form[]" data-error="Error" placeholder="Your working email" class="input form__input">
+                                </div>
+                                <div class="form__line">
+                                    <div class="form__label">Phone*</div>
+                                    <input autocomplete="off" data-required type="tel" name="form[]" data-error="Error" placeholder="Your phone number" class="input form__input">
+                                </div>
+                                <div class="form__line form__line--bg">
+                                    <div class="form__label">Message*</div>
+                                    <textarea autocomplete="off" data-required name="form[]" placeholder="Your message" data-error="Error" class="input form__textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="form__bottom">
+                                <div class="checkbox">
+                                    <input id="c_66" data-required data-error="Error" class="checkbox__input" type="checkbox" value="1" name="form[]">
+                                    <label for="c_66" class="checkbox__label"><span class="checkbox__text">I agree to receive communications from Createx Online School</span></label>
+                                </div>
+                                <button type="submit" class="form__button button"><span>Send message</span></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+        @@include('html/_footer.htm',{})
+        @@include('html/_popup.htm',{})
+        @@include('html/_preloader.htm',{})
+    </div>
+    @@include('html/_js.htm',{})
+</body>
+
+</html>

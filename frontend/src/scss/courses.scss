@@ -1,0 +1,167 @@
+.courses {
+    // .courses__main
+    &__main {
+    }
+}
+//========================================================================================================================================================
+.main-courses {
+    @include adaptiveValue("padding-top", 150, 110);
+    @include adaptiveValue("padding-bottom", 120, 40);
+
+    position: relative;
+    // .main-courses__decor
+    &__decor {
+        position: absolute;
+        // .main-courses__decor--1
+        &--1 {
+            top: percent(770, 2010);
+            left: percent(56, 1920);
+            @media (max-width: $mobile) {
+                display: none;
+            }
+        }
+        // .main-courses__decor--2
+        &--2 {
+            top: percent(133, 2010);
+
+            left: percent(1803, 1920);
+            @media (max-width: $mobile) {
+                display: none;
+            }
+        }
+        // .main-courses__decor--3
+        &--3 {
+            @media (max-width: $mobile) {
+                img {
+                    max-width: toRem(40);
+                }
+            }
+            top: percent(1187, 2010);
+            left: percent(1763, 1920);
+        }
+    }
+    &__container {
+        position: relative;
+        z-index: 2;
+    }
+
+    // .main-courses__header
+    &__header {
+        &:not(:last-child) {
+            @include adaptiveValue("margin-bottom", 60, 30);
+        }
+    }
+    // .main-courses__top
+    &__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: toRem(20);
+        @media (max-width: em(1180)) {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        &:not(:last-child) {
+            @include adaptiveValue("margin-bottom", 60, 30);
+        }
+    }
+    // .main-courses__filters
+    &__filters {
+    }
+    // .main-courses__form
+    &__form {
+        @media (min-width: em(1179.98)) {
+            flex: 0 0 25.609756%; /* 315/1230 */
+        }
+    }
+    // .main-courses__items
+    &__items {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(toRem(290), 1fr));
+        gap: toRem(30);
+    }
+    // .main-courses__item
+    &__item {
+    }
+    // .main-courses__more
+    &__more {
+        @include adaptiveValue("margin-top", 80, 30);
+        display: flex;
+        justify-content: center;
+        font-weight: 700;
+        align-items: center;
+        line-height: 160%;
+        gap: toRem(16);
+        margin: 0 auto;
+    }
+}
+
+.courses-filter {
+    display: flex;
+    align-items: center;
+    gap: toRem(12);
+    @media (max-width: em(1180)) {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    @media (max-width: $tablet) {
+        overflow: auto;
+    }
+    @extend %hidescroll;
+    @media (max-width: $mobile) {
+        flex-wrap: nowrap;
+        justify-content: start;
+    }
+    // .courses-filter__item
+    &__item {
+        color: #9a9ca5;
+        white-space: nowrap;
+        text-align: center;
+        font-weight: 700;
+        line-height: 120%;
+        border-radius: toRem(4);
+        border: toRem(1) solid transparent;
+        padding: toRem(8) toRem(20) toRem(12) toRem(20);
+        &.active {
+            color: #ff3f3a;
+            border: toRem(1) solid #ff3f3a;
+        }
+        transition: all 0.3s;
+        @media (any-hover: hover) {
+            &:hover {
+                color: #ff3f3a;
+            }
+        }
+    }
+    // .courses-filter__counter
+    &__counter {
+    }
+}
+.search-courses {
+    position: relative;
+    // .search-courses__line
+    &__line {
+        position: relative;
+    }
+    // .search-courses__input
+    &__input {
+        padding: 0 toRem(30) 0 toRem(16);
+        width: 100%;
+        border-radius: toRem(4);
+        border: toRem(1) solid #d7dadd;
+        background-color: #fff;
+        height: toRem(44);
+    }
+    // .search-courses__button
+    &__button {
+        position: absolute;
+        width: toRem(44);
+        height: toRem(44);
+        font-size: toRem(16);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 0;
+        top: 0;
+    }
+}
