@@ -7,8 +7,6 @@ mongoose.Promise = global.Promise
 export default async function () {
     try {
         await mongoose.connect(config.mongoURI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
             serverSelectionTimeoutMS: 20000, // 20 seconds
             socketTimeoutMS: 45000,
         })
