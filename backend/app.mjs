@@ -8,7 +8,8 @@ const app = express()
 //підключення бази даних
 connectDB()
 
-app.use('api/v1', routes)
+// app.use('/api/v1', routes)
+app.use('/', routes)
 
 // Використання допоміжних middleware
 middleware(app)
