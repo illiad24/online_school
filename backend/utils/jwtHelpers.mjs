@@ -32,3 +32,17 @@ function prepareSecret(headers) {
     // Секретний ключ токена об'єднується з user-agent та accept-language заголовками
     return tokenKey + headers['user-agent'] + headers['accept-language']
 }
+
+export function generateAccessToken(user) {
+    return jwt.sign(
+        { id: user._id.toString(), role: user.role, email: user.email },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.ACCESS_EXPIRES }
+    )
+}
+
+export function generateRefreshToken(user) {
+    return jwt.sign({ id: user._id.toString() }, process.env.JWT_REFRESH_SECRET, {
+        expiresIn: process.env.REFRESH_EXPIRES,
+    })
+}

@@ -4,7 +4,7 @@ import MongooseCRUDManager from '../MongooseCRUDManager.mjs'
 class UsersDBService extends MongooseCRUDManager {
     async getList(filters) {
         try {
-            const res = await super.getList(filters, { password: 0 }, ['type'])
+            const res = await super.getList(filters, { password: 0 }, ['role'])
             return res
         } catch (error) {
             return []

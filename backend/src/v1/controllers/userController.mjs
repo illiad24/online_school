@@ -9,8 +9,16 @@ class UserController {
             }
 
             const dataList = await UsersDBService.getList(filters)
-            console.log(dataList)
             res.json(dataList)
+        } catch (err) {
+            res.status(500).json({ error: err.message })
+        }
+    }
+    static async deleteUser(req, res) {
+        try {
+            const { id } = req.params
+            const result = await UsersDBService.delete(id)
+            res.json(result)
         } catch (err) {
             res.status(500).json({ error: err.message })
         }
