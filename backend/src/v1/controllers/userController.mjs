@@ -14,6 +14,25 @@ class UserController {
             res.status(500).json({ error: err.message })
         }
     }
+    static async getUserById(req, res) {
+        try {
+            const { id } = req.params
+            if (id) {
+                UsersDBService.getById(id)
+            }
+        } catch (err) {
+            res.status(500).json({ error: err.message })
+        }
+    }
+    // static async updateUser(req, res) {
+    //     try {
+
+    //         UsersDBService.update(id)
+
+    //     } catch (err) {
+    //         res.status(500).json({ error: err.message })
+    //     }
+    // }
     static async deleteUser(req, res) {
         try {
             const { id } = req.params

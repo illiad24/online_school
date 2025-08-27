@@ -2,10 +2,9 @@ import { SignUpForm } from "@/features/auth/signup";
 
 function SignUpPage() {
     return (
-        <div>
-            SignUpPage
+        <div className="container container-center">
             <div>
-                <SignUpForm />
+                <SignUpForm title='SignUp' />
             </div>
         </div>
     );

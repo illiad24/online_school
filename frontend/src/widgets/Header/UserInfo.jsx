@@ -10,37 +10,25 @@ export function UserInfo() {
 
     const { logoutUser } = useLogout()
 
-    if (!user) {
-        return (
-            <div>
-                <Link
-                    to={'/login'}
-                    style={{ marginLeft: 20 }}
-                >
-                    Увійти
-                </Link>
-                <Link
-                    to={'/signup'}
-                    style={{ marginLeft: 20 }}
-                >
-                    Зареєструватись
-                </Link>
-            </div>
-        )
-    }
+
 
     const onLogout = () => {
         logoutUser()
         navigate('/login')
     }
     return (
-        <div style={{ marginLeft: 20, color: 'gray' }}>
-            <span>
-                {user.name} ({user.role.title})
-            </span>
-            <button onClick={onLogout} style={{ marginLeft: 10 }}>
-                Вийти
-            </button>
+        <div className="user-info">
+            {!user ? (
+                <>
+                    <Link to="/login">Увійти</Link>
+                    <Link to="/signup">Зареєструватись</Link>
+                </>
+            ) : (
+                <>
+                    <span>{user.name} ({user.role.title})</span>
+                    <button onClick={onLogout}>Вийти</button>
+                </>
+            )}
         </div>
     )
 }

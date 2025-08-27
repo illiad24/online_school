@@ -2,9 +2,9 @@ import { LoginForm } from "@/features/auth";
 
 function LoginPage() {
     return (
-        <div>
-            LoginPage
-            <LoginForm />
+        <div className="container container-center">
+
+            <LoginForm title='Login' />
         </div>
     );
 }

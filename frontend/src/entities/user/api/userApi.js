@@ -6,7 +6,7 @@ export const userApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getUsers: build.query({
             query: () => ({
-                url: apiRoutes.users,
+                url: apiRoutes.users.list,
             }),
             providesTags: ['User'],
         }),

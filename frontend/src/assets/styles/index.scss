@@ -1,0 +1,39 @@
+@use "./base";
+@use "./header";
+@use "./footer";
+@use "./common";
+@use "./forms/form.scss";
+
+.user-card {
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    background-color: #fff;
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    &__name {
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    &__email {
+        font-size: 14px;
+        color: #666;
+    }
+
+    &__role {
+        font-size: 14px;
+        color: #888;
+    }
+}

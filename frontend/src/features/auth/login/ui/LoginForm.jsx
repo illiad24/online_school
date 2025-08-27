@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useLogin } from '../model/useLogin'
 import { useNavigate } from 'react-router'
-export function LoginForm() {
+export function LoginForm({ title }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const { login, isLoading, error } = useLogin()
@@ -12,10 +12,14 @@ export function LoginForm() {
         if (result.user) navigate('/')
     }
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="form">
+            <div className='form__title'>
+                {title}
+            </div>
             <input
                 type="text"
                 placeholder="Email"
+                className="form__input"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
 
@@ -24,16 +28,17 @@ export function LoginForm() {
                 type="password"
                 placeholder="Пароль"
                 value={password}
+                className="form__input"
                 onChange={(e) => setPassword(e.target.value)}
                 required
             />
-            <button type="submit" disabled={isLoading}>
+            <button type="submit" disabled={isLoading} className="form__button">
                 Увійти
             </button>
 
             {error && (
-                <div style={{ color: 'red' }}>
-                    {error.data?.message || 'Помилка входу'}
+                <div className="form__error">
+                    {error?.message || 'Помилка входу'}
                 </div>
             )}
         </form>

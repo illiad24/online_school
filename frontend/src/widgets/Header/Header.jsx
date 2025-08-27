@@ -1,20 +1,20 @@
 
 import { Link } from "react-router";
 import { UserInfo } from "./UserInfo";
+import { MainMenu } from "./MainMenu";
 
 function Header() {
 
     return (
-        <header>
-            <div>
-                <nav>
-                    <ul>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/users">Users</Link></li>
-                    </ul>
-                </nav>
-                <UserInfo />
-
+        <header className="header">
+            <div className="header__container container">
+                <div className="header__logo">
+                    VT
+                </div>
+                <div className="header__body">
+                    <MainMenu />
+                    <UserInfo />
+                </div>
             </div>
         </header>
     );

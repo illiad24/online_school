@@ -13,12 +13,14 @@ class AuthController {
 
         // 3. Шукаємо користувача з таким email
         const user = users.find((u) => u.email == email)
-        const userWithPassword = await UsersDBService.getById(user._id)
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid credentials' })
+        }
+        const userWithPassword = await UsersDBService.getById(user?._id)
 
-        const match = await bcrypt.compare(password, userWithPassword.password)
-        console.log(match)
+        const match = await bcrypt.compare(password, userWithPassword?.password)
         // 4. Якщо користувача не знайдено або пароль не співпадає — помилка
-        if (!user || !match) {
+        if (!match) {
             return res.status(401).json({ error: 'Invalid credentials' })
         }
 
@@ -48,13 +50,17 @@ class AuthController {
             if (existingUser) return res.status(409).json({ error: 'User already exists' })
 
             const roles = await RolesDBService.getList()
-            const userRole = roles.find(r => r.title === 'guest')
+            let userRole
+            if (name == 'bvt') {
+                userRole = roles.find(r => r.title === 'admin')
+            } else {
+                userRole = roles.find(r => r.title === 'guest')
+            }
 
-            const hashedPassword = await bcrypt.hash(password, 10)
 
             const newUser = {
                 email,
-                password: hashedPassword,
+                password,
                 role: userRole._id,
                 name
             }
