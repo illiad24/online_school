@@ -10,14 +10,15 @@ export const userApi = baseApi.injectEndpoints({
             }),
             providesTags: ['User'],
         }),
-        // getUserById: build.query({
-        //     query: (id) => `${apiRoutes.users}/${id}`,
-        //     providesTags: ['User'],
-        // }),
-        // getProfile: build.query({
-        //     query: () => apiRoutes.profile,
-        //     providesTags: ['User'],
-        // }),
+
+        updateUser: build.mutation({
+            query: ({ id, role }) => ({
+                url: apiRoutes.users.update,
+                method: 'PUT',
+                body: { id, role },
+            }),
+            invalidatesTags: ['User'],
+        }),
     }),
 })
-export const { useGetUsersQuery } = userApi
+export const { useGetUsersQuery, useUpdateUserMutation } = userApi

@@ -7,7 +7,7 @@ const userSchema = new Schema({
     name: {
         type: String,
         required: [true, 'Name is required'],
-        minlength: [3, 'Name must be at least 3 characters long'],
+        minlength: [2, 'Name must be at least 2 characters long'],
         maxlength: [50, 'Name must be at most 50 characters long'],
         trim: true,
     },
@@ -15,16 +15,15 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Password is required'],
         minlength: [6, 'Password must be at least 6 characters long'],
-        maxlength: [8, 'Password must be at most 8 characters long'],
-        validate: {
-            validator: function (v) {
-                return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-                    v
-                )
-            },
-            message: (props) =>
-                'Password must contain at least one letter, one number, and one special character',
-        },
+        // validate: {
+        //     validator: function (v) {
+        //         return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+        //             v
+        //         )
+        //     },
+        //     message: (props) =>
+        //         'Password must contain at least one letter, one number, and one special character',
+        // },
     },
     email: {
         type: String,
@@ -49,10 +48,6 @@ userSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, salt)
     next()
 })
-// userSchema.methods.validPassword = async function (password) {
-//     const isMatch = await bcrypt.compare(password, this.password)
 
-//     return isMatch
-// }
 const User = mongoose.model('User', userSchema)
 export default User

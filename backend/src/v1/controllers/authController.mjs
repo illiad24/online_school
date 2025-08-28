@@ -3,11 +3,17 @@ import UsersDBService from '../models/user/UsersDBService.mjs'
 import { generateAccessToken, generateRefreshToken } from '../../../utils/jwtHelpers.mjs'
 import bcrypt from 'bcryptjs'
 import RolesDBService from '../models/role/RolesDBService.mjs';
+import { validationResult } from "express-validator";
 class AuthController {
     static async login(req, res) {
         // 1. Отримуємо email і password з тіла запиту
         const { email, password } = req.body
 
+        const errors = validationResult(req);
+        console.log(errors)
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
         // 2. Зчитуємо всіх користувачів з файлу
         const users = await UsersDBService.getList()
 
@@ -44,6 +50,11 @@ class AuthController {
 
     static async signup(req, res) {
         const { name, email, password } = req.body
+        const errors = validationResult(req);
+        console.log(errors)
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
         try {
             const users = await UsersDBService.getList()
             const existingUser = users.find(u => u.email === email)
@@ -80,8 +91,9 @@ class AuthController {
             })
 
         } catch (error) {
-            console.error('Error during signup:', error)
-            res.status(500).json({ error })
+            console.log("error------------------------")
+            console.log(error)
+            res.status(500).json(error)
         }
     }
     static async refresh(req, res) {

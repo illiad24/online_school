@@ -4,3 +4,6 @@ export const roles = {
     user: 'user',
     guest: 'guest',
 }
+export function getRolesArray() {
+    return Object.values(roles);
+}

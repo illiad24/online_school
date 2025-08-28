@@ -1,44 +1,52 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useLogin } from '../model/useLogin'
 import { useNavigate } from 'react-router'
+import { yupResolver } from '@hookform/resolvers/yup'
+import schema from '../model/validation'
+import { useForm } from 'react-hook-form'
+
 export function LoginForm({ title }) {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const { login, isLoading, error } = useLogin()
     const navigate = useNavigate()
-    const onSubmit = async (e) => {
-        e.preventDefault()
-        const result = await login({ email, password })
+
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema),
+    })
+
+    const onSubmit = async (data) => {
+        const result = await login({ email: data.email, password: data.password })
         if (result.user) navigate('/')
     }
+
     return (
-        <form onSubmit={onSubmit} className="form">
-            <div className='form__title'>
-                {title}
-            </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
+            <div className="form__title">{title}</div>
+
             <input
+                {...register('email')}
                 type="text"
                 placeholder="Email"
                 className="form__input"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-
             />
+            {errors.email && <div className="form__error">{errors.email.message}</div>}
+
             <input
+                {...register('password')}
                 type="password"
                 placeholder="Пароль"
-                value={password}
                 className="form__input"
-                onChange={(e) => setPassword(e.target.value)}
-                required
             />
+            {errors.password && <div className="form__error">{errors.password.message}</div>}
+
             <button type="submit" disabled={isLoading} className="form__button">
                 Увійти
             </button>
 
-            {error && (
+            {error?.data?.errors && (
                 <div className="form__error">
-                    {error?.message || 'Помилка входу'}
+                    {error.data.errors.map((e) => (
+                        <div key={e.path}>{e.msg}</div>
+                    ))}
                 </div>
             )}
         </form>
