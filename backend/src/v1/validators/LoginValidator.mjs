@@ -14,9 +14,5 @@ export const loginValidator = checkSchema({
         notEmpty: {
             errorMessage: "Пароль є обов'язковим",
         },
-        isLength: {
-            options: { min: 6 },
-            errorMessage: "Пароль має бути мінімум 6 символів",
-        },
     },
 });

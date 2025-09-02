@@ -9,7 +9,6 @@ const schema = yup.object({
     password: yup
         .string()
         .required('Пароль обов’язковий')
-        .min(6, 'Пароль має бути мінімум 6 символів'),
 });
 
 export default schema;

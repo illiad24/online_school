@@ -10,9 +10,8 @@ class AuthController {
         const { email, password } = req.body
 
         const errors = validationResult(req);
-        console.log(errors)
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({ error: errors.array() });
         }
         // 2. Зчитуємо всіх користувачів з файлу
         const users = await UsersDBService.getList()
@@ -35,13 +34,12 @@ class AuthController {
         const refreshToken = generateRefreshToken(user)
 
         // 6. Відправляємо refreshToken у httpOnly cookie, а accessToken і дані користувача — у відповідь
-        res
-            .cookie('refreshToken', refreshToken, {
-                httpOnly: true,
-                secure: false, // у проді — true
-                sameSite: 'strict',
-                maxAge: 7 * 24 * 60 * 60 * 1000,
-            })
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: false, // у проді — true
+            sameSite: 'strict',
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        })
             .json({
                 user: { id: user.id, name: user.name, email: user.email, role: user.role },
                 accessToken,
@@ -51,10 +49,10 @@ class AuthController {
     static async signup(req, res) {
         const { name, email, password } = req.body
         const errors = validationResult(req);
-        console.log(errors)
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({ error: errors.array() });
         }
+
         try {
             const users = await UsersDBService.getList()
             const existingUser = users.find(u => u.email === email)

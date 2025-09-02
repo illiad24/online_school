@@ -42,11 +42,18 @@ export function LoginForm({ title }) {
                 Увійти
             </button>
 
+            {/* Помилки з бекенду */}
             {error?.data?.errors && (
                 <div className="form__error">
-                    {error.data.errors.map((e) => (
-                        <div key={e.path}>{e.msg}</div>
+                    {error?.data?.errors.length > 0 && error.data.errors.map((e, index) => (
+                        <div key={index}>{index + 1} - {e.msg}</div>
                     ))}
+
+                </div>
+            )}
+            {error?.data?.error && (
+                <div className="form__error">
+                    <div>{error.data.error}</div>
                 </div>
             )}
         </form>

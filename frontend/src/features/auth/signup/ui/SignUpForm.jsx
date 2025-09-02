@@ -22,6 +22,7 @@ export function SignUpForm({ title }) {
             navigate('/');
         }
     };
+    console.log(error)
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="form">
@@ -58,9 +59,15 @@ export function SignUpForm({ title }) {
             {/* Помилки з бекенду */}
             {error?.data?.errors && (
                 <div className="form__error">
-                    {error.data.errors.map((e, index) => (
+                    {error?.data?.errors.length > 0 && error.data.errors.map((e, index) => (
                         <div key={index}>{index + 1} - {e.msg}</div>
                     ))}
+
+                </div>
+            )}
+            {error?.data?.error && (
+                <div className="form__error">
+                    <div>{error.data.error}</div>
                 </div>
             )}
         </form>

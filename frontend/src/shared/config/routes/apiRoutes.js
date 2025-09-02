@@ -12,6 +12,12 @@ export const apiRoutes = {
         update: `/users`,
         delete: (id) => `/users/${id}/delete`,
     },
+    teachers: {
+        list: '/teachers',
+        create: '/teachers/create',
+        update: `/teachers`,
+        delete: (id) => `/teachers/${id}/delete`,
+    },
     roles: {
         list: '/roles'
     }
