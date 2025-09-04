@@ -1,5 +1,6 @@
 @use "./select.scss";
 
+/* --- Блок: form --- */
 .form {
     width: 100%;
     max-width: 400px;
@@ -12,7 +13,40 @@
     flex-direction: column;
     gap: 15px;
 
-    input {
+    &--margin {
+        max-width: 700px;
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+
+    /* --- Елемент: form__title --- */
+    &__title {
+        font-size: 22px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    /* --- Елемент: form__group --- */
+    &__group {
+        display: flex;
+        flex-direction: column;
+        &:not(:last-child) {
+            margin-bottom: 16px;
+        }
+
+        gap: 8px; // Відступ між label та input
+    }
+
+    /* --- Елемент: form__label --- */
+    &__label {
+        font-weight: 500;
+        color: #555;
+    }
+
+    /* --- Елемент: form__input --- */
+    &__input {
         width: 100%;
         padding: 10px 15px;
         font-size: 16px;
@@ -23,9 +57,16 @@
         &:focus {
             border-color: #007bff;
         }
+
+        /* --- Модифікатор: form__input--textarea --- */
+        &--textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
     }
 
-    button {
+    /* --- Елемент: form__button --- */
+    &__button {
         padding: 12px 20px;
         font-size: 16px;
         background-color: #007bff;
@@ -35,31 +76,22 @@
         cursor: pointer;
         transition: background-color 0.2s;
 
-        &:disabled {
+        &:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- Модифікатор: form__button--disabled --- */
+        &--disabled {
             background-color: #a0c4ff;
             cursor: not-allowed;
         }
-
-        &:hover:not(:disabled) {
-            background-color: #0056b3;
-        }
     }
 
-    &__title {
-        font-size: 22px;
-        font-weight: 600;
-        text-align: center;
-        margin-bottom: 20px;
-    }
+    /* --- Елемент: form__error --- */
     &__error {
         color: red;
         font-size: 14px;
         text-align: center;
-    }
-
-    .error-message {
-        color: red;
-        font-size: 14px;
-        text-align: center;
+        margin-top: -5px;
     }
 }

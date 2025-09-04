@@ -4,9 +4,9 @@ import Course from './Course.mjs'
 
 
 class CourseDBService extends MongooseCRUDManager {
-    async getList(filters) {
+    async getList() {
         try {
-            const res = await super.getList(filters, { password: 0 }, ['lessons', 'users', 'teachers'])
+            const res = await super.getList()
             return res
         } catch (error) {
             return []

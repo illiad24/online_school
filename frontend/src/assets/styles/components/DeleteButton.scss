@@ -1,0 +1,27 @@
+/* --- Блок: delete-button --- */
+.delete-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #e74c3c; /* Червоний колір для видалення */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+
+    &:hover {
+        background-color: #c0392b; /* Темніший відтінок при наведенні */
+    }
+
+    &:active {
+        transform: translateY(1px); /* Ефект натискання */
+    }
+
+    &:disabled {
+        background-color: #f1948a;
+        cursor: not-allowed;
+    }
+}

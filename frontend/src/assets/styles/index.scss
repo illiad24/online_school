@@ -3,6 +3,9 @@
 @use "./footer";
 @use "./common";
 @use "./forms/form.scss";
+@use "./components/TeacherItem.scss";
+@use "./components/TeacherList.scss";
+@use "./components/DeleteButton.scss";
 
 .user-card {
     padding: 15px 20px;

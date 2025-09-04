@@ -1,4 +1,6 @@
+import { Children, Component } from 'react'
 import { roles } from '../roles'
+import TeacherFormPage from '@/pages/TeacherFormPage'
 export const frontRoutes = {
     pages: {
         HomePage: {
@@ -51,6 +53,16 @@ export const frontRoutes = {
                 roles: [roles.admin, roles.manager, roles.user],
             },
         },
+        TeacherFormPage: {
+            path: 'teachers/form/:id?',
+            navigationPath: '/teachers/form/',
+            meta: {
+                title: 'Teacher Form',
+                isInMenu: false,
+                requireAuth: true,
+                roles: [roles.admin, roles.manager],
+            },
+        },
         CoursesPage: {
             path: 'courses',
             navigationPath: '/courses',
@@ -58,7 +70,7 @@ export const frontRoutes = {
                 title: 'Courses page',
                 isInMenu: true,
                 requireAuth: true,
-                // roles: [roles.admin],
+                roles: [roles.admin],
             },
         },
         NotFoundPage: {

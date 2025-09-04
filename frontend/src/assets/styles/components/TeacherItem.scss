@@ -1,0 +1,55 @@
+/* --- Блок: teacher-card --- */
+.teacher-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    /* --- Елемент: teacher-card__details --- */
+    &__details {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* --- Елемент: teacher-card__detail-item --- */
+    &__detail-item {
+        font-size: 16px;
+        color: #555;
+        line-height: 1.5;
+
+        span {
+            font-weight: 600;
+            color: #333;
+        }
+    }
+
+    /* --- Елемент: teacher-card__bio --- */
+    &__bio {
+        font-style: italic;
+        color: #777;
+        font-size: 14px;
+        margin-top: -10px; // Adjust spacing from previous elements
+        line-height: 1.4;
+    }
+
+    /* --- Елемент: teacher-card__actions --- */
+    &__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+}

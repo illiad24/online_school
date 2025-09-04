@@ -1,10 +1,25 @@
 import { frontRoutes } from '@/shared/config/routes/frontRoutes'
 
-const pagesList = Object.keys(frontRoutes.pages)
+function mapRoutes(pages) {
+    return Object.keys(pages).map((page) => {
+        const route = { ...pages[page] }
+        if (route.children) {
+            console.log(route.children)
+            route.children = route.children.map((child) => ({
+                ...child,
+                lazy: child.Component
+                    ? async () => ({ Component: child.Component })
+                    : undefined,
+            }))
+        }
+        return {
+            ...route,
+            lazy: async () => ({
+                Component: (await import(`../../pages/${page}`)).default,
+            }),
+        }
+    })
+}
 
-export const appRouterRoutes = pagesList.map((page) => ({
-    ...frontRoutes.pages[page],
-    lazy: async () => ({
-        Component: (await import(`../../pages/${page}`)).default,
-    }),
-}))
+export const appRouterRoutes = mapRoutes(frontRoutes.pages)
+console.log(appRouterRoutes)

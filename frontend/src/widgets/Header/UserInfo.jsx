@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { selectAuthUser } from '@/features/auth/api/authSlice'
 export function UserInfo() {
     const user = useSelector(selectAuthUser)
-    console.log(user)
     const navigate = useNavigate()
 
     const { logoutUser } = useLogout()
