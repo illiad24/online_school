@@ -1,20 +1,22 @@
+// src/features/teacher/form/model/useTeacherFormSubmit.js
 import { useForm } from "react-hook-form";
 import { teacherSchema } from "./validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate, useParams } from "react-router";
 import { useAddTeacherMutation, useGetTeacherByIdQuery, useUpdateTeacherMutation } from "@/entities/teacher/api/teacherApi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
 export function useTeacherForm() {
     const { id } = useParams();
     const isEditMode = id !== 'new' && !!id;
     const navigate = useNavigate();
 
-    // Fetch teacher data if in edit mode
-    const { data: teacher, isLoading, isError } = useGetTeacherByIdQuery(id, { skip: !isEditMode });
+    const { data: teacher, isLoading, isError, error } = useGetTeacherByIdQuery(id, { skip: !isEditMode });
 
-    // Use mutations for creating and updating
     const [updateTeacher, { isLoading: isUpdating }] = useUpdateTeacherMutation();
     const [addTeacher, { isLoading: isCreating }] = useAddTeacherMutation();
+
+    const [generalError, setGeneralError] = useState(null);
 
     const methods = useForm({
         resolver: yupResolver(teacherSchema),
@@ -30,12 +32,10 @@ export function useTeacherForm() {
     });
     const { handleSubmit, reset, register, formState: { errors } } = methods;
 
-    // Set form values when data is loaded (for edit mode)
     useEffect(() => {
         if (isEditMode && teacher) {
             reset({
                 ...teacher,
-                // Ensure number inputs have correct types
                 experience: teacher.experience ? Number(teacher.experience) : 0,
                 age: teacher.age ? Number(teacher.age) : 0,
             });
@@ -43,19 +43,17 @@ export function useTeacherForm() {
     }, [isEditMode, teacher, reset]);
 
     const onSubmitHandler = async (data) => {
+        setGeneralError(null);
         try {
-            console.log(data)
+            console.log(data);
             if (isEditMode) {
-                // Call update mutation
-                await updateTeacher({ data });
+                await updateTeacher({ id, data }).unwrap();
             } else {
-                // Call create mutation
-                await addTeacher(data);
+                await addTeacher(data).unwrap();
             }
-            // Optional: navigate to the list page after success
             navigate('/teachers');
         } catch (error) {
-            console.error("Failed to save the teacher:", error);
+            setGeneralError(error);
         }
     };
 
@@ -63,8 +61,10 @@ export function useTeacherForm() {
         register,
         handleSubmit: handleSubmit(onSubmitHandler),
         errors,
+        generalError,
         isLoading: isLoading || isUpdating || isCreating,
         isEditMode,
-        teacher, // Return the teacher data for context in the component
+        teacher,
+        isError
     };
 }
