@@ -73,6 +73,16 @@ export const frontRoutes = {
                 roles: [roles.admin],
             },
         },
+        CourseFormPage: {
+            path: 'courses/form/:id?',
+            navigationPath: '/courses/form/',
+            meta: {
+                title: 'Course Form',
+                isInMenu: false,
+                requireAuth: true,
+                roles: [roles.admin, roles.manager],
+            },
+        },
         NotFoundPage: {
             path: '*',
             meta: {

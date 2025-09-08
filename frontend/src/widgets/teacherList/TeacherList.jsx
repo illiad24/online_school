@@ -1,13 +1,13 @@
-import { useGetTeacherQuery } from "@/entities/teacher/api/teacherApi";
+import { useGetTeachersQuery } from "@/entities/teacher/api/teacherApi";
 import TeacherItem from "@/entities/teacher/ui/TeacherItem";
 import { useDeleteTeacherButton } from "@/features/teacher/deleteButton";
 import DeleteButton from "@/features/teacher/deleteButton/ui/DeleteButton";
-import AddButton from "@/shared/components/editButton/addButton/AddButton";
+import AddButton from "@/shared/components/addButton/AddButton";
 import EditButton from "@/shared/components/editButton/EditButton";
 import { navigateRoutes } from "@/shared/config/routes/navigateRoutes";
 
 function TeacherList() {
-    const { data: teachers, isLoading, error } = useGetTeacherQuery();
+    const { data: teachers, isLoading, error } = useGetTeachersQuery();
     const { handleDelete } = useDeleteTeacherButton();
 
     if (isLoading) {

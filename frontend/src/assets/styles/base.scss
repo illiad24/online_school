@@ -38,3 +38,21 @@ body {
     min-height: 100%;
     flex: 1 1 auto;
 }
+
+:root {
+    --color-primary: #34495e;
+    --color-secondary: #2c3e50;
+    --color-accent: #3498db;
+    --color-error: #e74c3c;
+    --color-text-dark: #2c3e50;
+    --color-text-light: #7f8c8d;
+    --color-white: #ffffff;
+    --color-light-gray: #ecf0f1;
+
+    --border-radius-sm: 4px;
+    --border-radius-lg: 8px;
+
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+}

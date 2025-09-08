@@ -1,0 +1,60 @@
+.course-list {
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+    }
+
+    &__title {
+        font-size: 3rem;
+        color: var(--color-primary);
+        margin: 0;
+    }
+}
+
+.course-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 2.5rem;
+    background-color: var(--color-card-bg);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.5rem;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+    }
+
+    &__content {
+        flex-grow: 1;
+    }
+
+    &__title {
+        font-size: 1.8rem;
+        color: var(--color-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    &__description {
+        font-size: 1.1rem;
+        color: var(--color-text-light);
+        margin-bottom: 0.75rem;
+    }
+
+    &__price {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--color-secondary);
+    }
+
+    &__actions {
+        display: flex;
+        gap: 1.5rem;
+    }
+}

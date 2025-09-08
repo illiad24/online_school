@@ -1,7 +1,9 @@
+import CourseList from "@/widgets/course/CourseList";
+
 function CoursesPage() {
     return (
         <div className="container">
-            CoursesPage
+            <CourseList />
         </div>
     );
 }

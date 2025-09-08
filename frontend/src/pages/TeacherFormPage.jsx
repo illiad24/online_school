@@ -14,7 +14,6 @@ function TeacherFormPage() {
         return <div>Завантаження...</div>;
     }
 
-
     return (
         <div className="container">
             <h1>{mainTitle}</h1>

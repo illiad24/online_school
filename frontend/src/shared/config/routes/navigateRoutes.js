@@ -6,6 +6,10 @@ export const navigateRoutes = {
             edit: (id) => `form/${id}`,
             create: 'form',
         },
-
+        courses: {
+            list: '/courses',
+            edit: (id) => `form/${id}`,
+            create: 'form',
+        },
     }
 }
