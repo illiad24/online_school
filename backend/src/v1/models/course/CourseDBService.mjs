@@ -6,7 +6,7 @@ import Course from './Course.mjs'
 class CourseDBService extends MongooseCRUDManager {
     async getList() {
         try {
-            const res = await super.getList()
+            const res = await super.getList({}, {}, ['teacher'])
             return res
         } catch (error) {
             return []

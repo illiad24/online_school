@@ -5,7 +5,6 @@ class TeacherController {
     static async teachersList(req, res) {
         try {
             const dataList = await TeacherDBService.getList()
-            console.log(dataList)
             res.json(dataList)
         } catch (err) {
             res.status(500).json({ error: err.message })
@@ -26,7 +25,7 @@ class TeacherController {
 
     static async createUpdateTeacher(req, res) {
         try {
-            const errors = validationResult(req);
+            const errors = validationResult(req.body);
             if (!errors.isEmpty()) {
                 return res.status(400).json({ error: errors.array() });
             }

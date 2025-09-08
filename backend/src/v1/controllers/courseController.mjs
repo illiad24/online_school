@@ -1,3 +1,4 @@
+import { validationResult } from "express-validator"
 import CourseDBService from "../models/course/CourseDBService.mjs"
 
 
@@ -5,7 +6,6 @@ class CourseController {
     static async coursesList(req, res) {
         try {
             const dataList = await CourseDBService.getList()
-            console.log(dataList)
             res.json(dataList)
         } catch (err) {
             res.status(500).json({ error: err.message })
@@ -26,13 +26,20 @@ class CourseController {
 
     static async createUpdateCourse(req, res) {
         try {
+            const errors = validationResult(req.body);
+
+            if (!errors.isEmpty()) {
+                console.log(errors)
+                return res.status(400).json({ error: errors.array() });
+            }
             const { id } = req.params
-            console.log(id)
             const courseData = req.body
-            console.log(courseData)
             let result
             if (id) {
-                result = await CourseDBService.update(id, courseData)
+                console.log(id)
+                console.log(courseData)
+                console.log(courseData.data)
+                result = await CourseDBService.update(id, courseData.data)
             } else {
                 result = await CourseDBService.create(courseData)
             }
