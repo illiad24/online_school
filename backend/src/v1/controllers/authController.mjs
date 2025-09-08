@@ -19,14 +19,14 @@ class AuthController {
         // 3. Шукаємо користувача з таким email
         const user = users.find((u) => u.email == email)
         if (!user) {
-            return res.status(401).json({ error: 'Invalid credentials' })
+            return res.status(401).json({ error: 'Не коректні дані' })
         }
         const userWithPassword = await UsersDBService.getById(user?._id)
 
         const match = await bcrypt.compare(password, userWithPassword?.password)
         // 4. Якщо користувача не знайдено або пароль не співпадає — помилка
         if (!match) {
-            return res.status(401).json({ error: 'Invalid credentials' })
+            return res.status(401).json({ error: 'Не коректні дані' })
         }
 
         // 5. Генеруємо accessToken і refreshToken
@@ -89,7 +89,6 @@ class AuthController {
             })
 
         } catch (error) {
-            console.log("error------------------------")
             console.log(error)
             res.status(500).json(error)
         }

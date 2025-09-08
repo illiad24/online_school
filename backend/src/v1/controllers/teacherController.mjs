@@ -1,3 +1,4 @@
+import { validationResult } from "express-validator"
 import TeacherDBService from "../models/teacher/TeacherDBService.mjs"
 
 class TeacherController {
@@ -25,11 +26,12 @@ class TeacherController {
 
     static async createUpdateTeacher(req, res) {
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ error: errors.array() });
+            }
             const { id } = req.params
-            console.log(req.params)
-            console.log(id)
             const teacherData = req.body
-            // console.log(teacherData)
             let result
             if (id) {
                 result = await TeacherDBService.update(id, teacherData)
