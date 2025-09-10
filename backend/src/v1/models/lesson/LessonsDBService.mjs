@@ -2,9 +2,9 @@ import MongooseCRUDManager from '../MongooseCRUDManager.mjs'
 import Lesson from './Lesson.mjs'
 
 class LessonsDBService extends MongooseCRUDManager {
-    async getList(filters) {
+    async getList() {
         try {
-            const res = await super.getList(filters, { password: 0 }, ['teachers', 'courses'])
+            const res = await super.getList()
             return res
         } catch (error) {
             return []

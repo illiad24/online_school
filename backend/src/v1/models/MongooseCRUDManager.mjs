@@ -4,30 +4,20 @@ class MongooseCRUDManager {
     }
 
     // Вибірка всього списку з бази з фільтрами, projection і populateFields
+
     async getList(filters = {}, projection = null, populateFields = []) {
         try {
-            let query = this.model.find(filters, projection)
+            let query = this.model.find(filters, projection);
+
             populateFields.forEach((field) => {
-                // query = query.populate(field)
-                if (typeof field === 'string') {
-                    // Якщо поле передано як рядок
-                    query = query.populate(field)
-                } else if (
-                    typeof field === 'object' &&
-                    field.fieldForPopulation &&
-                    field.requiredFieldsFromTargetObject
-                ) {
-                    // Якщо передано об'єкт з полем для заповнення та запитуваними полями
-                    query = query.populate(
-                        field.fieldForPopulation,
-                        field.requiredFieldsFromTargetObject
-                    )
-                }
-            })
-            const results = await query.exec()
-            return results.map((doc) => doc.toObject())
+                // Mongoose може працювати як з рядками, так і з об'єктами
+                query = query.populate(field);
+            });
+
+            const results = await query.exec();
+            return results.map(doc => doc.toObject());
         } catch (error) {
-            throw new Error('Error retrieving data: ' + error.message)
+            throw new Error('Помилка при отриманні даних: ' + error.message);
         }
     }
 

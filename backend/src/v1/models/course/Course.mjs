@@ -22,14 +22,11 @@ const courseSchema = new Schema({
         ref: 'Teacher',
         required: [true, 'Teacher is required'],
     },
-    // students: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'User',
-    // }],
-    // lessons: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Lesson',
-    // }],
+
+    lessons: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Lesson',
+    }],
     price: {
         type: Number,
         required: [true, 'Price is required'],

@@ -27,6 +27,22 @@ export const courseValidator = checkSchema({
             errorMessage: "Некоректний ID викладача",
         },
     },
+    lessons: {
+        notEmpty: {
+            errorMessage: "Уроки є обов'язковими",
+        },
+        // isArray: {
+        //     errorMessage: "Уроки мають бути масивом",
+        // },
+        // custom: {
+        //     options: (value) => {
+        //         return value.every((id) => {
+        //             return mongoose.Types.ObjectId.isValid(id);
+        //         });
+        //     },
+        //     errorMessage: "Некоректні ID уроків",
+        // },
+    },
     price: {
         notEmpty: {
             errorMessage: "Ціна є обов'язковою",

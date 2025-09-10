@@ -1,24 +1,23 @@
 import { validationResult } from "express-validator"
-import CourseDBService from "../models/course/CourseDBService.mjs"
+import LessonsDBService from "../models/lesson/LessonsDBService.mjs"
 
 
-class CourseController {
-    static async coursesList(req, res) {
+class LessonsController {
+    static async lessonsList(req, res) {
         try {
-            const dataList = await CourseDBService.getList()
-            console.log('dataList')
+            const dataList = await LessonsDBService.getList()
             console.log(dataList)
             res.json(dataList)
         } catch (err) {
             res.status(500).json({ error: err.message })
         }
     }
-    static async coursesById(req, res) {
+    static async lessonsById(req, res) {
         const { id } = req.params
         try {
-            const data = await CourseDBService.getById(id)
+            const data = await LessonsDBService.getById(id)
             if (!data) {
-                return res.status(404).json({ error: 'Course not found' })
+                return res.status(404).json({ error: 'Lesson not found' })
             }
             res.json(data)
         } catch (err) {
@@ -26,7 +25,7 @@ class CourseController {
         }
     }
 
-    static async createUpdateCourse(req, res) {
+    static async createUpdateLesson(req, res) {
         try {
             const errors = validationResult(req.body);
 
@@ -41,9 +40,9 @@ class CourseController {
                 console.log(id)
                 console.log(courseData)
                 console.log(courseData.data)
-                result = await CourseDBService.update(id, courseData.data)
+                result = await LessonsDBService.update(id, courseData.data)
             } else {
-                result = await CourseDBService.create(courseData)
+                result = await LessonsDBService.create(courseData)
             }
             res.json(result)
         } catch (err) {
@@ -53,7 +52,7 @@ class CourseController {
     static async deleteById(req, res) {
         try {
             const { id } = req.params
-            const result = await CourseDBService.deleteById(id)
+            const result = await LessonsDBService.deleteById(id)
             res.json(result)
         } catch (err) {
             res.status(500).json({ error: err.message })
@@ -61,4 +60,4 @@ class CourseController {
     }
 }
 
-export default CourseController
+export default LessonsController
