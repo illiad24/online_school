@@ -6,7 +6,7 @@ export function UserListItem({ user, actions }) {
             <div className="user-card__info">
                 <div className="user-card__name">{user.name}</div>
                 <div className="user-card__email">{user.email}</div>
-                <div className="user-card__role">Роль: {user.role.title}</div>
+                <div className="user-card__role">Роль:  {user.role.title}</div>
             </div>
             <div>
                 {actions.map((action, index) =>
