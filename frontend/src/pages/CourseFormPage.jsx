@@ -9,9 +9,7 @@ function CourseFormPage() {
     const mainTitle = isEditMode ? 'Редагувати курс' : 'Додати курс';
 
     const { data: teachersList, isLoading: isTeachersLoading } = useGetTeachersQuery();
-    // const { data: lessonsList, isLoading: isLessonsLoading } = useGetLessonsQuery();
 
-    // if (isLoading || isTeachersLoading || isLessonsLoading) {
     if (isLoading || isTeachersLoading) {
         return <div>Завантаження...</div>;
     }

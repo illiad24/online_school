@@ -1,12 +1,11 @@
 import { Children, Component } from 'react'
 import { roles } from '../roles'
 import TeacherFormPage from '@/pages/TeacherFormPage'
+import LessonsFormPage from '@/pages/LessonsFormPage'
 export const frontRoutes = {
     pages: {
         HomePage: {
             path: '',
-            navigationPath: '/',
-
             meta: {
                 title: 'Головна',
                 isInMenu: true,
@@ -15,9 +14,6 @@ export const frontRoutes = {
         },
         LoginPage: {
             path: 'login',
-
-            navigationPath: '/login',
-
             meta: {
                 title: 'Login page',
                 isInMenu: false,
@@ -26,7 +22,6 @@ export const frontRoutes = {
         },
         SignUpPage: {
             path: 'signup',
-            navigationPath: '/signup',
             meta: {
                 title: 'SignUp page',
                 isInMenu: false,
@@ -35,7 +30,6 @@ export const frontRoutes = {
         },
         UsersPage: {
             path: 'users',
-            navigationPath: '/users',
             meta: {
                 title: 'Users page',
                 isInMenu: true,
@@ -45,7 +39,6 @@ export const frontRoutes = {
         },
         TeachersPage: {
             path: 'teachers',
-            navigationPath: '/teachers',
             meta: {
                 title: 'teachers page',
                 isInMenu: true,
@@ -55,7 +48,6 @@ export const frontRoutes = {
         },
         TeacherFormPage: {
             path: 'teachers/form/:id?',
-            navigationPath: '/teachers/form/',
             meta: {
                 title: 'Teacher Form',
                 isInMenu: false,
@@ -65,17 +57,27 @@ export const frontRoutes = {
         },
         CoursesPage: {
             path: 'courses',
-            navigationPath: '/courses',
             meta: {
                 title: 'Courses page',
                 isInMenu: true,
                 requireAuth: true,
                 roles: [roles.admin],
             },
+            children: [
+                {
+                    path: ':courseId/add-lesson',
+                    Component: LessonsFormPage,
+                    meta: {
+                        title: 'Course Form',
+                        isInMenu: false,
+                        requireAuth: true,
+                        roles: [roles.admin, roles.manager],
+                    }
+                }
+            ]
         },
         CourseFormPage: {
             path: 'courses/form/:id?',
-            navigationPath: '/courses/form/',
             meta: {
                 title: 'Course Form',
                 isInMenu: false,
@@ -83,6 +85,25 @@ export const frontRoutes = {
                 roles: [roles.admin, roles.manager],
             },
         },
+        LessonsPage: {
+            path: 'lessons',
+            meta: {
+                title: 'Lesson Page',
+                isInMenu: true,
+                requireAuth: true,
+                roles: [roles.admin, roles.manager],
+            },
+        },
+        LessonsFormPage: {
+            path: '/lessons/form/:id?',
+            meta: {
+                title: 'Lesson Form',
+                isInMenu: true,
+                requireAuth: true,
+                roles: [roles.admin, roles.manager],
+            },
+        },
+
         NotFoundPage: {
             path: '*',
             meta: {
@@ -93,7 +114,6 @@ export const frontRoutes = {
         },
         ForbiddenPage: {
             path: 'forbidden',
-            navigationPath: '/forbidden',
             meta: {
                 title: 'Forbidden',
                 isInMenu: false,

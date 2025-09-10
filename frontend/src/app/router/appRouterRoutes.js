@@ -4,7 +4,6 @@ function mapRoutes(pages) {
     return Object.keys(pages).map((page) => {
         const route = { ...pages[page] }
         if (route.children) {
-            console.log(route.children)
             route.children = route.children.map((child) => ({
                 ...child,
                 lazy: child.Component
@@ -22,3 +21,5 @@ function mapRoutes(pages) {
 }
 
 export const appRouterRoutes = mapRoutes(frontRoutes.pages)
+
+console.log(appRouterRoutes)

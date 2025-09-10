@@ -45,7 +45,6 @@ export function useTeacherForm() {
     const onSubmitHandler = async (data) => {
         setGeneralError(null);
         try {
-            console.log(data);
             if (isEditMode) {
                 await updateTeacher({ id, data }).unwrap();
             } else {

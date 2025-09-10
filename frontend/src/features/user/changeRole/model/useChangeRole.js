@@ -5,7 +5,6 @@ export function useChangeRole() {
     const [changedRole, setChangedRole] = useState({ userId: null, role: "" });
 
     const handleChange = async (userId) => (e) => {
-        console.log(userId)
         setChangedRole({ userId, role: e.target.value });
 
     };

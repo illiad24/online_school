@@ -14,8 +14,6 @@ export function UserList() {
     const { changedRole, handleChange } = useChangeRole();
     const [updateUser] = useUpdateUserMutation()
     const roles = getRolesArray()
-
-    console.log(user.role.title)
     if (isLoading) return <div>Завантаження оголошень...</div>
     if (error) return <div>Помилка: {error.toString()}</div>
     return (

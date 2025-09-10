@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 
 export function useCourseForm() {
     const { id } = useParams();
-    console.log(id)
     const isEditMode = id !== 'new' && !!id;
     const navigate = useNavigate();
 
@@ -44,7 +43,6 @@ export function useCourseForm() {
         setGeneralError(null);
         try {
             if (isEditMode) {
-                console.log(data) 
                 await updateCourse({ id, data }).unwrap();
             } else {
                 await createCourse(data).unwrap();

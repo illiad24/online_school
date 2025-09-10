@@ -17,8 +17,6 @@ export function LoginForm({ title }) {
         const result = await login({ email: data.email, password: data.password })
         if (result.user) navigate('/')
     }
-    console.log('error')
-    console.log(error)
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="form">

@@ -22,8 +22,6 @@ export function SignUpForm({ title }) {
             navigate('/');
         }
     };
-    console.log(error)
-
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="form">
             <div className="form__title">{title}</div>

@@ -4,10 +4,13 @@ import DeleteButton from "@/features/teacher/deleteButton/ui/DeleteButton";
 import AddButton from "@/shared/components/addButton/AddButton";
 import EditButton from "@/shared/components/editButton/EditButton";
 import { navigateRoutes } from "@/shared/config/routes/navigateRoutes";
+import { useState } from "react";
 
 function CourseList() {
     const { data: courses, isLoading } = useGetCoursesQuery();
     const [deleteCourse] = useDeleteCourseMutation();
+
+    const [openLessonFormFor, setOpenLessonFormFor] = useState(null);
 
     if (isLoading) {
         return <div>Завантаження...</div>;
@@ -18,7 +21,10 @@ function CourseList() {
             <div>
                 <h1>Список курсів</h1>
                 <p>Курси ще не додано.</p>
-                <AddButton text="Додати курс" handleClick={navigateRoutes.navigate.courses.create} />
+                <AddButton
+                    text="Додати курс"
+                    handleClick={navigateRoutes.navigate.courses.create}
+                />
             </div>
         );
     }
@@ -27,21 +33,42 @@ function CourseList() {
         <div className="course-list">
             <div className="course-list__header">
                 <h1>Список курсів</h1>
-                <AddButton text="Додати курс" handleClick={navigateRoutes.navigate.courses.create} />
+                <AddButton
+                    text="Додати курс"
+                    handleClick={navigateRoutes.navigate.courses.create}
+                />
             </div>
-            {courses.map(course => (
+
+            {courses.map((course) => (
                 <CourseItem
                     key={course._id}
                     course={course}
+                    isAddingLesson={openLessonFormFor === course._id}
                     actions={[
+                        <AddButton
+                            key={`add-lesson-${course._id}`}
+                            text={
+                                openLessonFormFor === course._id
+                                    ? "Закрити форму"
+                                    : "Додати урок"
+                            }
+                            type="button"
+                            handleClick={() =>
+                                setOpenLessonFormFor((prev) =>
+                                    prev === course._id ? null : course._id
+                                )
+                            }
+                        />,
                         <DeleteButton
                             key={`delete-${course._id}`}
                             handleSubmit={() => deleteCourse(course._id)}
                         />,
                         <EditButton
                             key={`edit-${course._id}`}
-                            handleClick={navigateRoutes.navigate.courses.edit(course._id)}
-                        />
+                            handleClick={navigateRoutes.navigate.courses.edit(
+                                course._id
+                            )}
+                        />,
                     ]}
                 />
             ))}
