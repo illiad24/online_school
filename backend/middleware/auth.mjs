@@ -19,8 +19,7 @@ const auth = (app) => {
         // Відкриті шляхи, які не потребують авторизації
         const openPathes = [
             '/api/v1/auth/login',
-            '/api/v1/auth/signup',
-            '/api/v1/products',
+            '/api/v1/auth/signup'
         ]
         // Перевірка, чи шлях потребує авторизації
         if (!openPathes.includes(req.path)) {

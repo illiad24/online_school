@@ -1,15 +1,17 @@
 import express from 'express'
 import CourseController from '../controllers/courseController.mjs'
 import { courseValidator } from '../validators/CourseValidator.mjs'
+import { requireAuth, requireRoles } from '../../../middleware/requireRole.mjs'
 
 const router = express.Router()
 
 router.get('/', CourseController.coursesList)
 router.get('/:id', CourseController.coursesById)
 
-router.post('/create', courseValidator, CourseController.createUpdateCourse)
-router.put('/:id', courseValidator, CourseController.createUpdateCourse)
-
-router.delete('/:id', CourseController.deleteById)
+router.post('/create', requireAuth, requireRoles(['admin', 'manager']), courseValidator, CourseController.createUpdateCourse)
+router.put('/:id', requireAuth, requireRoles(['admin', 'manager']), courseValidator, CourseController.createUpdateCourse)
+router.post('/create', requireAuth, requireRoles(['admin', 'manager']), courseValidator, CourseController.createUpdateCourse)
+router.post('/:id/add-lesson', requireAuth, requireRoles(['admin', 'manager']), CourseController.addLessonToCourse)
+router.delete('/:id', requireAuth, requireRoles(['admin']), CourseController.deleteById)
 
 export default router

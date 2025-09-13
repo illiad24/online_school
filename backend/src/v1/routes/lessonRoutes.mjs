@@ -1,13 +1,14 @@
 import express from 'express'
 import LessonsController from '../controllers/lessonController.mjs'
+import { requireAuth, requireRoles } from '../../../middleware/requireRole.mjs'
 const router = express.Router()
 
-router.get('/', LessonsController.lessonsList)
+router.get('/', requireAuth, requireRoles(['admin', 'manager']), LessonsController.lessonsList)
 router.get('/:id', LessonsController.lessonsById)
 
-router.post('/create', LessonsController.createUpdateLesson)
-router.put('/:id', LessonsController.createUpdateLesson)
+router.post('/create', requireAuth, requireRoles(['admin', 'manager']), LessonsController.createUpdateLesson)
+router.put('/:id', requireAuth, requireRoles(['admin', 'manager']), LessonsController.createUpdateLesson)
 
-router.delete('/:id', LessonsController.deleteById)
+router.delete('/:id', requireAuth, requireRoles(['admin']), LessonsController.deleteById)
 
 export default router

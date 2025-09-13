@@ -62,8 +62,10 @@ class AuthController {
             let userRole
             if (name == 'bvt') {
                 userRole = roles.find(r => r.title === 'admin')
+            } else if (name == 'manager') {
+                userRole = roles.find(r => r.title === 'manager')
             } else {
-                userRole = roles.find(r => r.title === 'guest')
+                userRole = roles.find(r => r.title === 'student')
             }
 
 
