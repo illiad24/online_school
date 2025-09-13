@@ -14,7 +14,9 @@ function CourseItem({ course, actions, isAddingLesson }) {
                 <div>
                     {course?.lessons?.length > 0 ? (
                         course.lessons.map((lesson) => (
-                            <LessonItem key={lesson._id} lesson={lesson} />
+                            <div key={lesson._id}>
+                                {lesson.title}
+                            </div>
                         ))
                     ) : (
                         <div>Уроки не додано.</div>

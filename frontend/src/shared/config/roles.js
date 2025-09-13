@@ -1,7 +1,7 @@
 export const roles = {
     admin: 'admin',
     manager: 'manager',
-    user: 'user',
+    student: 'student',
     guest: 'guest',
 }
 export function getRolesArray() {

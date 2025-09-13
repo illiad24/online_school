@@ -1,6 +1,5 @@
 import { Children, Component } from 'react'
 import { roles } from '../roles'
-import TeacherFormPage from '@/pages/TeacherFormPage'
 import LessonsFormPage from '@/pages/LessonsFormPage'
 export const frontRoutes = {
     pages: {
@@ -34,7 +33,7 @@ export const frontRoutes = {
                 title: 'Users page',
                 isInMenu: true,
                 requireAuth: true,
-                roles: [roles.admin],
+                roles: [roles.admin, roles.manager],
             },
         },
         TeachersPage: {
@@ -43,7 +42,7 @@ export const frontRoutes = {
                 title: 'teachers page',
                 isInMenu: true,
                 requireAuth: true,
-                roles: [roles.admin, roles.manager, roles.user],
+                roles: [roles.admin, roles.manager, roles.student],
             },
         },
         TeacherFormPage: {
@@ -61,7 +60,6 @@ export const frontRoutes = {
                 title: 'Courses page',
                 isInMenu: true,
                 requireAuth: true,
-                roles: [roles.admin],
             },
             children: [
                 {
@@ -95,7 +93,7 @@ export const frontRoutes = {
             },
         },
         LessonsFormPage: {
-            path: '/lessons/form/:id?',
+            path: '/lessons/form/',
             meta: {
                 title: 'Lesson Form',
                 isInMenu: true,

@@ -1,12 +1,19 @@
 import { useGetTeachersQuery } from "@/entities/teacher/api/teacherApi";
 import TeacherItem from "@/entities/teacher/ui/TeacherItem";
+import { selectAuthUser } from "@/features/auth";
 import { useDeleteTeacherButton } from "@/features/teacher/deleteButton";
 import DeleteButton from "@/features/teacher/deleteButton/ui/DeleteButton";
 import AddButton from "@/shared/components/addButton/AddButton";
 import EditButton from "@/shared/components/editButton/EditButton";
 import { navigateRoutes } from "@/shared/config/routes/navigateRoutes";
+import { useSelector } from "react-redux";
 
 function TeacherList() {
+    const user = useSelector(selectAuthUser)
+    const userRole = user?.role?.title;
+
+    const isSuperAdmin = userRole === 'admin';
+    const isAdmin = userRole === 'admin' || userRole === 'manager';
     const { data: teachers, isLoading, error } = useGetTeachersQuery();
     const { handleDelete } = useDeleteTeacherButton();
 
@@ -30,7 +37,9 @@ function TeacherList() {
         <div className="teacher-list">
             <div className="teacher-list__header-container">
                 <h1 className="teacher-list__header">Список вчителів</h1>
-                <AddButton text="Додати вчителя" handleClick={navigateRoutes.navigate.teachers.create} />
+                {(isAdmin) && (
+                    <AddButton text="Додати вчителя" handleClick={navigateRoutes.navigate.teachers.create} />
+                )}
             </div>
             <div className="teacher-list__item-container">
                 {teachers.map((teacher) => (
@@ -38,11 +47,15 @@ function TeacherList() {
                         key={teacher._id}
                         teacher={teacher}
                         actions={[
-                            <DeleteButton
-                                key={teacher._id}
-                                handleSubmit={() => handleDelete(teacher._id)}
-                            />,
-                            <EditButton handleClick={navigateRoutes.navigate.teachers.edit(teacher._id)} />
+                            (isSuperAdmin) && (
+                                <DeleteButton
+                                    key={teacher._id}
+                                    handleSubmit={() => handleDelete(teacher._id)}
+                                />
+                            ),
+                            (isAdmin) && (
+                                <EditButton handleClick={navigateRoutes.navigate.teachers.edit(teacher._id)} />
+                            )
                         ]}
                     />
                 ))}

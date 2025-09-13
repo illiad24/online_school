@@ -25,6 +25,7 @@ export const apiRoutes = {
         update: (id) => `/courses/${id}`,
         delete: (id) => `/courses/${id}`,
         getById: (id) => `/courses/${id}`,
+        addLesson: (courseId) => `/courses/${courseId}/add-lesson`,
     },
     lessons: {
         list: '/lessons',
