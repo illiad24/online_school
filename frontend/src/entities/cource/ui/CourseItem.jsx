@@ -13,8 +13,8 @@ function CourseItem({ course, actions, isAddingLesson }) {
                 <h3>Уроки:</h3>
                 <div>
                     {course?.lessons?.length > 0 ? (
-                        course.lessons.map((lesson) => (
-                            <div key={lesson._id}>
+                        course.lessons.map((lesson, index) => (
+                            <div key={index}>
                                 {lesson.title}
                             </div>
                         ))

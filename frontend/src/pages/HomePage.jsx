@@ -1,8 +1,9 @@
+import { Box, Container } from '@mui/material';
 function HomePage() {
     return (
-        <div className="container">
-            <h1>Home Page</h1>
-        </div>
+        <Container maxWidth="lg" sx={{ background: 'radial-gradient(80% 50% at 50% -20%, rgb(204, 230, 255), transparent)' }}>
+
+        </Container>
     );
 }
 

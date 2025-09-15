@@ -2,12 +2,10 @@ import { useSelector } from 'react-redux'
 import { selectAuthUser } from '@/features/auth/api/authSlice'
 import { Link, NavLink } from 'react-router'
 import { getPagesObjectList } from '@/shared/config/routes/frontRoutes'
+import { List, ListItem, Button } from "@mui/material";
 
 export function MainMenu() {
     const user = useSelector(selectAuthUser)
-
-    // Фільтруємо маршрути, які потрібно показати в меню (ті, що мають title)
-    // І враховуємо requireAuth і ролі
 
     const allowedRoutes = getPagesObjectList().filter(({ meta }) => {
         if (!meta.isInMenu) return false
@@ -18,18 +16,39 @@ export function MainMenu() {
     })
 
     return (
-        <div className='header__menu menu'>
-            <nav className='menu__nav'>
-                <ul className='menu__list'>
-                    <li className='menu__item'>
-                        {allowedRoutes.map(({ path, meta }) => (
-                            <NavLink className='menu__link' key={path} to={path} style={{ margin: '0 10px' }}>
-                                {meta.title}
-                            </NavLink>
-                        ))}
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        <nav aria-label="Main navigation" className="menu">
+            <List sx={{ display: "flex", flexDirection: "row", gap: 2, p: 0 }}>
+                {allowedRoutes.map(({ path, meta }) => (
+                    <ListItem key={path} disablePadding sx={{ width: "auto" }}>
+                        <Button
+                            component={NavLink}
+                            to={path}
+                            variant="text"
+                            color="primary"
+                            sx={{
+                                "&.active": {
+                                    borderBottom: "2px solid",
+                                    borderColor: "primary.main",
+                                    color: 'black'
+
+                                },
+                                backgroundColor: "transparent",
+                                '&:hover': {
+                                    backgroundColor: 'action.hover',
+                                },
+                                '&:active': {
+                                    backgroundColor: 'action.selected',
+                                },
+                                '&:focus-visible': {
+                                    boxShadow: '0 0 0 3px rgba(33,150,243,0.35)'
+                                }
+                            }}
+                        >
+                            {meta.title}
+                        </Button>
+                    </ListItem>
+                ))}
+            </List>
+        </nav>
     )
 }

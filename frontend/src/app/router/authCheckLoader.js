@@ -2,36 +2,40 @@ import { authApi, selectAuthUser } from "@/features/auth"
 import { redirect } from "react-router"
 import { store } from "../store/store"
 
-export const authCheckLoader =
-    ({ refreshMutex }) =>
-        async (route) => {
-            return refreshMutex.runExclusive(async () => {
-                const state = store.getState()
-                console.log(store.getState())
-                const user = await store.dispatch(
-                    authApi.endpoints.refresh.initiate()
-                ).unwrap()
+let refreshTried = false
 
-                if (!user) {
-                    try {
-                        user = await store.dispatch(authApi.endpoints.refresh.initiate()).unwrap()
-                    } catch (err) {
-                        throw redirect("/login")
-                    }
+export const authCheckLoader = ({ refreshMutex, meta }) => async () => {
+    let state = store.getState()
+    let user = selectAuthUser(state)
+
+    if (!user && !refreshTried) {
+        refreshTried = true
+        await refreshMutex.runExclusive(async () => {
+            state = store.getState()
+            user = selectAuthUser(state)
+            if (!user) {
+                try {
+                    const result = await store.dispatch(authApi.endpoints.refresh.initiate()).unwrap()
+                    user = result.user
+                } catch {
+                    user = null
                 }
+            }
+        })
+    }
 
-                if (route?.meta?.requireAuth) {
-                    if (!user) {
-                        throw redirect("/login")
-                    }
-                    if (
-                        route.meta?.roles?.length > 0 &&
-                        !route.meta.roles.includes(user.role)
-                    ) {
-                        throw redirect("/forbidden")
-                    }
-                }
+    state = store.getState()
+    user = selectAuthUser(state)
 
-                return { user }
-            })
+    if (meta?.requireAuth) {
+        if (!user) {
+            refreshTried = false
+            throw redirect("/login")
         }
+        if (meta.roles?.length > 0 && !meta.roles.includes(user.role)) {
+            throw redirect("/forbidden")
+        }
+    }
+
+    return { user }
+}

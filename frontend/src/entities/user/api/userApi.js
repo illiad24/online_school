@@ -13,7 +13,7 @@ export const userApi = baseApi.injectEndpoints({
 
         updateUser: build.mutation({
             query: ({ id, role }) => ({
-                url: apiRoutes.users.update,
+                url: apiRoutes.users.update(id),
                 method: 'PUT',
                 body: { id, role },
             }),
