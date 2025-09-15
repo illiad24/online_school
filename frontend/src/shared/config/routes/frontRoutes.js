@@ -96,7 +96,7 @@ export const frontRoutes = {
             path: '/lessons/form/',
             meta: {
                 title: 'Lesson Form',
-                isInMenu: true,
+                isInMenu: false,
                 requireAuth: true,
                 roles: [roles.admin, roles.manager],
             },
