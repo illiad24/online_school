@@ -1,42 +1,39 @@
-import { Fragment } from "react";
+import React from 'react'
+import { Card, CardContent, Typography, Box, Stack } from '@mui/material'
 
 function TeacherItem({ teacher, actions }) {
-    if (!teacher) {
-        return null;
-    }
+    if (!teacher) return null
 
     return (
-        <div className="teacher-card">
-            <div className="teacher-card__details">
-                <div className="teacher-card__detail-item">
-                    <span>Name:</span> {teacher?.name}
-                </div>
-                <div className="teacher-card__detail-item">
-                    <span>Email:</span> {teacher?.email}
-                </div>
-                <div className="teacher-card__detail-item">
-                    <span>Subject:</span> {teacher?.subject}
-                </div>
-                <div className="teacher-card__detail-item">
-                    <span>Experience:</span> {teacher?.experience} years
-                </div>
-                <div className="teacher-card__detail-item">
-                    <span>Age:</span> {teacher?.age}
-                </div>
-                <p className="teacher-card__bio">
-                    {teacher?.bio}
-                </p>
-            </div>
-            <div className="teacher-card__actions">
-                <div></div>
-                {actions.map((action, index) =>
-                    <Fragment key={index}>
-                        {action}
-                    </Fragment>
-                )}
-            </div>
-        </div>
-    );
+        <Card sx={{ display: 'flex', justifyContent: 'space-between', p: 2, mb: 2, boxShadow: 3 }}>
+            <CardContent sx={{ flex: '1 1 auto' }}>
+                <Typography variant="h6">{teacher.name}</Typography>
+                <Typography variant="body2" color="text.secondary">
+                    Email: {teacher.email}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    Subject: {teacher.subject}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    Experience: {teacher.experience} years
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    Age: {teacher.age}
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                    {teacher.bio}
+                </Typography>
+            </CardContent>
+
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Stack direction="row" spacing={1}>
+                    {actions.map((action, index) => (
+                        <React.Fragment key={index}>{action}</React.Fragment>
+                    ))}
+                </Stack>
+            </Box>
+        </Card>
+    )
 }
 
-export default TeacherItem;
+export default TeacherItem

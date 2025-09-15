@@ -1,19 +1,23 @@
-function ChangeRole({ roles, handleChange, selectedValue }) {
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material'
 
+function ChangeRole({ roles, handleChange, selectedValue }) {
     return (
-        <select onChange={handleChange} className="select">
-            {roles.map((role, index) => (
-                <option
-                    className="select__option"
-                    key={index}
-                    value={role}
-                    selected={selectedValue === role}
-                >
-                    {role}
-                </option>
-            ))}
-        </select>
-    );
+        <FormControl fullWidth variant="outlined" size="small">
+            <InputLabel id="role-select-label">Роль</InputLabel>
+            <Select
+                labelId="role-select-label"
+                value={selectedValue}
+                onChange={handleChange}
+                label="Роль"
+            >
+                {roles.map((role, index) => (
+                    <MenuItem key={index} value={role}>
+                        {role}
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>
+    )
 }
 
-export default ChangeRole;
+export default ChangeRole

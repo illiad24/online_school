@@ -1,20 +1,26 @@
-import React, { Fragment } from 'react'
+import React from 'react'
+import { Card, CardContent, Typography, Box, Stack } from '@mui/material'
 
 export function UserListItem({ user, actions }) {
     return (
-        <div className="user-card">
-            <div className="user-card__info">
-                <div className="user-card__name">{user.name}</div>
-                <div className="user-card__email">{user.email}</div>
-                <div className="user-card__role">Роль:  {user.role.title}</div>
-            </div>
-            <div>
-                {actions.map((action, index) =>
-                    <Fragment key={index}>
-                        {action}
-                    </Fragment>
-                )}
-            </div>
-        </div>
+        <Card sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, p: 2 }}>
+            <CardContent sx={{ flex: '1 1 auto' }}>
+                <Typography variant="h6" component="div">
+                    {user.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    {user.email}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    Роль: {user.role.title}
+                </Typography>
+            </CardContent>
+
+            <Box sx={{ display: 'flex', gap: 1 }}>
+                {actions.map((action, index) => (
+                    <React.Fragment key={index}>{action}</React.Fragment>
+                ))}
+            </Box>
+        </Card>
     )
 }

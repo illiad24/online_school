@@ -2,7 +2,7 @@ import { useGetTeachersQuery } from "@/entities/teacher/api/teacherApi";
 import TeacherItem from "@/entities/teacher/ui/TeacherItem";
 import { selectAuthUser } from "@/features/auth";
 import { useDeleteTeacherButton } from "@/features/teacher/deleteButton";
-import DeleteButton from "@/features/teacher/deleteButton/ui/DeleteButton";
+import DeleteButton from "@/features/teacher/deleteButton/ui/DeleteTeacherButton";
 import AddButton from "@/shared/components/addButton/AddButton";
 import EditButton from "@/shared/components/editButton/EditButton";
 import { navigateRoutes } from "@/shared/config/routes/navigateRoutes";

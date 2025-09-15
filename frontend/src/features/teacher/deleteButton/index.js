@@ -1,2 +1,2 @@
-export * from "./ui/deleteButton";
+export * from "./ui/DeleteTeacherButton";
 export * from "./model/useDeleteTeacherButton";

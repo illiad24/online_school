@@ -1,74 +1,124 @@
+import { TextField, Button, Box, Typography, MenuItem, Select, InputLabel, FormControl, Alert, Stack } from '@mui/material'
 
 function TeacherForm({ onSubmit, register, errors, coursesList, teacher, error }) {
     return (
-        <div className="form form--margin">
-            <h1 className="form__title">Teacher Form</h1>
-            <form onSubmit={onSubmit}>
-                <div className="form__group">
-                    <label className="form__label" htmlFor="name">Name:</label>
-                    <input className="form__input" type="text" id="name" name="name" {...register("name")} minLength="3" maxLength="50" />
-                    {errors?.name && <p className="form__error">{errors.name.message}</p>}
-                </div>
+        <Box
+            component="form"
+            onSubmit={onSubmit}
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+                p: 3,
+                bgcolor: 'background.paper',
+                borderRadius: 2,
+                boxShadow: 3,
+                maxWidth: 600,
+                mx: 'auto',
+            }}
+        >
+            <Typography variant="h5" component="h1" textAlign="center" mb={2}>
+                Teacher Form
+            </Typography>
 
-                <div className="form__group">
-                    <label className="form__label" htmlFor="email">Email:</label>
-                    <input className="form__input" type="email" id="email" name="email" {...register("email")} minLength="5" maxLength="100" />
-                    {errors?.email && <p className="form__error">{errors.email.message}</p>}
-                </div>
+            <TextField
+                label="Name"
+                variant="outlined"
+                fullWidth
+                {...register('name')}
+                error={!!errors?.name}
+                helperText={errors?.name?.message}
+            />
 
-                <div className="form__group">
-                    <label className="form__label" htmlFor="subject">Subject:</label>
-                    <input className="form__input" type="text" id="subject" name="subject" {...register("subject")} minLength="3" maxLength="50" />
-                    {errors?.subject && <p className="form__error">{errors.subject.message}</p>}
-                </div>
+            <TextField
+                label="Email"
+                type="email"
+                variant="outlined"
+                fullWidth
+                {...register('email')}
+                error={!!errors?.email}
+                helperText={errors?.email?.message}
+            />
 
-                <div className="form__group">
-                    <label className="form__label" htmlFor="bio">Bio:</label>
-                    <textarea className="form__input form__input--textarea" id="bio" name="bio" {...register("bio")} maxLength="500"></textarea>
-                    {errors?.bio && <p className="form__error">{errors.bio.message}</p>}
-                </div>
+            <TextField
+                label="Subject"
+                variant="outlined"
+                fullWidth
+                {...register('subject')}
+                error={!!errors?.subject}
+                helperText={errors?.subject?.message}
+            />
 
-                <div className="form__group">
-                    <label className="form__label" htmlFor="experience">Experience (years):</label>
-                    <input className="form__input" type="number" id="experience" name="experience" {...register("experience")} min="0" />
-                    {errors?.experience && <p className="form__error">{errors.experience.message}</p>}
-                </div>
+            <TextField
+                label="Bio"
+                variant="outlined"
+                fullWidth
+                multiline
+                rows={4}
+                {...register('bio')}
+                error={!!errors?.bio}
+                helperText={errors?.bio?.message}
+            />
 
-                <div className="form__group">
-                    <label className="form__label" htmlFor="age">Age:</label>
-                    <input className="form__input" type="number" id="age" name="age" {...register("age")} min="0" />
-                    {errors?.age && <p className="form__error">{errors.age.message}</p>}
-                </div>
+            <TextField
+                label="Experience (years)"
+                type="number"
+                variant="outlined"
+                fullWidth
+                {...register('experience')}
+                error={!!errors?.experience}
+                helperText={errors?.experience?.message}
+            />
 
-                <div className="form__group">
-                    <label className="form__label" htmlFor="courses">Courses (IDs):</label>
-                    <select
-                        className="form__input"
-                        id="courses"
-                        name="courses"
-                        {...register("courses")}
-                        multiple
-                        defaultValue={teacher?.courses || []}
-                    >
-                        {coursesList?.map((course) => (
-                            <option key={course._id} value={course._id}>
-                                {course.title}
-                            </option>
-                        ))}
-                    </select>
-                    {errors?.courses && <p className="form__error">{errors.courses.message}</p>}
-                </div>
-                {error && (
-                    <div style={{ color: 'red', marginBottom: '1rem' }}>
-                        <p> {error.data.error || 'Невідома помилка'}</p>
-                    </div>
+            <TextField
+                label="Age"
+                type="number"
+                variant="outlined"
+                fullWidth
+                {...register('age')}
+                error={!!errors?.age}
+                helperText={errors?.age?.message}
+            />
+
+            <FormControl fullWidth variant="outlined" error={!!errors?.courses}>
+                <InputLabel id="courses-label">Courses</InputLabel>
+                <Select
+                    labelId="courses-label"
+                    multiple
+                    defaultValue={teacher?.courses || []}
+                    label="Courses"
+                    {...register('courses')}
+                    renderValue={(selected) =>
+                        coursesList
+                            .filter((course) => selected.includes(course._id))
+                            .map((course) => course.title)
+                            .join(', ')
+                    }
+                >
+                    {coursesList?.map((course) => (
+                        <MenuItem key={course._id} value={course._id}>
+                            {course.title}
+                        </MenuItem>
+                    ))}
+                </Select>
+                {errors?.courses && (
+                    <Typography variant="caption" color="error">
+                        {errors.courses.message}
+                    </Typography>
                 )}
-                <div>
-                    <button className="form__button" type="submit">Submit</button>
-                </div>
-            </form>
-        </div>
-    );
+            </FormControl>
+
+            {error && (
+                <Alert severity="error">
+                    {error.data?.error || 'Невідома помилка'}
+                </Alert>
+            )}
+
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+                Submit
+            </Button>
+        </Box>
+    )
 }
 
-export default TeacherForm;
+export default TeacherForm

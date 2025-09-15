@@ -1,11 +1,12 @@
 import { Link } from 'react-router';
 import './EditButton.scss'; // We will create this SCSS file next
-
+import EditIcon from '@mui/icons-material/Edit';
+import { Button } from '@mui/material';
 function EditButton({ handleClick }) {
     return (
-        <Link className="edit-button" to={handleClick}>
+        <Button variant="contained" component={Link} sx={{ bgcolor: 'blue' }} to={handleClick} startIcon={<EditIcon />}>
             Редагувати
-        </Link>
+        </Button>
     );
 }
 

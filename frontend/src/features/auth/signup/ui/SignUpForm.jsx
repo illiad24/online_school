@@ -1,73 +1,101 @@
-import React from 'react';
-import { useNavigate } from 'react-router';
-import { useSignUp } from '../model/useSignUp';
-import { useRefreshMutation } from '../../api/authApi';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import schema from '../model/validation';
+import React from 'react'
+import { useNavigate } from 'react-router'
+import { useSignUp } from '../model/useSignUp'
+import { useRefreshMutation } from '../../api/authApi'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import schema from '../model/validation'
+import { TextField, Box, Button, Typography, Alert, Stack } from '@mui/material'
 
 export function SignUpForm({ title }) {
-    const { signUp, isLoading, error } = useSignUp();
-    const [refresh] = useRefreshMutation();
-    const navigate = useNavigate();
+    const { signUp, isLoading, error } = useSignUp()
+    const [refresh] = useRefreshMutation()
+    const navigate = useNavigate()
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
-    });
+    })
 
     const onSubmit = async (data) => {
-        const result = await signUp(data);
+        const result = await signUp(data)
         if (result.user) {
-            await refresh();
-            navigate('/');
+            await refresh()
+            navigate('/')
         }
-    };
+    }
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="form">
-            <div className="form__title">{title}</div>
+        <Box
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{
+                maxWidth: 400,
+                mx: 'auto',
+                p: 3,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+                bgcolor: 'background.paper',
+                borderRadius: 2,
+                boxShadow: 3,
+            }}
+        >
+            <Typography variant="h5" textAlign="center" fontWeight="bold" mb={2}>
+                {title}
+            </Typography>
 
-            <input
+            <TextField
+                label="Ім'я"
+                variant="outlined"
+                fullWidth
                 {...register('name')}
-                type="text"
-                placeholder="Ім'я"
-                className="form__input"
+                error={!!errors.name}
+                helperText={errors.name?.message}
             />
-            {errors.name && <div className="form__error">{errors.name.message}</div>}
 
-            <input
+            <TextField
+                label="Email"
+                variant="outlined"
+                fullWidth
                 {...register('email')}
-                type="text"
-                placeholder="Email"
-                className="form__input"
+                error={!!errors.email}
+                helperText={errors.email?.message}
             />
-            {errors.email && <div className="form__error">{errors.email.message}</div>}
 
-            <input
-                {...register('password')}
+            <TextField
+                label="Пароль"
                 type="password"
-                placeholder="Пароль"
-                className="form__input"
+                variant="outlined"
+                fullWidth
+                {...register('password')}
+                error={!!errors.password}
+                helperText={errors.password?.message}
             />
-            {errors.password && <div className="form__error">{errors.password.message}</div>}
 
-            <button type="submit" disabled={isLoading} className="form__button">
-                Зареєструватись
-            </button>
+            <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+                disabled={isLoading}
+            >
+                {isLoading ? 'Завантаження...' : 'Зареєструватись'}
+            </Button>
 
             {/* Помилки з бекенду */}
-            {error?.data?.errors && (
-                <div className="form__error">
-                    {error?.data?.errors.length > 0 && error.data.errors.map((e, index) => (
-                        <div key={index}>{index + 1} - {e.msg}</div>
+            {error?.data?.errors?.length > 0 && (
+                <Stack spacing={1}>
+                    {error.data.errors.map((e, index) => (
+                        <Alert severity="error" key={index}>
+                            {e.msg}
+                        </Alert>
                     ))}
+                </Stack>
+            )}
 
-                </div>
-            )}
             {error?.data?.error && (
-                <div className="form__error">
-                    <div>{error.data.error}</div>
-                </div>
+                <Alert severity="error">{error.data.error}</Alert>
             )}
-        </form>
-    );
+        </Box>
+    )
 }

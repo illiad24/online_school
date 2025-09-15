@@ -1,54 +1,53 @@
-import { Fragment, useState } from 'react'
-
-
+import { Fragment } from 'react'
 import { useSelector } from 'react-redux'
 import { selectAuthUser } from '@/features/auth'
 import { useGetUsersQuery, useUpdateUserMutation } from '@/entities/user/api/userApi'
 import { UserListItem } from '@/entities/user/ui/UserListItem'
-import { useChangeRole } from '@/features/user/changeRole'
 import ChangeRole from '@/features/user/changeRole/ui/ChangeRole'
+import { useChangeRole } from '@/features/user/changeRole'
 import { getRolesArray } from '@/shared/config/roles'
+import { Box, Typography, CircularProgress, Stack, Alert } from '@mui/material'
+
 export function UserList() {
     const user = useSelector(selectAuthUser)
     const { data: usersList, isLoading, error } = useGetUsersQuery()
-    const { changedRole, handleChange } = useChangeRole();
+    const { changedRole } = useChangeRole()
     const [updateUser] = useUpdateUserMutation()
     const roles = getRolesArray()
-    if (isLoading) return <div>Завантаження оголошень...</div>
-    if (error) return <div>Помилка: {error.toString()}</div>
+
+    if (isLoading) return <CircularProgress sx={{ display: 'block', mx: 'auto', mt: 4 }} />
+    if (error) return <Alert severity="error">Помилка: {error.toString()}</Alert>
+
     return (
-        <div>
-            {
-                user.role.title === 'admin'
-                    ? usersList.map((user, index) => (
-                        <Fragment key={index}>
-                            <UserListItem
-                                user={user}
-                                actions={[
+        <Box sx={{ maxWidth: 800, mx: 'auto', mt: 4 }}>
+            <Stack spacing={2}>
+                {usersList.map((userItem) => (
+                    <UserListItem
+                        key={userItem._id}
+                        user={userItem}
+                        actions={
+                            user.role.title === 'admin'
+                                ? [
                                     <ChangeRole
+                                        key={userItem._id}
                                         roles={roles}
-                                        selectedValue={user.role.title}
+                                        selectedValue={userItem.role.title}
                                         handleChange={async (e) => {
-                                            await updateUser({ id: user._id, role: e.target.value })
+                                            await updateUser({ id: userItem._id, role: e.target.value })
                                         }}
                                     />
-                                ]}
-                            />
-                        </Fragment>
-                    ))
-                    : usersList.map((user, index) => (
-                        <Fragment key={index}>
-                            <UserListItem user={user} actions={[]} />
-                        </Fragment>
-                    ))
-            }
-            <div>
-                {changedRole.userId && (
-                    <p>
-                        Змінив роль користувача {changedRole.userId} на {changedRole.role}
-                    </p>
-                )}
-            </div>
-        </div>
+                                ]
+                                : []
+                        }
+                    />
+                ))}
+            </Stack>
+
+            {changedRole.userId && (
+                <Alert severity="success" sx={{ mt: 2 }}>
+                    Змінив роль користувача {changedRole.userId} на {changedRole.role}
+                </Alert>
+            )}
+        </Box>
     )
-} 
+}

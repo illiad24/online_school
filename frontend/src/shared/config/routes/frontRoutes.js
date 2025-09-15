@@ -93,7 +93,7 @@ export const frontRoutes = {
             },
         },
         LessonsFormPage: {
-            path: '/lessons/form/',
+            path: '/lessons/form/:id?',
             meta: {
                 title: 'Lesson Form',
                 isInMenu: false,

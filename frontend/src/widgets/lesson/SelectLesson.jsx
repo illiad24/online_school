@@ -1,55 +1,68 @@
-import { useState } from "react";
-import { useAddLessonToCourseMutation } from "@/entities/cource/api/courseApi";
-import { useGetLessonsQuery } from "@/entities/lesson/api/lessonApi";
+import { useState } from "react"
+import { useAddLessonToCourseMutation } from "@/entities/cource/api/courseApi"
+import { useGetLessonsQuery } from "@/entities/lesson/api/lessonApi"
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, CircularProgress, Typography } from "@mui/material"
 
 function SelectLesson({ courseId }) {
-    const { data: lessonsList, isLoading, isError } = useGetLessonsQuery();
-    const [selectedLesson, setSelectedLesson] = useState("");
-    const [addLessonToCourse, { isLoading: isSubmitting }] = useAddLessonToCourseMutation();
+    const { data: lessonsList, isLoading, isError } = useGetLessonsQuery()
+    const [selectedLesson, setSelectedLesson] = useState("")
+    const [addLessonToCourse, { isLoading: isSubmitting }] = useAddLessonToCourseMutation()
 
     if (isLoading) {
-        return <div>Завантаження...</div>;
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                <CircularProgress />
+            </Box>
+        )
     }
 
     if (isError) {
-        return <div>Помилка завантаження уроків</div>;
+        return (
+            <Typography color="error" sx={{ mt: 2 }}>
+                Помилка завантаження уроків
+            </Typography>
+        )
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         if (!selectedLesson) {
-            alert("Будь ласка, оберіть урок!");
-            return;
+            alert("Будь ласка, оберіть урок!")
+            return
         }
 
         try {
-            await addLessonToCourse({ courseId, lessonId: selectedLesson }).unwrap();
-            setSelectedLesson("");
+            await addLessonToCourse({ courseId, lessonId: selectedLesson }).unwrap()
+            setSelectedLesson("")
         } catch (error) {
-            alert("Сталася помилка ❌");
+            alert("Сталася помилка ❌")
         }
-    };
+    }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-
-                <select value={selectedLesson} onChange={(e) => setSelectedLesson(e.target.value)}>
-                    <option value="">Оберіть урок</option>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2, display: 'flex', gap: 2, alignItems: 'center' }}>
+            <FormControl sx={{ minWidth: 200 }} size="small">
+                <InputLabel id={`select-lesson-label-${courseId}`}>Оберіть урок</InputLabel>
+                <Select
+                    labelId={`select-lesson-label-${courseId}`}
+                    value={selectedLesson}
+                    label="Оберіть урок"
+                    onChange={(e) => setSelectedLesson(e.target.value)}
+                >
                     {lessonsList.map((lesson) => (
-                        <option key={lesson._id} value={lesson._id}>
+                        <MenuItem key={lesson._id} value={lesson._id}>
                             {lesson.title}
-                        </option>
+                        </MenuItem>
                     ))}
+                </Select>
+            </FormControl>
 
-                </select>
-                <button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Додаємо..." : "Додати урок"}
-                </button>
-            </form>
-        </div>
-    );
+            <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
+                {isSubmitting ? "Додаємо..." : "Додати урок"}
+            </Button>
+        </Box>
+    )
 }
 
-export default SelectLesson;
+export default SelectLesson

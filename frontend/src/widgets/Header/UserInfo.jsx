@@ -65,8 +65,9 @@ export function UserInfo() {
                     </Typography>
                     <Button
                         variant="outlined"
+
                         onClick={onLogout}
-                        sx={userInfoStyles.button}
+                        sx={{ bgcolor: 'blue' }}
                     >
                         Вийти
                     </Button>

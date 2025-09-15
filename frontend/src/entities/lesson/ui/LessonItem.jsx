@@ -1,33 +1,39 @@
-import { Fragment } from "react";
+import { Fragment } from "react"
+import { Card, CardContent, Typography, Stack } from "@mui/material"
 
 function LessonItem({ lesson, actions }) {
+    if (!lesson) return null
+
     return (
-        <div className="lesson-item bg-red-800 p-4 m-2 rounded text-white">
-            <h2 className="text-xl font-bold mb-2">{lesson.title}</h2>
+        <Card sx={{ mb: 2, bgcolor: "primary.main", color: "white" }}>
+            <CardContent>
+                <Typography variant="h6" fontWeight="bold" gutterBottom>
+                    {lesson.title}
+                </Typography>
 
-            <p><strong>ID:</strong> {lesson._id}</p>
-            <p><strong>Content:</strong> {lesson.content}</p>
-            <p><strong>Duration:</strong> {lesson.duration} хв</p>
-            <p><strong>Teacher ID:</strong> {lesson.teacher?.title}</p>
-            <p>
-                <strong>Created At:</strong>{" "}
-                {lesson.createdAt ? new Date(lesson.createdAt).toLocaleString("uk-UA") : ""}
-            </p>
+                <Typography variant="body2"><strong>ID:</strong> {lesson._id}</Typography>
+                <Typography variant="body2"><strong>Content:</strong> {lesson.content}</Typography>
+                <Typography variant="body2"><strong>Duration:</strong> {lesson.duration} хв</Typography>
+                <Typography variant="body2">
+                    <strong>Teacher:</strong> {lesson.teacher?.title || "-"}
+                </Typography>
+                <Typography variant="body2">
+                    <strong>Created At:</strong>{" "}
+                    {lesson.createdAt ? new Date(lesson.createdAt).toLocaleString("uk-UA") : "-"}
+                </Typography>
+                <Typography variant="body2">
+                    <strong>Updated At:</strong>{" "}
+                    {lesson.updatedAt ? new Date(lesson.updatedAt).toLocaleString("uk-UA") : "-"}
+                </Typography>
 
-            <p>
-                <strong>Updated At:</strong>{" "}
-                {lesson.updatedAt ? new Date(lesson.updatedAt).toLocaleString("uk-UA") : ""}
-            </p>
-
-            <div className="lesson-item__actions mt-3 flex gap-2">
-                {actions.map((action, index) => (
-                    <Fragment key={index}>
-                        {action}
-                    </Fragment>
-                ))}
-            </div>
-        </div>
-    );
+                <Stack direction="row" spacing={2} mt={2}>
+                    {actions.map((action, index) => (
+                        <Fragment key={index}>{action}</Fragment>
+                    ))}
+                </Stack>
+            </CardContent>
+        </Card>
+    )
 }
 
-export default LessonItem;
+export default LessonItem

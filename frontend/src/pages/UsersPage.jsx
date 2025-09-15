@@ -1,14 +1,18 @@
-import { UserList } from "@/widgets/userList/UserList";
+import { Container, Typography, Box } from '@mui/material'
+import { UserList } from '@/widgets/userList/UserList'
 
 function UsersPage() {
     return (
-        <div className="container">
-            <h1 className='main-title'>Users Page</h1>
-            <div>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Typography variant="h4" component="h1" sx={{ textAlign: 'center' }} gutterBottom>
+                Users Page
+            </Typography>
+
+            <Box sx={{ mt: 2 }}>
                 <UserList />
-            </div>
-        </div>
-    );
+            </Box>
+        </Container>
+    )
 }
 
-export default UsersPage;
+export default UsersPage

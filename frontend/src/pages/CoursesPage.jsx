@@ -1,11 +1,15 @@
-import { useGetLessonsQuery } from "@/entities/lesson/api/lessonApi";
-import CourseList from "@/widgets/course/CourseList";
+import { Container, Typography } from '@mui/material'
+import CourseList from '@/widgets/course/CourseList'
+
 function CoursesPage() {
     return (
-        <div className="container">
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4,  }}>
+            <Typography variant="h4" component="h1" gutterBottom>
+                Courses
+            </Typography>
             <CourseList />
-        </div>
-    );
+        </Container>
+    )
 }
 
-export default CoursesPage;
+export default CoursesPage
