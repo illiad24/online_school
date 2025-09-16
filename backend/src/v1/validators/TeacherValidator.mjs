@@ -46,11 +46,6 @@ export const teacherValidator = checkSchema({
             errorMessage: "Досвід має бути цілим числом та не менше 0",
         },
     },
-    courses: {
-        notEmpty: {
-            errorMessage: "Курси є обов'язковими",
-        },
-    },
     bio: {
         optional: true,
         isLength: {

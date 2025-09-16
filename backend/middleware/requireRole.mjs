@@ -18,9 +18,7 @@ export function requireAuth(req, res, next) {
 
 export function requireRoles(allowedRoles = []) {
     return (req, res, next) => {
-        console.log('User Role:', req.user.role.title ? req.user.role.title : 'No user')
         if (req.user && allowedRoles.includes(req.user.role.title)) {
-            console.log(11111111111111111)
             return next()
         }
         return res.sendStatus(403)

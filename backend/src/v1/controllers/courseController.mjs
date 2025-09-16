@@ -6,8 +6,6 @@ class CourseController {
     static async coursesList(req, res) {
         try {
             const dataList = await CourseDBService.getList()
-            console.log('dataList')
-            console.log(dataList)
             res.json(dataList)
         } catch (err) {
             res.status(500).json({ error: err.message })
@@ -31,16 +29,12 @@ class CourseController {
             const errors = validationResult(req.body);
 
             if (!errors.isEmpty()) {
-                console.log(errors)
                 return res.status(400).json({ error: errors.array() });
             }
             const { id } = req.params
             const courseData = req.body
             let result
             if (id) {
-                console.log(id)
-                console.log(courseData)
-                console.log(courseData.data)
                 result = await CourseDBService.update(id, courseData.data)
             } else {
                 result = await CourseDBService.create(courseData)
@@ -69,7 +63,7 @@ class CourseController {
             res.status(500).json({ error: err.message })
         }
     }
-    
+
 }
 
 export default CourseController

@@ -23,7 +23,6 @@ class UserController {
     static async updateUser(req, res) {
         try {
             const { id, role } = req.body;
-
             if (!id || !role) {
                 return res.status(400).json({ error: "Необхідно вказати id і role" });
             }
@@ -56,7 +55,7 @@ class UserController {
     static async deleteUser(req, res) {
         try {
             const { id } = req.params
-            const result = await UsersDBService.delete(id)
+            const result = await UsersDBService.deleteById(id)
             res.json(result)
         } catch (err) {
             res.status(500).json({ error: err.message })

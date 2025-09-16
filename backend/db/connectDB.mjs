@@ -7,7 +7,7 @@ mongoose.Promise = global.Promise
 export default async function () {
     try {
         await mongoose.connect(config.mongoURI, {
-            serverSelectionTimeoutMS: 20000, // 20 seconds
+            serverSelectionTimeoutMS: 20000,
             socketTimeoutMS: 45000,
         })
         console.log('Успішно підключено до MongoDB')
