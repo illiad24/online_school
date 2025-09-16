@@ -9,6 +9,7 @@ import { TextField, Box, Button, Typography, Alert, Stack } from '@mui/material'
 
 export function LoginForm({ title }) {
     const { login, isLoading, error } = useLogin()
+    console.log(error)
     const navigate = useNavigate()
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -46,7 +47,7 @@ export function LoginForm({ title }) {
                 variant="outlined"
                 fullWidth
                 {...register('email')}
-                error={!!errors.email}
+                error={!!errors.email || error?.data?.error[0]?.path == 'email'}
                 helperText={errors.email?.message}
             />
 
@@ -56,7 +57,7 @@ export function LoginForm({ title }) {
                 variant="outlined"
                 fullWidth
                 {...register('password')}
-                error={!!errors.password}
+                error={!!errors.password || error?.data?.error[0]?.path == 'password'}
                 helperText={errors.password?.message}
             />
 
@@ -71,18 +72,21 @@ export function LoginForm({ title }) {
             </Button>
 
             {/* Помилки з бекенду */}
-            {error?.data?.errors?.length > 0 && (
+            {Array.isArray(error?.data?.error) && error.data.error.length > 0 && (
                 <Stack spacing={1}>
-                    {error.data.errors.map((e, index) => (
+                    {error.data.error.map((e, index) => (
                         <Alert severity="error" key={index}>
                             {e.msg}
                         </Alert>
                     ))}
                 </Stack>
             )}
-
-            {error?.data?.error && (
-                <Alert severity="error">{error.data.error}</Alert>
+            {!Array.isArray(error?.data?.error) && error?.data?.error && (
+                <Stack spacing={1}>
+                    <Alert severity="error" >
+                        {error.data.error}
+                    </Alert>
+                </Stack>
             )}
         </Box>
     )

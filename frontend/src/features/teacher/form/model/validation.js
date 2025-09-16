@@ -32,9 +32,6 @@ export const teacherSchema = yup.object({
         .required('Вік обов’язковий')
         .min(18, 'Вік має бути від 18 років'),
 
-    courses: yup
-        .array()
-        .min(1, 'Виберіть хоча б один курс')
-        .required('Це поле є обов’язковим'),
+
 }).required();
 

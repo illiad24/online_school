@@ -9,6 +9,9 @@ import { TextField, Box, Button, Typography, Alert, Stack } from '@mui/material'
 
 export function SignUpForm({ title }) {
     const { signUp, isLoading, error } = useSignUp()
+    console.log('error');
+    console.log(error);
+
     const [refresh] = useRefreshMutation()
     const navigate = useNavigate()
 
@@ -49,7 +52,7 @@ export function SignUpForm({ title }) {
                 variant="outlined"
                 fullWidth
                 {...register('name')}
-                error={!!errors.name}
+                error={!!errors.name || error?.data?.error[0]?.path == 'name'}
                 helperText={errors.name?.message}
             />
 
@@ -58,7 +61,7 @@ export function SignUpForm({ title }) {
                 variant="outlined"
                 fullWidth
                 {...register('email')}
-                error={!!errors.email}
+                error={!!errors.email || error?.data?.error[0]?.path == 'email'}
                 helperText={errors.email?.message}
             />
 
@@ -68,7 +71,7 @@ export function SignUpForm({ title }) {
                 variant="outlined"
                 fullWidth
                 {...register('password')}
-                error={!!errors.password}
+                error={!!errors.password || error?.data?.error[0]?.path == 'password'}
                 helperText={errors.password?.message}
             />
 
@@ -83,18 +86,21 @@ export function SignUpForm({ title }) {
             </Button>
 
             {/* Помилки з бекенду */}
-            {error?.data?.errors?.length > 0 && (
+            {Array.isArray(error?.data?.error) && error.data.error.length > 0 && (
                 <Stack spacing={1}>
-                    {error.data.errors.map((e, index) => (
+                    {error.data.error.map((e, index) => (
                         <Alert severity="error" key={index}>
                             {e.msg}
                         </Alert>
                     ))}
                 </Stack>
             )}
-
-            {error?.data?.error && (
-                <Alert severity="error">{error.data.error}</Alert>
+            {!Array.isArray(error?.data?.error) && error?.data?.error && (
+                <Stack spacing={1}>
+                    <Alert severity="error" >
+                        {error.data.error}
+                    </Alert>
+                </Stack>
             )}
         </Box>
     )

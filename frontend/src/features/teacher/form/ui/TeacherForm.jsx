@@ -79,34 +79,35 @@ function TeacherForm({ onSubmit, register, errors, coursesList, teacher, error }
                 error={!!errors?.age}
                 helperText={errors?.age?.message}
             />
-
-            <FormControl fullWidth variant="outlined" error={!!errors?.courses}>
-                <InputLabel id="courses-label">Courses</InputLabel>
-                <Select
-                    labelId="courses-label"
-                    multiple
-                    defaultValue={teacher?.courses || []}
-                    label="Courses"
-                    {...register('courses')}
-                    renderValue={(selected) =>
-                        coursesList
-                            .filter((course) => selected.includes(course._id))
-                            .map((course) => course.title)
-                            .join(', ')
-                    }
-                >
-                    {coursesList?.map((course) => (
-                        <MenuItem key={course._id} value={course._id}>
-                            {course.title}
-                        </MenuItem>
-                    ))}
-                </Select>
-                {errors?.courses && (
-                    <Typography variant="caption" color="error">
-                        {errors.courses.message}
-                    </Typography>
-                )}
-            </FormControl>
+            {coursesList.length > 0 &&
+                <FormControl fullWidth variant="outlined" error={!!errors?.courses}>
+                    <InputLabel id="courses-label">Courses</InputLabel>
+                    <Select
+                        labelId="courses-label"
+                        multiple
+                        defaultValue={teacher?.courses || []}
+                        label="Courses"
+                        {...register('courses')}
+                        renderValue={(selected) =>
+                            coursesList
+                                .filter((course) => selected.includes(course._id))
+                                .map((course) => course.title)
+                                .join(', ')
+                        }
+                    >
+                        {coursesList?.map((course) => (
+                            <MenuItem key={course._id} value={course._id}>
+                                {course.title}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                    {errors?.courses && (
+                        <Typography variant="caption" color="error">
+                            {errors.courses.message}
+                        </Typography>
+                    )}
+                </FormControl>
+            }
 
             {error && (
                 <Alert severity="error">

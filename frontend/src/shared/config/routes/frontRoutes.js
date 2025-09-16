@@ -59,7 +59,7 @@ export const frontRoutes = {
             meta: {
                 title: 'Courses page',
                 isInMenu: true,
-                requireAuth: true,
+                requireAuth: false,
             },
             children: [
                 {

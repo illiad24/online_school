@@ -5,10 +5,13 @@ import TeacherForm from '@/features/teacher/form/ui/TeacherForm'
 
 function TeacherFormPage() {
     const { handleSubmit, register, errors, isLoading, isEditMode, teacher, generalError } = useTeacherForm()
-    const { data: coursesList } = useGetCoursesQuery()
+    const { data: coursesList, isLoading: coursesLoading } = useGetCoursesQuery()
     const mainTitle = isEditMode ? 'Редагувати вчителя' : 'Додати вчителя'
 
     if (isLoading) {
+        return <CircularProgress sx={{ display: 'block', mx: 'auto', mt: 4 }} />
+    }
+    if (coursesLoading) {
         return <CircularProgress sx={{ display: 'block', mx: 'auto', mt: 4 }} />
     }
 

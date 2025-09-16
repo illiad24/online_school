@@ -10,7 +10,7 @@ export const apiRoutes = {
         list: '/users',
         create: '/users/create',
         update: (id) => `/users/${id}`,
-        delete: (id) => `/users/${id}/delete`,
+        delete: (id) => `/users/${id}`,
     },
     teachers: {
         list: '/teachers',
