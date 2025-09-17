@@ -11,6 +11,7 @@ export const apiRoutes = {
         create: '/users/create',
         update: (id) => `/users/${id}`,
         delete: (id) => `/users/${id}`,
+        enroll: (id) => `/users/${id}/enroll`
     },
     teachers: {
         list: '/teachers',
@@ -26,6 +27,7 @@ export const apiRoutes = {
         delete: (id) => `/courses/${id}`,
         getById: (id) => `/courses/${id}`,
         addLesson: (courseId) => `/courses/${courseId}/add-lesson`,
+        enroll: (id) => `/courses/${id}/enroll`
     },
     lessons: {
         list: '/lessons',
@@ -33,6 +35,7 @@ export const apiRoutes = {
         update: (id) => `/lessons/${id}`,
         delete: (id) => `/lessons/${id}`,
         getById: (id) => `/lessons/${id}`,
+
     },
     roles: {
         list: '/roles'

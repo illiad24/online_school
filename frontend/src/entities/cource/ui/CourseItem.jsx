@@ -25,8 +25,8 @@ function CourseItem({ course, actions, isAddingLesson }) {
                     <Divider sx={{ mb: 1 }} />
                     {course?.lessons?.length > 0 ? (
                         <Stack spacing={1}>
-                            {course.lessons.map((lesson) => (
-                                <Typography key={lesson._id} variant="body2">
+                            {course.lessons.map((lesson, index) => (
+                                <Typography key={index} variant="body2">
                                     {lesson.title}
                                 </Typography>
                             ))}

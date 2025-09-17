@@ -25,15 +25,16 @@ export const authCheckLoader = ({ refreshMutex, meta }) => async () => {
     }
 
     state = store.getState()
+
     user = selectAuthUser(state)
 
     if (meta?.requireAuth) {
+        if (meta.roles?.length > 0 && !meta.roles.includes(user?.role?.title)) {
+            throw redirect("/forbidden")
+        }
         if (!user) {
             refreshTried = false
             throw redirect("/login")
-        }
-        if (meta.roles?.length > 0 && !meta.roles.includes(user.role)) {
-            throw redirect("/forbidden")
         }
     }
 

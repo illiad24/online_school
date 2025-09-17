@@ -1,6 +1,9 @@
 import { Children, Component } from 'react'
 import { roles } from '../roles'
 import LessonsFormPage from '@/pages/LessonsFormPage'
+import ProfileDetails from '@/features/profile/ProfileDetails'
+import ProfileCourses from '@/features/profile/ProfileCourses'
+
 export const frontRoutes = {
     pages: {
         HomePage: {
@@ -30,16 +33,16 @@ export const frontRoutes = {
         UsersPage: {
             path: 'users',
             meta: {
-                title: 'Users page',
+                title: 'Користувачі',
                 isInMenu: true,
                 requireAuth: true,
-                roles: [roles.admin, roles.manager],
+                roles: [roles.admin],
             },
         },
         TeachersPage: {
             path: 'teachers',
             meta: {
-                title: 'teachers page',
+                title: 'Вчителі',
                 isInMenu: true,
                 requireAuth: true,
                 roles: [roles.admin, roles.manager, roles.student],
@@ -57,7 +60,7 @@ export const frontRoutes = {
         CoursesPage: {
             path: 'courses',
             meta: {
-                title: 'Courses page',
+                title: 'Курси',
                 isInMenu: true,
                 requireAuth: false,
             },
@@ -77,7 +80,7 @@ export const frontRoutes = {
         CourseFormPage: {
             path: 'courses/form/:id?',
             meta: {
-                title: 'Course Form',
+                title: 'Курси',
                 isInMenu: false,
                 requireAuth: true,
                 roles: [roles.admin, roles.manager],
@@ -86,20 +89,49 @@ export const frontRoutes = {
         LessonsPage: {
             path: 'lessons',
             meta: {
-                title: 'Lesson Page',
+                title: 'Уроки',
                 isInMenu: true,
                 requireAuth: true,
                 roles: [roles.admin, roles.manager],
             },
         },
         LessonsFormPage: {
-            path: '/lessons/form/:id?',
+            path: '/lessons/form/:id',
             meta: {
-                title: 'Lesson Form',
+                title: 'Уроки',
                 isInMenu: false,
                 requireAuth: true,
                 roles: [roles.admin, roles.manager],
             },
+        },
+
+        Profile: {
+            path: '/profile/:id?',
+            meta: {
+                title: 'Профіль',
+                isInMenu: false,
+                requireAuth: true,
+            },
+            children: [
+                {
+                    index: true,
+                    Component: ProfileDetails,
+                    meta: {
+                        title: 'Settings',
+                        isInMenu: false,
+                        requireAuth: true,
+                    }
+                },
+                {
+                    path: 'courses',
+                    Component: ProfileCourses,
+                    meta: {
+                        title: 'Profile Courses',
+                        isInMenu: false,
+                        requireAuth: true,
+                    }
+                },
+            ]
         },
 
         NotFoundPage: {

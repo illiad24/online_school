@@ -8,18 +8,18 @@ import GlobalErrorPage from '@/pages/GlobalErrorPage'
 const refreshMutex = new Mutex()
 // Лоадер для перевірки автентифікації та ролей користувача
 const authLoader = authCheckLoader({
-    refreshMutex,
+    refreshMutex
 })
 
 export const router = createBrowserRouter([
     {
         path: '/',
         Component: MainLayout,
-        loader:  authLoader,
+        // loader: authLoader,
         // errorElement: <GlobalErrorPage />,
         children: appRouterRoutes.map((route) => ({
             ...route,
-            loader: () => authLoader(route),
+            loader: authCheckLoader({ refreshMutex, meta: route.meta }),
         })),
     },
 ])

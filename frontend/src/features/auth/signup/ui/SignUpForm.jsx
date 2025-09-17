@@ -21,7 +21,9 @@ export function SignUpForm({ title }) {
 
     const onSubmit = async (data) => {
         const result = await signUp(data)
-        if (result.user) {
+        console.log(result);
+
+        if (result?.user) {
             await refresh()
             navigate('/')
         }
@@ -52,7 +54,7 @@ export function SignUpForm({ title }) {
                 variant="outlined"
                 fullWidth
                 {...register('name')}
-                error={!!errors.name || error?.data?.error[0]?.path == 'name'}
+                error={!!errors.name || error?.data?.error?.[0]?.path == 'name'}
                 helperText={errors.name?.message}
             />
 
@@ -61,7 +63,7 @@ export function SignUpForm({ title }) {
                 variant="outlined"
                 fullWidth
                 {...register('email')}
-                error={!!errors.email || error?.data?.error[0]?.path == 'email'}
+                error={!!errors.email || error?.data?.error?.[0]?.path == 'email'}
                 helperText={errors.email?.message}
             />
 
@@ -71,7 +73,7 @@ export function SignUpForm({ title }) {
                 variant="outlined"
                 fullWidth
                 {...register('password')}
-                error={!!errors.password || error?.data?.error[0]?.path == 'password'}
+                error={!!errors.password || error?.data?.error?.[0]?.path == 'password'}
                 helperText={errors.password?.message}
             />
 

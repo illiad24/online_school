@@ -12,5 +12,25 @@ export const baseQuery = fetchBaseQuery({
 
 export const baseQueryWithReauth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
+
+    if (result?.error?.status === 401) {
+        // Access token закінчився, пробуємо оновити
+        const refreshResult = await baseQuery(
+            { url: '/auth/refresh', method: 'POST' },
+            api,
+            extraOptions
+        );
+
+        if (refreshResult.data) {
+            // Оновлюємо токен у state (уникаємо циклічного імпорту)
+            api.dispatch({ type: 'auth/setCredentials', payload: refreshResult.data });
+            // Повторюємо оригінальний запит з новим токеном
+            result = await baseQuery(args, api, extraOptions);
+        } else {
+            // Оновлення токена не вдалось — логаут
+            api.dispatch({ type: 'auth/logout' });
+            window.location.href = '/login'; // Перенаправлення
+        }
+    }
     return result;
 };

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router'
 import { useSelector } from 'react-redux'
 import { selectAuthUser } from '@/features/auth/api/authSlice'
 import { Box, Button, Typography, Link as MuiLink } from "@mui/material";
+import { navigateRoutes } from '@/shared/config/routes/navigateRoutes';
 export function UserInfo() {
     const user = useSelector(selectAuthUser)
     const navigate = useNavigate()
@@ -60,7 +61,7 @@ export function UserInfo() {
                 </>
             ) : (
                 <>
-                    <Typography variant="body1" sx={userInfoStyles.userName}>
+                    <Typography component={Link} to={navigateRoutes.navigate.profile.main(user.id)} variant="body1" sx={userInfoStyles.userName}>
                         {user.name} ({user.role.title})
                     </Typography>
                     <Button

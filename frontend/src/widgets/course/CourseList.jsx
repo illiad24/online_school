@@ -9,13 +9,17 @@ import AddButton from '@/shared/components/addButton/AddButton'
 import DeleteButton from '@/shared/components/deleteButton/DeleteButton'
 import EditButton from '@/shared/components/editButton/EditButton'
 import { navigateRoutes } from '@/shared/config/routes/navigateRoutes'
+import EnrollButton from '@/shared/components/enrollButton/EnrollButton'
+import { useEnrollButton } from '@/shared/components/enrollButton/useEnrollButton'
 
 function CourseList() {
     const user = useSelector(selectAuthUser)
     const userRole = user?.role?.title
 
+    const { enrollClick } = useEnrollButton()
     const isSuperAdmin = userRole === 'admin'
     const isAdmin = userRole === 'admin' || userRole === 'manager'
+    const isStudent = userRole === 'student'
 
     const { data: courses, isLoading } = useGetCoursesQuery()
     const [deleteCourse] = useDeleteCourseMutation()
@@ -78,6 +82,9 @@ function CourseList() {
                                             handleClick={navigateRoutes.navigate.courses.edit(course._id)}
                                         />
                                     ),
+                                    isStudent && (
+                                        <EnrollButton key={`enroll-${course._id}`} handleClick={() => enrollClick(course._id, user.id)} />
+                                    )
                                 ]}
                             />
                         </Card>

@@ -16,6 +16,10 @@ export const navigateRoutes = {
             list: '/lessons',
             edit: (id) => `form/${id}`,
             create: 'form',
+        },
+        profile: {
+            main: (id) => `/profile/${id}`,
+            courses: 'courses'
         }
     }
 }

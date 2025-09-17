@@ -21,5 +21,3 @@ function mapRoutes(pages) {
 }
 
 export const appRouterRoutes = mapRoutes(frontRoutes.pages)
-
-console.log(appRouterRoutes)
