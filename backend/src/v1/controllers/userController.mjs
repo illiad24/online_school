@@ -61,6 +61,17 @@ class UserController {
             res.status(500).json({ error: err.message })
         }
     }
+    static async enrollUser(req, res) {
+        try {
+            const { id } = req.params
+            const { courseId } = req.body
+            const result = await UsersDBService.enrollUser(id, courseId)
+            res.json(result)
+        } catch (err) {
+            res.status(500).json({ error: err.message })
+        }
+    }
+
 }
 
 export default UserController

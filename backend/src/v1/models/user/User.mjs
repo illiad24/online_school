@@ -37,6 +37,10 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Role',
     },
+    courses: {
+        type: [Schema.Types.ObjectId],
+        ref: 'Course'
+    }
 })
 
 // Хешування` паролю перед збереженням

@@ -47,8 +47,14 @@ class AuthController {
     }
 
     static async signup(req, res) {
+        console.log(1);
+
         const { name, email, password } = req.body
+        console.log({ name, email, password });
+
         const errors = validationResult(req);
+        console.log(errors);
+
         if (!errors.isEmpty()) {
             return res.status(400).json({ error: errors.array() });
         }
@@ -112,7 +118,7 @@ class AuthController {
             const accessToken = generateAccessToken(user)
             // 6. Відправляємо новий accessToken і дані користувача у відповідь
             res.json({
-                user: { id: user.id, name: user.name, email: user.email, role: user.role },
+                user: { id: user._id, name: user.name, email: user.email, role: user.role },
                 accessToken,
             })
         } catch {

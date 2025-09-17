@@ -63,7 +63,16 @@ class CourseController {
             res.status(500).json({ error: err.message })
         }
     }
-
+    static async addUserToCourse(req, res) {
+        try {
+            const { id } = req.params
+            const { userId } = req.body
+            const result = await CourseDBService.addUserToCourse(id, userId)
+            res.json(result)
+        } catch (err) {
+            res.status(500).json({ error: err.message })
+        }
+    }
 }
 
 export default CourseController

@@ -24,11 +24,8 @@ const auth = (app) => {
         // Перевірка, чи шлях потребує авторизації
         if (!openPathes.includes(req.path)) {
             try {
-                // Парсинг токена та додавання користувача до запиту
                 req.user = parseBearer(req.headers.authorization, req.headers)
-
             } catch (err) {
-                // Якщо авторизація не вдалася, повертається статус 401
                 return res.status(401).json({ result: 'Access Denied' })
             }
         }

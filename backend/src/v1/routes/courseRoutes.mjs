@@ -12,6 +12,7 @@ router.post('/create', requireAuth, requireRoles(['admin', 'manager']), courseVa
 router.put('/:id', requireAuth, requireRoles(['admin', 'manager']), courseValidator, CourseController.createUpdateCourse)
 router.post('/create', requireAuth, requireRoles(['admin', 'manager']), courseValidator, CourseController.createUpdateCourse)
 router.post('/:id/add-lesson', requireAuth, requireRoles(['admin', 'manager']), CourseController.addLessonToCourse)
+router.post('/:id/enroll', requireAuth, requireRoles(['admin', 'manager', 'student']), CourseController.addUserToCourse)
 router.delete('/:id', requireAuth, requireRoles(['admin']), CourseController.deleteById)
 
 export default router

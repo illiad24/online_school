@@ -22,7 +22,6 @@ const courseSchema = new Schema({
         ref: 'Teacher',
         required: [true, 'Teacher is required'],
     },
-
     lessons: [{
         type: Schema.Types.ObjectId,
         ref: 'Lesson',
@@ -31,7 +30,11 @@ const courseSchema = new Schema({
         type: Number,
         required: [true, 'Price is required'],
         min: [0, 'Price must be at least 0'],
-    }
+    },
+    users: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    }],
 });
 
 const Course = mongoose.model("Course", courseSchema);
