@@ -1,15 +1,11 @@
 import React from 'react'
 import { Card, CardContent, Typography, Box, Stack } from '@mui/material'
-import { useSelector } from 'react-redux'
-import { selectAuthUser } from '@/features/auth'
+import { useAuthRole } from '@/shared/hooks/useAuthRole'
 
 function TeacherItem({ teacher, actions }) {
     if (!teacher) return null
-    const user = useSelector(selectAuthUser)
-    const userRole = user?.role?.title
 
-    const isAdmin = userRole === 'admin' || userRole === 'manager'
-
+    const { user, isAdmin } = useAuthRole();
     return (
         <Card sx={{ display: 'flex', justifyContent: 'space-between', p: 2, mb: 2, boxShadow: 3 }}>
             <CardContent sx={{ flex: '1 1 auto' }}>

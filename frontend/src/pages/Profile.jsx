@@ -1,15 +1,14 @@
-import { selectAuthUser } from "@/features/auth";
 import { navigateRoutes } from "@/shared/config/routes/navigateRoutes";
+import { useAuthRole } from "@/shared/hooks/useAuthRole";
 import { Box, List, ListItemButton, Typography, Divider } from "@mui/material";
-import { useSelector } from "react-redux";
+
 import { Link, Outlet } from "react-router";
 
 function Profile() {
-    const user = useSelector(selectAuthUser);
+    const { user } = useAuthRole();
 
     return (
         <Box display="flex" minHeight="100vh" bgcolor="background.default">
-            {/* Ліва панель */}
             <Box
                 width={240}
                 bgcolor="background.paper"
@@ -38,7 +37,6 @@ function Profile() {
                 </List>
             </Box>
 
-            {/* Контент */}
             <Box flex={1} p={3}>
                 <Outlet />
             </Box>

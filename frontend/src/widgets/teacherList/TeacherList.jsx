@@ -1,19 +1,14 @@
 import { useGetTeachersQuery } from "@/entities/teacher/api/teacherApi";
 import TeacherItem from "@/entities/teacher/ui/TeacherItem";
-import { selectAuthUser } from "@/features/auth";
 import { useDeleteTeacherButton } from "@/features/teacher/deleteButton";
 import DeleteButton from "@/features/teacher/deleteButton/ui/DeleteTeacherButton";
 import AddButton from "@/shared/components/addButton/AddButton";
 import EditButton from "@/shared/components/editButton/EditButton";
 import { navigateRoutes } from "@/shared/config/routes/navigateRoutes";
-import { useSelector } from "react-redux";
+import { useAuthRole } from "@/shared/hooks/useAuthRole";
 
 function TeacherList() {
-    const user = useSelector(selectAuthUser)
-    const userRole = user?.role?.title;
-
-    const isSuperAdmin = userRole === 'admin';
-    const isAdmin = userRole === 'admin' || userRole === 'manager';
+    const { isAdmin, isSuperAdmin } = useAuthRole();
     const { data: teachers, isLoading, error } = useGetTeachersQuery();
     const { handleDelete } = useDeleteTeacherButton();
 

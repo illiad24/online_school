@@ -1,19 +1,16 @@
 import { useDeleteLessonMutation, useGetLessonsQuery } from "@/entities/lesson/api/lessonApi"
 import LessonItem from "@/entities/lesson/ui/LessonItem"
-import { selectAuthUser } from "@/features/auth"
 import AddButton from "@/shared/components/addButton/AddButton"
 import DeleteButton from "@/shared/components/deleteButton/DeleteButton"
 import EditButton from "@/shared/components/editButton/EditButton"
 import { navigateRoutes } from "@/shared/config/routes/navigateRoutes"
-import { useSelector } from "react-redux"
 import { Box, Typography, Stack, Divider, CircularProgress, Container } from "@mui/material"
+import { useAuthRole } from "@/shared/hooks/useAuthRole"
 
 function LessonsPage() {
-    const user = useSelector(selectAuthUser)
-    const userRole = user?.role?.title
+    const { isAdmin, isSuperAdmin } = useAuthRole();
 
-    const isSuperAdmin = userRole === 'admin'
-    const isAdmin = userRole === 'admin' || userRole === 'manager'
+
 
     const { data: lessonsList, isLoading, isError } = useGetLessonsQuery()
     const [deleteLesson] = useDeleteLessonMutation()

@@ -1,6 +1,3 @@
-import { Fragment } from 'react'
-import { useSelector } from 'react-redux'
-import { selectAuthUser } from '@/features/auth'
 import { useDeleteUserMutation, useGetUsersQuery, useUpdateUserMutation } from '@/entities/user/api/userApi'
 import { UserListItem } from '@/entities/user/ui/UserListItem'
 import ChangeRole from '@/features/user/changeRole/ui/ChangeRole'
@@ -8,11 +5,11 @@ import { useChangeRole } from '@/features/user/changeRole'
 import { getRolesArray } from '@/shared/config/roles'
 import { Box, Typography, CircularProgress, Stack, Alert } from '@mui/material'
 import DeleteButton from '@/shared/components/deleteButton/DeleteButton'
+import { useAuthRole } from '@/shared/hooks/useAuthRole'
 
 export function UserList() {
-    const user = useSelector(selectAuthUser)
-    const userRole = user?.role?.title
-    const isSuperAdmin = userRole === 'admin'
+    const { user, isSuperAdmin } = useAuthRole();
+
     const { data: usersList, isLoading, error } = useGetUsersQuery()
     const { changedRole } = useChangeRole()
     const [updateUser] = useUpdateUserMutation()
@@ -20,7 +17,6 @@ export function UserList() {
     const roles = getRolesArray()
 
     function handleDeleteUser(id) {
-        console.log(id)
         deleteUser(id)
     }
 

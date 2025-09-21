@@ -11,6 +11,7 @@ export const navigateRoutes = {
             edit: (id) => `form/${id}`,
             create: 'form',
             addLesson: (id) => `/courses/${id}/add-lesson`,
+            getCourseById: (id) => `/courses/${id}`,
         },
         lessons: {
             list: '/lessons',

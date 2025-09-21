@@ -1,27 +1,20 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 import { Box, Typography, Stack, CircularProgress, Card, CardContent } from '@mui/material'
 
 import { useDeleteCourseMutation, useGetCoursesQuery } from '@/entities/cource/api/courseApi'
 import CourseItem from '@/entities/cource/ui/CourseItem'
-import { selectAuthUser } from '@/features/auth'
 import AddButton from '@/shared/components/addButton/AddButton'
 import DeleteButton from '@/shared/components/deleteButton/DeleteButton'
 import EditButton from '@/shared/components/editButton/EditButton'
 import { navigateRoutes } from '@/shared/config/routes/navigateRoutes'
 import EnrollButton from '@/shared/components/enrollButton/EnrollButton'
 import { useEnrollButton } from '@/shared/components/enrollButton/useEnrollButton'
+import { useAuthRole } from '@/shared/hooks/useAuthRole'
 
 function CourseList() {
-    const user = useSelector(selectAuthUser)
-    const userRole = user?.role?.title
-
+    const { user, isAdmin, isSuperAdmin, isStudent } = useAuthRole();
+    const { data: courses, isLoading, refetch } = useGetCoursesQuery()
     const { enrollClick } = useEnrollButton()
-    const isSuperAdmin = userRole === 'admin'
-    const isAdmin = userRole === 'admin' || userRole === 'manager'
-    const isStudent = userRole === 'student'
-
-    const { data: courses, isLoading } = useGetCoursesQuery()
     const [deleteCourse] = useDeleteCourseMutation()
 
     const [openLessonFormFor, setOpenLessonFormFor] = useState(null)
@@ -82,8 +75,11 @@ function CourseList() {
                                             handleClick={navigateRoutes.navigate.courses.edit(course._id)}
                                         />
                                     ),
-                                    isStudent && (
-                                        <EnrollButton key={`enroll-${course._id}`} handleClick={() => enrollClick(course._id, user.id)} />
+                                    isStudent && !user?.courses?.some(c => c._id === course._id) && (
+                                        <EnrollButton
+                                            key={`enroll-${course._id}`}
+                                            handleClick={() => { enrollClick(course._id, user.id, user); refetch() }}
+                                        />
                                     )
                                 ]}
                             />

@@ -1,11 +1,10 @@
-import { useSelector } from 'react-redux'
-import { selectAuthUser } from '@/features/auth/api/authSlice'
 import { Link, NavLink } from 'react-router'
 import { getPagesObjectList } from '@/shared/config/routes/frontRoutes'
 import { List, ListItem, Button } from "@mui/material";
+import { useAuthRole } from '@/shared/hooks/useAuthRole';
 
 export function MainMenu() {
-    const user = useSelector(selectAuthUser)
+    const { user } = useAuthRole();
 
     const allowedRoutes = getPagesObjectList().filter(({ meta }) => {
         if (!meta.isInMenu) return false

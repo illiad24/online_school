@@ -1,12 +1,14 @@
 import React from 'react'
 import { Card, CardContent, Typography, Box, Stack, Divider } from '@mui/material'
 import LessonForm from '@/widgets/lesson/SelectLesson'
+import { Link } from 'react-router'
+import { navigateRoutes } from '@/shared/config/routes/navigateRoutes'
 
 function CourseItem({ course, actions, isAddingLesson }) {
     return (
         <Card sx={{ p: 2, mb: 3, boxShadow: 3 }}>
             <CardContent>
-                <Typography variant="h5" component="h2" gutterBottom>
+                <Typography variant="h5" component={Link} to={navigateRoutes.navigate.courses.getCourseById(course._id)} gutterBottom>
                     {course?.title}
                 </Typography>
 
@@ -17,27 +19,6 @@ function CourseItem({ course, actions, isAddingLesson }) {
                 <Typography variant="subtitle1" color="text.primary" gutterBottom>
                     Price: {course?.price}
                 </Typography>
-
-                <Box sx={{ mt: 2 }}>
-                    <Typography variant="subtitle1" gutterBottom>
-                        Уроки:
-                    </Typography>
-                    <Divider sx={{ mb: 1 }} />
-                    {course?.lessons?.length > 0 ? (
-                        <Stack spacing={1}>
-                            {course.lessons.map((lesson, index) => (
-                                <Typography key={index} variant="body2">
-                                    {lesson.title}
-                                </Typography>
-                            ))}
-                        </Stack>
-                    ) : (
-                        <Typography variant="body2" color="text.secondary">
-                            Уроки не додано.
-                        </Typography>
-                    )}
-                </Box>
-
                 {isAddingLesson && (
                     <Box sx={{ mt: 2 }}>
                         <LessonForm courseId={course._id} />

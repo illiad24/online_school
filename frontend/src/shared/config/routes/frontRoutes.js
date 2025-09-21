@@ -77,6 +77,14 @@ export const frontRoutes = {
                 }
             ]
         },
+        CourseDetails: {
+            path: 'courses/:id?',
+            meta: {
+                title: 'Курси',
+                isInMenu: false,
+                requireAuth: false,
+            }
+        },
         CourseFormPage: {
             path: 'courses/form/:id?',
             meta: {
@@ -96,7 +104,7 @@ export const frontRoutes = {
             },
         },
         LessonsFormPage: {
-            path: '/lessons/form/:id',
+            path: '/lessons/form/:id?',
             meta: {
                 title: 'Уроки',
                 isInMenu: false,

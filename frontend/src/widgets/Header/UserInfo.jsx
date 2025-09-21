@@ -1,12 +1,11 @@
 import { useLogout } from '@/features/auth'
 
 import { Link, useNavigate } from 'react-router'
-import { useSelector } from 'react-redux'
-import { selectAuthUser } from '@/features/auth/api/authSlice'
 import { Box, Button, Typography, Link as MuiLink } from "@mui/material";
 import { navigateRoutes } from '@/shared/config/routes/navigateRoutes';
+import { useAuthRole } from '@/shared/hooks/useAuthRole';
 export function UserInfo() {
-    const user = useSelector(selectAuthUser)
+    const { user } = useAuthRole();
     const navigate = useNavigate()
 
     const { logoutUser } = useLogout()
