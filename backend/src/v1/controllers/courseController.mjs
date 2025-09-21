@@ -65,12 +65,25 @@ class CourseController {
     }
     static async addUserToCourse(req, res) {
         try {
-            const { id } = req.params
-            const { userId } = req.body
-            const result = await CourseDBService.addUserToCourse(id, userId)
-            res.json(result)
+            const { id } = req.params;        // courseId
+            const { userId } = req.body;
+
+            const course = await CourseDBService.getById(id);
+
+            if (!course) {
+                return res.status(404).json({ message: "Курс не знайдено" });
+            }
+
+            if (course.users.includes(userId)) {
+                return res.status(400).json({ message: "Користувач вже є у цьому курсі" });
+            }
+
+            course.users.push(userId);
+            await course.save();
+
+            res.json({ message: "Користувача успішно додано до курсу", course });
         } catch (err) {
-            res.status(500).json({ error: err.message })
+            res.status(500).json({ error: err.message });
         }
     }
 }

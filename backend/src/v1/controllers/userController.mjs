@@ -63,12 +63,25 @@ class UserController {
     }
     static async enrollUser(req, res) {
         try {
-            const { id } = req.params
-            const { courseId } = req.body
-            const result = await UsersDBService.enrollUser(id, courseId)
-            res.json(result)
+            const { id } = req.params;        // userId
+            const { courseId } = req.body;
+
+            const user = await UsersDBService.getById(id);
+
+            if (!user) {
+                return res.status(404).json({ message: "Користувача не знайдено" });
+            }
+
+            if (user.courses.includes(courseId)) {
+                return res.status(400).json({ message: "Курс вже доданий для цього користувача" });
+            }
+
+            user.courses.push(courseId);
+            await user.save();
+
+            res.json({ message: "Курс успішно додано", user });
         } catch (err) {
-            res.status(500).json({ error: err.message })
+            res.status(500).json({ error: err.message });
         }
     }
 

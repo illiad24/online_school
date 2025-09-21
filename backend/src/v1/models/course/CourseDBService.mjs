@@ -12,6 +12,15 @@ class CourseDBService extends MongooseCRUDManager {
             return []
         }
     }
+    async getById(id) {
+        try {
+            const res = await super.getById(id, ['teacher', 'lessons', 'users'])
+            return res
+
+        } catch (error) {
+            throw new Error('Error finding data by id: ' + error.message)
+        }
+    }
     async addLessonToCourse(courseId, lessonId) {
         try {
             const course = await this.model.findById(courseId);
