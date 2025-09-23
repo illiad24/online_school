@@ -39,24 +39,7 @@ export const frontRoutes = {
                 roles: [roles.admin],
             },
         },
-        TeachersPage: {
-            path: 'teachers',
-            meta: {
-                title: 'Вчителі',
-                isInMenu: true,
-                requireAuth: true,
-                roles: [roles.admin, roles.manager, roles.student],
-            },
-        },
-        TeacherFormPage: {
-            path: 'teachers/form/:id?',
-            meta: {
-                title: 'Teacher Form',
-                isInMenu: false,
-                requireAuth: true,
-                roles: [roles.admin, roles.manager],
-            },
-        },
+
         CoursesPage: {
             path: 'courses',
             meta: {
@@ -84,6 +67,25 @@ export const frontRoutes = {
                 isInMenu: false,
                 requireAuth: false,
             }
+        },
+        TeachersPage: {
+            path: 'teachers',
+            meta: {
+                title: 'Вчителі',
+                isInMenu: true,
+                requireAuth: true,
+                roles: [roles.admin, roles.manager, roles.student],
+            },
+        },
+        TeacherFormPage: {
+            path: 'teachers/form/:id?',
+            meta: {
+                title: 'Teacher Form',
+                isInMenu: false,
+                requireAuth: true,
+                roles: [roles.admin, roles.manager],
+
+            },
         },
         CourseFormPage: {
             path: 'courses/form/:id?',

@@ -16,6 +16,7 @@ export function UserList() {
     const [deleteUser] = useDeleteUserMutation()
     const roles = getRolesArray()
 
+
     function handleDeleteUser(id) {
         deleteUser(id)
     }

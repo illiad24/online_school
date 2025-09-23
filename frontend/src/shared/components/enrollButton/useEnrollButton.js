@@ -7,17 +7,17 @@ export function useEnrollButton() {
     const [enrollCourse] = useEnrollCourseMutation()
 
     async function enrollClick(courseId, userId, user) {
-        console.log('user');
-        console.log(user);
         if (user?.courses?.some(course => course._id === courseId)) {
             return { success: false, message: "Ви вже записані на цей курс" };
         }
 
         try {
-            await addUserToCourse({ courseId, userId }).unwrap()
             await enrollCourse({ userId, courseId }).unwrap()
+            await addUserToCourse({ courseId, userId }).unwrap()
+            return { success: true, message: "Успішно записано на курс" }
         } catch (error) {
-            console.log(error);
+            const message = error?.data?.message || "Сталася помилка під час запису на курс"
+            return { success: false, message }
         }
     }
 
