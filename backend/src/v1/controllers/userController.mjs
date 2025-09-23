@@ -61,9 +61,10 @@ class UserController {
             res.status(500).json({ error: err.message })
         }
     }
+
     static async enrollUser(req, res) {
         try {
-            const { id } = req.params;        // userId
+            const { id } = req.params;
             const { courseId } = req.body;
 
             const user = await UsersDBService.getById(id);
