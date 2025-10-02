@@ -32,17 +32,24 @@ class MongooseCRUDManager {
     }
 
     // Пошук за id з використанням populateFields
-    async getById(id, populateFields = []) {
+    async getById(id, populateFields = [], projection = null) {
         try {
-            let query = this.model.findById(id)
+            let query = this.model.findById(id);
+
+            if (projection) {
+                query = query.select(projection);
+            }
+
             populateFields.forEach((field) => {
-                query = query.populate(field)
-            })
-            return await query.exec()
+                query = query.populate(field);
+            });
+
+            return await query.exec();
         } catch (error) {
-            throw new Error('Error finding data by id: ' + error.message)
+            throw new Error('Error finding data by id: ' + error.message);
         }
     }
+
 
     // Пошук одного за фільтром
     async findOne(filters = {}, projection = null, populateFields = []) {
@@ -73,7 +80,7 @@ class MongooseCRUDManager {
     async update(id, data) {
         try {
             return await this.model
-                .findByIdAndUpdate(id, data, { new: true, runValidators: false })
+                .findByIdAndUpdate(id, data, { new: true, runValidators: true })
                 .exec()
         } catch (error) {
             throw new Error('Error updating data: ' + error.message)

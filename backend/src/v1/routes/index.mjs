@@ -9,8 +9,6 @@ import lessonRoutes from './lessonRoutes.mjs'
 const router = express.Router()
 
 router.get('/', (req, res) => {
-    console.log(1111);
-
     res.send('Welcome to the API')
 })
 router.use('/users', userRoutes)

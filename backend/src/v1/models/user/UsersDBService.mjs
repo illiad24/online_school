@@ -10,6 +10,22 @@ class UsersDBService extends MongooseCRUDManager {
             return []
         }
     }
+    async getById(id) {
+        try {
+            const res = await super.getById(id, ['courses'], { password: 0, role: 0 },)
+            return res
+        } catch (error) {
+            return []
+        }
+    }
+    async getByIdFull(id) {
+        try {
+            const res = await super.getById(id, ['role', 'courses'])
+            return res
+        } catch (error) {
+            return []
+        }
+    }
     async enrollUser(userId, courseId) {
         try {
             const currentUser = await this.model.findById(userId);

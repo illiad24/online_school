@@ -4,6 +4,7 @@ import { generateAccessToken, generateRefreshToken } from '../../../utils/jwtHel
 import bcrypt from 'bcryptjs'
 import RolesDBService from '../models/role/RolesDBService.mjs';
 import { validationResult } from "express-validator";
+import { sendWelcomeEmail } from '../utils/mailService.mjs';
 class AuthController {
     static async login(req, res) {
         // 1. Отримуємо email і password з тіла запиту
@@ -21,7 +22,7 @@ class AuthController {
         if (!user) {
             return res.status(401).json({ error: 'Не коректні дані' })
         }
-        const userWithPassword = await UsersDBService.getById(user?._id)
+        const userWithPassword = await UsersDBService.getByIdFull(user?._id)
 
         const match = await bcrypt.compare(password, userWithPassword?.password)
         // 4. Якщо користувача не знайдено або пароль не співпадає — помилка
@@ -78,7 +79,12 @@ class AuthController {
                 name
             }
 
+
             const createdUser = await UsersDBService.create(newUser)
+
+            await sendWelcomeEmail(createdUser.email, createdUser.name)
+
+
             const accessToken = generateAccessToken(createdUser)
             const refreshToken = generateRefreshToken(createdUser)
 

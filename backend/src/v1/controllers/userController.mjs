@@ -1,5 +1,7 @@
 import UsersDBService from '../models/user/UsersDBService.mjs'
 import RolesDBService from '../models/role/RolesDBService.mjs'
+import bcrypt from 'bcryptjs'
+import { sendPasswordChangedEmail } from '../utils/mailService.mjs'
 
 class UserController {
     static async usersList(req, res) {
@@ -11,20 +13,27 @@ class UserController {
         }
     }
     static async getUserById(req, res) {
+        const { id } = req.params
+
         try {
-            const { id } = req.params
-            if (id) {
-                UsersDBService.getById(id)
+            const data = await UsersDBService.getById(id)
+            if (!data) {
+                return res.status(404).json({ error: 'User not found' })
             }
+            res.json(data)
         } catch (err) {
             res.status(500).json({ error: err.message })
         }
     }
+
     static async updateUser(req, res) {
         try {
-            const { id, role } = req.body;
-            if (!id || !role) {
-                return res.status(400).json({ error: "Необхідно вказати id і role" });
+            const { id } = req.params;
+            const { name, email, age, number } = req.body;
+            const file = req.file;
+
+            if (!id) {
+                return res.status(400).json({ error: "Необхідно вказати id" });
             }
 
             const user = await UsersDBService.getById(id);
@@ -32,20 +41,14 @@ class UserController {
                 return res.status(404).json({ error: "Користувача не знайдено" });
             }
 
-            const roles = await RolesDBService.getList();
-            const newRole = roles.find(r => r.title === role);
-
-            if (!newRole) {
-                return res.status(400).json({ error: "Такої ролі не існує" });
+            const updatedUser = { ...user.toObject?.(), name, email, age, number };
+            if (file) {
+                updatedUser.userImage = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
             }
-            user.role = newRole._id;
-            // Створюємо новий об'єкт користувача з новою роллю
 
-            // Оновлюємо користувача в базі
-            await UsersDBService.update(id, user);
+            const result = await UsersDBService.update(id, updatedUser);
 
-            // Відправляємо користувача із новою роллю
-            res.json(user);
+            res.json(result);
 
         } catch (err) {
             res.status(500).json({ error: err.message });
@@ -53,6 +56,22 @@ class UserController {
     }
 
     static async deleteUser(req, res) {
+        try {
+            const { id } = req.params
+            console.log(id);
+
+            const result = await UsersDBService.deleteById(id)
+            try {
+                await sendAccountDeletedEmail(user.email, user.name || "Користувач");
+            } catch (mailErr) {
+                console.error("Помилка надсилання email про видалення акаунту:", mailErr);
+            }
+            res.json(result)
+        } catch (err) {
+            res.status(500).json({ error: err.message })
+        }
+    }
+    static async deleteUserByAdmin(req, res) {
         try {
             const { id } = req.params
             const result = await UsersDBService.deleteById(id)
@@ -85,6 +104,38 @@ class UserController {
             res.status(500).json({ error: err.message });
         }
     }
+
+
+    static async changePassword(req, res) {
+        try {
+            const { id } = req.params;
+            const { oldPassword, newPassword } = req.body;
+
+            if (!oldPassword || !newPassword) {
+                return res.status(400).json({ message: "Обидва паролі обов’язкові" });
+            }
+
+            const user = await UsersDBService.getByIdFull(id);
+            if (!user) return res.status(404).json({ message: 'Користувач не знайдений' });
+
+            const isMatch = await bcrypt.compare(oldPassword, user.password);
+            if (!isMatch) return res.status(400).json({ message: 'Старий пароль некоректний' });
+            user.password = newPassword;
+            await user.save();
+
+            try {
+                await sendPasswordChangedEmail(user.email, user.name || "Користувач");
+            } catch (mailErr) {
+                console.error("Помилка надсилання email про зміну паролю:", mailErr);
+            }
+
+            return res.json({ message: 'Пароль успішно змінено' });
+        } catch (err) {
+            console.error("Error in changePassword:", err);
+            return res.status(500).json({ message: 'Сталася помилка на сервері' });
+        }
+    }
+
 
 }
 
