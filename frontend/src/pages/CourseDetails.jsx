@@ -21,7 +21,7 @@ function CourseDetails() {
 
     const { id } = useParams();
     const { data: course, isLoading, error } = useGetCourseByIdQuery(id);
-    console.log(course);
+
 
     if (isLoading) return <Typography>Завантаження...</Typography>;
     if (error) return <Typography color="error">Сталася помилка при завантаженні курсу</Typography>;

@@ -34,7 +34,7 @@ export const authCheckLoader = ({ refreshMutex, meta }) => async () => {
         }
         if (!user) {
             refreshTried = false
-            throw redirect("/login")
+            throw redirect("/")
         }
     }
 

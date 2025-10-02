@@ -8,7 +8,8 @@ const schema = yup.object({
 
     password: yup
         .string()
-        .required('Пароль обов’язковий')
+        .required('Пароль обов’язковий'),
+
 });
 
 export default schema;

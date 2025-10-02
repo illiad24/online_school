@@ -10,12 +10,25 @@ export const userApi = baseApi.injectEndpoints({
             }),
             providesTags: ['User'],
         }),
+        getUserById: build.query({
+            query: (id) => ({
+                url: apiRoutes.users.getById(id),
+            }),
+            providesTags: ['User'],
+        }),
 
         updateUser: build.mutation({
-            query: ({ id, role }) => ({
+            query: ({ id, data }) => ({
                 url: apiRoutes.users.update(id),
                 method: 'PUT',
-                body: { id, role },
+                body: data,
+            }),
+            invalidatesTags: ['User'],
+        }),
+        deleteUserByAdmin: build.mutation({
+            query: (id) => ({
+                url: apiRoutes.users.deleteByAdmin(id),
+                method: 'DELETE'
             }),
             invalidatesTags: ['User'],
         }),
@@ -34,6 +47,13 @@ export const userApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['Course', 'User'],
         }),
+        changePassword: build.mutation({
+            query: ({ id, data }) => ({
+                url: apiRoutes.users.changePassword(id),
+                method: 'POST',
+                body: data,
+            })
+        })
     }),
 })
-export const { useGetUsersQuery, useUpdateUserMutation, useDeleteUserMutation, useEnrollCourseMutation } = userApi
+export const { useGetUsersQuery, useGetUserByIdQuery, useUpdateUserMutation, useDeleteUserMutation, useDeleteUserByAdminMutation, useEnrollCourseMutation, useChangePasswordMutation } = userApi

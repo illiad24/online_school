@@ -9,7 +9,6 @@ import { TextField, Box, Button, Typography, Alert, Stack } from '@mui/material'
 
 export function LoginForm({ title }) {
     const { login, isLoading, error } = useLogin()
-    console.log(error)
     const navigate = useNavigate()
 
     const { register, handleSubmit, formState: { errors } } = useForm({

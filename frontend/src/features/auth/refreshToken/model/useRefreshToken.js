@@ -1,5 +1,3 @@
-// import { useRefreshMutation } from '../../model/authApi'
-
 import { useDispatch } from 'react-redux'
 import { tokenRefreshed, logout } from '../../api/authSlice'
 import { useRefreshMutation } from '../../api/authApi'

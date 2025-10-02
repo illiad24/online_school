@@ -29,7 +29,7 @@ export const baseQueryWithReauth = async (args, api, extraOptions) => {
         } else {
             // Оновлення токена не вдалось — логаут
             api.dispatch({ type: 'auth/logout' });
-            window.location.href = '/login'; // Перенаправлення
+            // window.location.href = '/login'; // Перенаправлення
         }
     }
     return result;

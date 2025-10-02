@@ -9,8 +9,6 @@ import { TextField, Box, Button, Typography, Alert, Stack } from '@mui/material'
 
 export function SignUpForm({ title }) {
     const { signUp, isLoading, error } = useSignUp()
-    console.log('error');
-    console.log(error);
 
     const [refresh] = useRefreshMutation()
     const navigate = useNavigate()
@@ -21,7 +19,6 @@ export function SignUpForm({ title }) {
 
     const onSubmit = async (data) => {
         const result = await signUp(data)
-        console.log(result);
 
         if (result?.user) {
             await refresh()

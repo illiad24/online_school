@@ -9,9 +9,12 @@ export const apiRoutes = {
     users: {
         list: '/users',
         create: '/users/create',
+        changePassword: (id) => `/users/${id}/password`,
         update: (id) => `/users/${id}`,
-        delete: (id) => `/users/${id}`,
-        enroll: (id) => `/users/${id}/enroll`
+        deleteByAdmin: (id) => `/users/${id}`,
+        delete: (id) => `/users/${id}/user`,
+        enroll: (id) => `/users/${id}/enroll`,
+        getById: (id) => `/users/${id}`,
     },
     teachers: {
         list: '/teachers',
