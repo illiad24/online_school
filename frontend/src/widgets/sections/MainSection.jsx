@@ -1,71 +1,78 @@
-import { Box, Grid, Typography, Button } from '@mui/material';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import Image from '@mui/icons-material/Image'; // Можеш замінити на своє зображення
+import { Box, Grid, Typography, Button } from "@mui/material";
 
 function MainSection() {
     return (
-        <Box component="section" className="page__main main" sx={{ py: 8 }}>
-            <Box className="main__container" sx={{ maxWidth: 1200, mx: 'auto', px: 2 }}>
-                <Grid container alignItems="center" spacing={4} className="main__body">
-                    {/* LEFT Content */}
-                    <Grid item xs={12} md={6} className="main__content content-main">
-                        <Box className="content-main__play play-main" display="flex" alignItems="center" mb={2}>
-                            <Box className="play-main__item" sx={{ mr: 1 }}>
-                                <PlayArrowIcon sx={{ fontSize: 40 }} />
-                            </Box>
-                            <Typography className="play-main__text" variant="subtitle1">Play showreel</Typography>
-                        </Box>
+        <Box
+            component="section"
+            sx={{ display: 'flex', alignItems: 'center', }}
+        >
+            <Box sx={{ flex: "0 0 55%", marginRight: '2rem' }}>
+                <Typography
+                    variant="h2"
+                    component="h1"
+                    sx={{
+                        fontWeight: 700,
+                        fontSize: { xs: "2rem", md: "3rem", },
+                        mb: 3,
 
-                        <Typography variant="h3" className="content-main__title title title--bg" gutterBottom>
-                            Enjoy studying with Createx Online Courses
-                        </Typography>
+                    }}
+                >
+                    Онлайн школа <Typography component="span" color="primary" fontSize={'56px '} fontWeight={700}>VT</Typography>
+                </Typography>
 
-                        <Box className="content-main__actions" mt={3}>
-                            <Button
-                                href="about.html"
-                                variant="outlined"
-                                color="primary"
-                                sx={{ mr: 2 }}
-                            >
-                                About us
-                            </Button>
-                            <Button
-                                href="courses.html"
-                                variant="contained"
-                                color="primary"
-                            >
-                                Explore courses
-                            </Button>
-                        </Box>
-                    </Grid>
+                <Typography
+                    variant="body1"
+                    sx={{
+                        fontSize: "1.125rem",
+                        color: "text.secondary",
+                        lineHeight: 1.6,
+                        mb: 4,
+                    }}
+                >
+                    Сучасна освіта, що відкриває нові можливості.
+                    Наші курси допоможуть вам отримати актуальні знання
+                    та впевнено рухатися до своєї мети.
+                </Typography>
 
-                    {/* RIGHT Image */}
-                    <Grid item xs={12} md={6} className="main__image-ibg">
-                        <Box component="img" src="/images/main/image.svg" alt="image" width="100%" />
-                    </Grid>
-                </Grid>
+                <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                    <Button
+                        variant="outlined"
+                        size="large"
+                        sx={{
+                            borderWidth: 2,
+                            textTransform: "none",
+                            fontWeight: 600,
+                            px: 3,
+                            "&:hover": { borderWidth: 2 },
+                        }}
+                    >
+                        Про нас
+                    </Button>
 
-                {/* Bottom Stats */}
-                <Grid container spacing={4} mt={6} className="main__bottom bottom-main">
-                    {[
-                        { value: 1200, label: 'Students graduated' },
-                        { value: 84, label: 'Completed courses' },
-                        { value: 16, label: 'Qualified tutors' },
-                        { value: 5, label: 'Years of experience' },
-                    ].map((item, index) => (
-                        <Grid item xs={6} md={3} key={index} className="bottom-main__item" textAlign="center">
-                            <Typography variant="h4" className="bottom-main__conter" fontWeight={600}>
-                                {item.value}
-                            </Typography>
-                            <Typography className="bottom-main__info" color="text.secondary">
-                                {item.label}
-                            </Typography>
-                        </Grid>
-                    ))}
-                </Grid>
+                    <Button
+                        variant="contained"
+                        size="large"
+                        sx={{
+                            textTransform: "none",
+                            fontWeight: 600,
+                            px: 3,
+                        }}
+                    >
+                        Записатися на курс
+                    </Button>
+                </Box>
+            </Box>
+
+            <Box sx={{ flex: "0 0 45%" }}>
+                <Box
+                    component="img"
+                    src="../../../public/image.svg"
+                    alt="Онлайн школа VT"
+                    sx={{ width: "100%", maxWidth: 500, mx: "auto", display: "block" }}
+                />
             </Box>
         </Box>
     );
-};
+}
 
 export default MainSection;

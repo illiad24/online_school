@@ -4,11 +4,10 @@ import { blue, deepOrange } from "@mui/material/colors";
 export const theme = createTheme({
     palette: {
         mode: "light",
-        // Light blue palette with full scale and action tokens
         primary: {
-            light: blue[300],
+            light: '#ff3f3a',
             main: blue[500],
-            dark: blue[700],
+            dark: ' #1e212c',
             contrastText: "#ffffff",
         },
         secondary: {

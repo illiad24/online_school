@@ -36,7 +36,7 @@ function ProfileDelete({ userEmail }) {
     }
 
     return (
-        <Card sx={{ mx: "auto", mt: 5, p: 3, borderRadius: 3, boxShadow: 3, bgcolor: "#fafafa" }}>
+        <Card >
             <Button variant="contained" color="error" onClick={handleOpen}>
                 Видалити акаунт
             </Button>

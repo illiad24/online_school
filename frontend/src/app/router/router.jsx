@@ -15,7 +15,7 @@ export const router = createBrowserRouter([
     {
         path: '/',
         Component: MainLayout,
-        errorElement: <GlobalErrorPage />,
+        // errorElement: <GlobalErrorPage />,
         children: appRouterRoutes.map((route) => ({
             ...route,
             loader: authCheckLoader({ refreshMutex, meta: route.meta }),

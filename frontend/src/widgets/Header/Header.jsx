@@ -1,5 +1,4 @@
 
-import { Link } from "react-router";
 import { UserInfo } from "./UserInfo";
 import { MainMenu } from "./MainMenu";
 import { AppBar, Container, Toolbar, Box, Typography } from "@mui/material";
@@ -12,10 +11,10 @@ export default function Header() {
             enableColorOnDark
             sx={{
                 boxShadow: 0,
+                width: '100%',
                 bgcolor: 'transparent',
                 backgroundImage: 'none',
                 borderRadius: '16px',
-                // background: 'rgba(255, 255, 255, 0.4)',
                 background: 'hsl(210, 100%, 80%)',
                 mt: 'calc(var(--template-frame-height, 0px) + 28px)',
                 maxWidth: 'lg',
