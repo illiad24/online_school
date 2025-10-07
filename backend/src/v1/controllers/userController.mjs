@@ -61,11 +61,11 @@ class UserController {
             console.log(id);
 
             const result = await UsersDBService.deleteById(id)
-            try {
-                await sendAccountDeletedEmail(user.email, user.name || "Користувач");
-            } catch (mailErr) {
-                console.error("Помилка надсилання email про видалення акаунту:", mailErr);
-            }
+            // try {
+            //     await sendAccountDeletedEmail(user.email, user.name || "Користувач");
+            // } catch (mailErr) {
+            //     console.error("Помилка надсилання email про видалення акаунту:", mailErr);
+            // }
             res.json(result)
         } catch (err) {
             res.status(500).json({ error: err.message })
@@ -123,11 +123,11 @@ class UserController {
             user.password = newPassword;
             await user.save();
 
-            try {
-                await sendPasswordChangedEmail(user.email, user.name || "Користувач");
-            } catch (mailErr) {
-                console.error("Помилка надсилання email про зміну паролю:", mailErr);
-            }
+            // try {
+            //     await sendPasswordChangedEmail(user.email, user.name || "Користувач");
+            // } catch (mailErr) {
+            //     console.error("Помилка надсилання email про зміну паролю:", mailErr);
+            // }
 
             return res.json({ message: 'Пароль успішно змінено' });
         } catch (err) {

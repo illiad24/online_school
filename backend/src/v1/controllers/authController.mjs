@@ -82,8 +82,7 @@ class AuthController {
 
             const createdUser = await UsersDBService.create(newUser)
 
-            await sendWelcomeEmail(createdUser.email, createdUser.name)
-
+            // await sendWelcomeEmail(createdUser.email, createdUser.name)
 
             const accessToken = generateAccessToken(createdUser)
             const refreshToken = generateRefreshToken(createdUser)
