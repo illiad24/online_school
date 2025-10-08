@@ -20,7 +20,7 @@ function WhySection() {
                         letterSpacing: 1,
                     }}
                 >
-                    Who we are
+                    Хто ми
                 </Typography>
 
                 <Typography
@@ -32,7 +32,7 @@ function WhySection() {
                         mb: 3,
                     }}
                 >
-                    Why Createx?
+                    Чому саме VT?
                 </Typography>
 
                 <Typography
@@ -43,12 +43,12 @@ function WhySection() {
                         mb: 3,
                     }}
                 >
-                    A fermentum in morbi pretium aliquam adipiscing donec tempus.
-                    Vulputate placerat amet pulvinar lorem nisl. Consequat feugiat
-                    habitant gravida quisque elit bibendum id adipiscing sed. Etiam
-                    duis lobortis in fames ultrices commodo nibh. Tincidunt sagittis
-                    neque sem ac eget. Ultricies amet justo et eget quisque purus
-                    vulputate dapibus tortor.
+                    Ми — сучасна онлайн-школа, яка допомагає учням розвивати свої знання
+                    та досягати високих результатів. Наші викладачі — практикуючі фахівці,
+                    які щиро люблять навчати та підтримують кожного учня на шляху до успіху.
+                    <br /><br />
+                    Ми поєднуємо інноваційні технології навчання з людяністю,
+                    увагою та мотивацією, щоб зробити освітній процес цікавим і доступним для всіх.
                 </Typography>
 
                 <Button
@@ -61,11 +61,12 @@ function WhySection() {
                         py: 1.5,
                     }}
                 >
-                    More about us
+                    Дізнатися більше про нас
                 </Button>
             </Box>
         </Box>
     );
 }
+
 
 export default WhySection;
