@@ -66,7 +66,7 @@ function ContactSection() {
                         fontWeight: 600,
                         textTransform: "none",
                         borderRadius: "8px",
-                        background: "linear-gradient(90deg, #1976D2 0%, #0D47A1 100%)", // синій градієнт
+                        background: "linear-gradient(90deg, #1976D2 0%, #0D47A1 100%)",
                         "&:hover": {
                             background: "linear-gradient(90deg, #0D47A1 0%, #1976D2 100%)",
                         },

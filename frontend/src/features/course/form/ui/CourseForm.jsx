@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import {
     Box,
     TextField,
@@ -9,13 +9,31 @@ import {
     Select,
     MenuItem,
     Alert,
+    Avatar,
 } from '@mui/material'
 
 function CourseForm({ onSubmit, register, errors, teachersList, lessonsList, course, error }) {
+
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
+    const fileInputRef = useRef(null);
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSelectedImage(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
     return (
         <Box
             component="form"
             onSubmit={onSubmit}
+            encType="multipart/form-data"
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -51,6 +69,28 @@ function CourseForm({ onSubmit, register, errors, teachersList, lessonsList, cou
                 error={!!errors?.description}
                 helperText={errors?.description?.message}
             />
+            {/* Avatar Section */}
+            <Box textAlign="center">
+                <Avatar
+                    src={imagePreview || ""}
+                    sx={{ width: 100, height: 100, mb: 2, boxShadow: 2 }}
+                />
+                <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    style={{ display: "none" }}
+                />
+                <Button
+                    variant="contained"
+                    color="success"
+                    onClick={() => fileInputRef.current?.click()}
+                    sx={{ mt: 1, textTransform: "none", fontWeight: 500 }}
+                >
+                    Upload New Picture
+                </Button>
+            </Box>
 
             <FormControl fullWidth variant="outlined" error={!!errors?.teacher}>
                 <InputLabel id="teacher-label">Вчитель</InputLabel>
