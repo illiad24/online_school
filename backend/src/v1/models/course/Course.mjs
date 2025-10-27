@@ -35,6 +35,12 @@ const courseSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     }],
+    category: {
+        // Додати колекцію категорій
+    },
+    courseImage: {
+        type: String,
+    }
 });
 
 const Course = mongoose.model("Course", courseSchema);

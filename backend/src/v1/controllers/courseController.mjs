@@ -33,6 +33,8 @@ class CourseController {
             }
             const { id } = req.params
             const courseData = req.body
+
+
             let result
             if (id) {
                 result = await CourseDBService.update(id, courseData.data)
