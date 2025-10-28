@@ -25,25 +25,32 @@ class CourseController {
     }
 
     static async createUpdateCourse(req, res) {
+        console.log(1111111111);
+
         try {
-            const errors = validationResult(req.body);
+            const { id } = req.params;
+            const file = req.file;
+            const courseData = req.body; // тут всі текстові поля
 
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ error: errors.array() });
+            // якщо файл переданий — конвертуємо у base64
+            if (file) {
+                courseData.courseImage = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
             }
-            const { id } = req.params
-            const courseData = req.body
 
+            // розпарсити масиви, які прийшли як JSON рядки
+            if (courseData.lessons) courseData.lessons = JSON.parse(courseData.lessons);
+            if (courseData.users) courseData.users = JSON.parse(courseData.users);
 
-            let result
+            let result;
             if (id) {
-                result = await CourseDBService.update(id, courseData.data)
+                result = await CourseDBService.update(id, courseData);
             } else {
-                result = await CourseDBService.create(courseData)
+                result = await CourseDBService.create(courseData);
             }
-            res.json(result)
+
+            res.json(result);
         } catch (err) {
-            res.status(500).json({ error: err.message })
+            res.status(500).json({ error: err.message });
         }
     }
     static async deleteById(req, res) {
