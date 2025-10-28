@@ -38,7 +38,7 @@ const courseSchema = new Schema({
     category: {
         // Додати колекцію категорій
     },
-    courseImage: {
+    image: {
         type: String,
     }
 });

@@ -44,6 +44,9 @@ const teacherSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Course',
     }],
+    image: {
+        type: String,
+    }
 });
 
 // Створення моделі вчителя

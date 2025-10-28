@@ -8,10 +8,10 @@ const router = express.Router()
 router.get('/', CourseController.coursesList)
 router.get('/:id', CourseController.coursesById)
 
-router.put('/:id', requireAuth, upload.single('courseImage'), requireRoles(['admin', 'manager']), courseValidator, CourseController.createUpdateCourse)
-router.post('/create', requireAuth, upload.single('courseImage'), requireRoles(['admin', 'manager']), courseValidator, CourseController.createUpdateCourse)
+router.put('/:id', requireAuth, upload.single('image'), requireRoles(['admin', 'manager']), courseValidator, CourseController.createUpdateCourse)
+router.post('/create', requireAuth, upload.single('image'), requireRoles(['admin', 'manager']), courseValidator, CourseController.createUpdateCourse)
 router.post('/:id/add-lesson', requireAuth, requireRoles(['admin', 'manager']), CourseController.addLessonToCourse)
 router.post('/:id/enroll', requireAuth, requireRoles(['admin', 'manager', 'student']), CourseController.addUserToCourse)
 router.delete('/:id', requireAuth, requireRoles(['admin']), CourseController.deleteById)
 
-export default router
+export default router 

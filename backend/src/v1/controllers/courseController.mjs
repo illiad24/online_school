@@ -25,7 +25,6 @@ class CourseController {
     }
 
     static async createUpdateCourse(req, res) {
-        console.log(1111111111);
 
         try {
             const { id } = req.params;
@@ -34,7 +33,7 @@ class CourseController {
 
             // якщо файл переданий — конвертуємо у base64
             if (file) {
-                courseData.courseImage = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
+                courseData.image = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
             }
 
             // розпарсити масиви, які прийшли як JSON рядки
