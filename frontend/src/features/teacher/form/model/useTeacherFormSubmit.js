@@ -1,4 +1,3 @@
-// src/features/teacher/form/model/useTeacherFormSubmit.js
 import { useForm } from "react-hook-form";
 import { teacherSchema } from "./validation";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,6 +16,8 @@ export function useTeacherForm() {
     const [addTeacher, { isLoading: isCreating }] = useAddTeacherMutation();
 
     const [generalError, setGeneralError] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
+
 
     const methods = useForm({
         resolver: yupResolver(teacherSchema),
@@ -44,11 +45,25 @@ export function useTeacherForm() {
 
     const onSubmitHandler = async (data) => {
         setGeneralError(null);
+        const formData = new FormData();
+
+        Object.entries(data).forEach(([key, value]) => {
+            if (Array.isArray(value) || typeof value === 'object') {
+                formData.append(key, JSON.stringify(value));
+            } else {
+                formData.append(key, value);
+            }
+        });
+
+        if (selectedImage) {
+            formData.append("image", selectedImage);
+        }
+
         try {
             if (isEditMode) {
-                await updateTeacher({ id, data }).unwrap();
+                await updateTeacher({ id, formData }).unwrap();
             } else {
-                await addTeacher(data).unwrap();
+                await addTeacher(formData).unwrap();
             }
             navigate('/teachers');
         } catch (error) {
@@ -64,6 +79,8 @@ export function useTeacherForm() {
         isLoading: isLoading || isUpdating || isCreating,
         isEditMode,
         teacher,
-        isError
+        isError,
+        selectedImage,
+        setSelectedImage
     };
 }

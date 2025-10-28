@@ -1,6 +1,27 @@
-import { TextField, Button, Box, Typography, MenuItem, Select, InputLabel, FormControl, Alert, Stack } from '@mui/material'
+import { TextField, Button, Box, Typography, MenuItem, Select, InputLabel, FormControl, Alert, Stack, Avatar } from '@mui/material'
+import { useRef, useState } from 'react';
 
-function TeacherForm({ onSubmit, register, errors, coursesList, teacher, error }) {
+function TeacherForm({ onSubmit, register, errors, coursesList, teacher, error, selectedImage, setSelectedImage }) {
+
+    const [imagePreview, setImagePreview] = useState(null);
+
+    console.log(selectedImage);
+
+    const fileInputRef = useRef(null);
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        console.log(file);
+
+        if (file) {
+            setSelectedImage(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
     return (
         <Box
             component="form"
@@ -69,6 +90,28 @@ function TeacherForm({ onSubmit, register, errors, coursesList, teacher, error }
                 error={!!errors?.experience}
                 helperText={errors?.experience?.message}
             />
+            {/* Avatar Section */}
+            <Box textAlign="center">
+                <Avatar
+                    src={imagePreview || teacher?.image || ""}
+                    sx={{ width: 100, height: 100, mb: 2, boxShadow: 2 }}
+                />
+                <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    style={{ display: "none" }}
+                />
+                <Button
+                    variant="contained"
+                    color="success"
+                    onClick={() => fileInputRef.current?.click()}
+                    sx={{ mt: 1, textTransform: "none", fontWeight: 500 }}
+                >
+                    Upload New Picture
+                </Button>
+            </Box>
 
             <TextField
                 label="Age"

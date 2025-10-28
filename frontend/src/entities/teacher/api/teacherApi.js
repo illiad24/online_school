@@ -16,18 +16,18 @@ export const teacherApi = baseApi.injectEndpoints({
             providesTags: ['Teacher'],
         }),
         addTeacher: build.mutation({
-            query: (newTeacher) => ({
+            query: (formData) => ({
                 url: apiRoutes.teachers.create,
                 method: 'POST',
-                body: newTeacher,
+                body: formData,
             }),
             invalidatesTags: ['Teacher'],
         }),
         updateTeacher: build.mutation({
-            query: ({ data }) => ({
-                url: apiRoutes.teachers.update(data._id),
+            query: ({ id, formData }) => ({
+                url: apiRoutes.teachers.update(id),
                 method: 'PUT',
-                body: data,
+                body: formData,
             }),
             invalidatesTags: ['Teacher'],
         }),

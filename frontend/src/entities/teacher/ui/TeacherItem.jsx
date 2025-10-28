@@ -1,14 +1,29 @@
 import React from 'react'
-import { Card, CardContent, Typography, Box, Stack } from '@mui/material'
+import { Card, CardContent, Typography, Box, Stack, CardMedia } from '@mui/material'
 import { useAuthRole } from '@/shared/hooks/useAuthRole'
 
 function TeacherItem({ teacher, actions }) {
     if (!teacher) return null
 
-    const { user, isAdmin } = useAuthRole();
+    const { isAdmin } = useAuthRole();
+
+    console.log(teacher);
+
+
     return (
         <Card sx={{ display: 'flex', justifyContent: 'space-between', p: 2, mb: 2, boxShadow: 3 }}>
             <CardContent sx={{ flex: '1 1 auto' }}>
+                {/* Зображення */}
+                <CardMedia
+                    component="img"
+                    image={teacher?.image}
+                    alt={teacher?.title}
+                    sx={{
+                        maxWidth: '200px',
+                        objectFit: "cover",
+                        padding: 2,
+                    }}
+                />
                 <Typography variant="h6">{teacher.name}</Typography>
                 {isAdmin &&
                     <Box>

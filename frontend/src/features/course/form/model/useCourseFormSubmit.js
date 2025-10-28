@@ -13,7 +13,6 @@ export function useCourseForm() {
     const { data: course, isLoading, isError, error } = useGetCourseByIdQuery(id, { skip: !isEditMode });
     const [updateCourse, { isLoading: isUpdating }] = useUpdateCourseMutation();
     const [createCourse, { isLoading: isCreating }] = useCreateCourseMutation();
-    console.log(course);
 
     const [generalError, setGeneralError] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -42,22 +41,18 @@ export function useCourseForm() {
 
     const onSubmitHandler = async (data) => {
         setGeneralError(null);
-        console.log(data);
-
-        // створюємо FormData
         const formData = new FormData();
 
         Object.entries(data).forEach(([key, value]) => {
             if (Array.isArray(value) || typeof value === 'object') {
-                formData.append(key, JSON.stringify(value)); // масиви та об’єкти як JSON
+                formData.append(key, JSON.stringify(value));
             } else {
                 formData.append(key, value);
             }
         });
 
-        // додаємо зображення, якщо вибране
         if (selectedImage) {
-            formData.append("courseImage", selectedImage);
+            formData.append("image", selectedImage);
         }
 
         try {

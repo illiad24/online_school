@@ -2,6 +2,7 @@ import { Container, Typography, CircularProgress, Box } from '@mui/material'
 import { useGetTeachersQuery } from '@/entities/teacher/api/teacherApi'
 import { useCourseForm } from '@/features/course/form/model/useCourseFormSubmit'
 import CourseForm from '@/features/course/form/ui/CourseForm'
+import GenericForm from '@/features/FormBuilder/GenericForm'
 
 function CourseFormPage() {
     const { handleSubmit, register, errors, isLoading, isEditMode, course, generalError, selectedImage, setSelectedImage } = useCourseForm()
@@ -24,7 +25,7 @@ function CourseFormPage() {
                 {mainTitle}
             </Typography>
 
-            <CourseForm
+            {/* <CourseForm
                 onSubmit={handleSubmit}
                 course={course}
                 teachersList={teachersList}
@@ -33,6 +34,24 @@ function CourseFormPage() {
                 error={generalError}
                 selectedImage={selectedImage}
                 setSelectedImage={setSelectedImage}
+            /> */}
+            <GenericForm
+                onSubmit={handleSubmit}       // підключаємо hook form submit
+                register={register}
+                errors={errors}
+                formTitle={mainTitle}
+                submitLabel="Зберегти"
+                error={generalError}
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
+                defaultValues={course || {}}
+                fields={[
+                    { type: 'image', name: 'image' },
+                    { name: 'title', label: 'Назва', validation: { required: 'Обов’язково', minLength: 3 } },
+                    { name: 'description', label: 'Опис', multiline: true, rows: 4, validation: { required: 'Обов’язково' } },
+                    { name: 'price', label: 'Ціна', type: 'number', validation: { required: 'Обов’язково', min: 0 } },
+                    { type: 'select', name: 'teacher', label: 'Вчитель', options: teachersList.map(t => ({ value: t._id, label: t.name })), validation: { required: 'Обов’язково' } }
+                ]}
             />
         </Container>
     )

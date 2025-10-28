@@ -73,7 +73,7 @@ function CourseForm({ onSubmit, register, errors, teachersList, course, error, s
             {/* Avatar Section */}
             <Box textAlign="center">
                 <Avatar
-                    src={selectedImage || course?.courseImage || ""}
+                    src={imagePreview || course?.image || ""}
                     sx={{ width: 100, height: 100, mb: 2, boxShadow: 2 }}
                 />
                 <input
