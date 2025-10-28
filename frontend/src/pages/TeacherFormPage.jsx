@@ -30,16 +30,6 @@ function TeacherFormPage() {
             )}
 
             <Box sx={{ mt: 2 }}>
-                {/* <TeacherForm
-                    onSubmit={handleSubmit}
-                    teacher={teacher}
-                    coursesList={coursesList}
-                    register={register}
-                    errors={errors}
-                    error={generalError}
-                          selectedImage={selectedImage}
-                setSelectedImage={setSelectedImage}
-                /> */}
                 <GenericForm
                     onSubmit={handleSubmit}
                     register={register}

@@ -24,19 +24,8 @@ function CourseFormPage() {
             <Typography variant="h4" component="h1" gutterBottom textAlign="center">
                 {mainTitle}
             </Typography>
-
-            {/* <CourseForm
-                onSubmit={handleSubmit}
-                course={course}
-                teachersList={teachersList}
-                register={register}
-                errors={errors}
-                error={generalError}
-                selectedImage={selectedImage}
-                setSelectedImage={setSelectedImage}
-            /> */}
             <GenericForm
-                onSubmit={handleSubmit}       // підключаємо hook form submit
+                onSubmit={handleSubmit}      
                 register={register}
                 errors={errors}
                 formTitle={mainTitle}
