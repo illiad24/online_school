@@ -4,8 +4,10 @@ import { useCourseForm } from '@/features/course/form/model/useCourseFormSubmit'
 import CourseForm from '@/features/course/form/ui/CourseForm'
 
 function CourseFormPage() {
-    const { handleSubmit, register, errors, isLoading, isEditMode, course, generalError } = useCourseForm()
+    const { handleSubmit, register, errors, isLoading, isEditMode, course, generalError, selectedImage, setSelectedImage } = useCourseForm()
+
     const { data: teachersList, isLoading: isTeachersLoading } = useGetTeachersQuery()
+
     const mainTitle = isEditMode ? 'Редагувати курс' : 'Додати курс'
 
     if (isLoading || isTeachersLoading) {
@@ -26,10 +28,11 @@ function CourseFormPage() {
                 onSubmit={handleSubmit}
                 course={course}
                 teachersList={teachersList}
-                // lessonsList={lessonsList}
                 register={register}
                 errors={errors}
                 error={generalError}
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
             />
         </Container>
     )

@@ -16,18 +16,18 @@ export const courseApi = baseApi.injectEndpoints({
             providesTags: ['Course'],
         }),
         createCourse: build.mutation({
-            query: (course) => ({
+            query: (formData) => ({
                 url: apiRoutes.courses.create,
                 method: 'POST',
-                body: course,
+                body: formData,
             }),
             invalidatesTags: ['Course'],
         }),
         updateCourse: build.mutation({
-            query: (course) => ({
-                url: apiRoutes.courses.update(course.id),
+            query: ({ id, formData }) => ({
+                url: apiRoutes.courses.update(id),
                 method: 'PUT',
-                body: course,
+                body: formData,
             }),
             invalidatesTags: ['Course'],
         }),

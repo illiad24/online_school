@@ -11,11 +11,12 @@ export function useCourseForm() {
     const navigate = useNavigate();
 
     const { data: course, isLoading, isError, error } = useGetCourseByIdQuery(id, { skip: !isEditMode });
-
     const [updateCourse, { isLoading: isUpdating }] = useUpdateCourseMutation();
     const [createCourse, { isLoading: isCreating }] = useCreateCourseMutation();
+    console.log(course);
 
     const [generalError, setGeneralError] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     const methods = useForm({
         resolver: yupResolver(courseSchema),
@@ -23,10 +24,10 @@ export function useCourseForm() {
             title: '',
             description: '',
             teacher: '',
-            lessons: [],
             price: 0,
         },
     });
+
 
     const { handleSubmit, reset, register, formState: { errors } } = methods;
 
@@ -41,17 +42,36 @@ export function useCourseForm() {
 
     const onSubmitHandler = async (data) => {
         setGeneralError(null);
+        console.log(data);
+
+        // створюємо FormData
+        const formData = new FormData();
+
+        Object.entries(data).forEach(([key, value]) => {
+            if (Array.isArray(value) || typeof value === 'object') {
+                formData.append(key, JSON.stringify(value)); // масиви та об’єкти як JSON
+            } else {
+                formData.append(key, value);
+            }
+        });
+
+        // додаємо зображення, якщо вибране
+        if (selectedImage) {
+            formData.append("courseImage", selectedImage);
+        }
+
         try {
             if (isEditMode) {
-                await updateCourse({ id, data }).unwrap();
+                await updateCourse({ id, formData }).unwrap();
             } else {
-                await createCourse(data).unwrap();
+                await createCourse(formData).unwrap();
             }
-            navigate('/courses');
+            navigate("/courses");
         } catch (error) {
             setGeneralError(error);
         }
     };
+
 
     return {
         register,
@@ -62,5 +82,7 @@ export function useCourseForm() {
         isEditMode,
         course,
         isError,
+        selectedImage,
+        setSelectedImage
     };
 }

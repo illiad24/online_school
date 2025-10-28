@@ -17,11 +17,6 @@ export const courseSchema = yup.object({
         .string()
         .required('Ідентифікатор вчителя є обов\'язковим'),
 
-    // lessons: yup
-    //     .array()
-    //     .of(yup.string())
-    //     .min(0, 'Кількість уроків має бути не менше 0'),
-
     price: yup
         .number()
         .typeError('Ціна має бути числом')

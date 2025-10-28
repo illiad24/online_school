@@ -12,9 +12,10 @@ import {
     Avatar,
 } from '@mui/material'
 
-function CourseForm({ onSubmit, register, errors, teachersList, lessonsList, course, error }) {
+function CourseForm({ onSubmit, register, errors, teachersList, course, error, selectedImage, setSelectedImage }) {
 
-    const [selectedImage, setSelectedImage] = useState(null);
+    console.log(course);
+
     const [imagePreview, setImagePreview] = useState(null);
     const fileInputRef = useRef(null);
 
@@ -72,7 +73,7 @@ function CourseForm({ onSubmit, register, errors, teachersList, lessonsList, cou
             {/* Avatar Section */}
             <Box textAlign="center">
                 <Avatar
-                    src={imagePreview || ""}
+                    src={selectedImage || course?.courseImage || ""}
                     sx={{ width: 100, height: 100, mb: 2, boxShadow: 2 }}
                 />
                 <input
@@ -96,7 +97,7 @@ function CourseForm({ onSubmit, register, errors, teachersList, lessonsList, cou
                 <InputLabel id="teacher-label">Вчитель</InputLabel>
                 <Select
                     labelId="teacher-label"
-                    defaultValue={course?.teacher || ''}
+                    defaultValue={course?.teacher._id || ''}
                     label="Вчитель"
                     {...register('teacher')}
                 >
@@ -116,30 +117,6 @@ function CourseForm({ onSubmit, register, errors, teachersList, lessonsList, cou
                 )}
             </FormControl>
 
-            {/* Якщо потрібно підключити уроки, можна додати мультиселект через Controller */}
-
-            {/* <FormControl fullWidth variant="outlined" error={!!errors?.lessons}>
-                <InputLabel id="lessons-label">Уроки</InputLabel>
-                <Select
-                    labelId="lessons-label"
-                    multiple
-                    defaultValue={course?.lessons || []}
-                    label="Уроки"
-                    {...register('lessons')}
-                    renderValue={(selected) =>
-                        lessonsList
-                            .filter((lesson) => selected.includes(lesson._id))
-                            .map((lesson) => lesson.title)
-                            .join(', ')
-                    }
-                >
-                    {lessonsList?.map((lesson) => (
-                        <MenuItem key={lesson._id} value={lesson._id}>
-                            {lesson.title}
-                        </MenuItem>
-                    ))}
-                </Select>
-            </FormControl> */}
 
 
             <TextField
