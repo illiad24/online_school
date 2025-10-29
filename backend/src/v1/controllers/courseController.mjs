@@ -29,14 +29,12 @@ class CourseController {
         try {
             const { id } = req.params;
             const file = req.file;
-            const courseData = req.body; // тут всі текстові поля
+            const courseData = req.body;
 
-            // якщо файл переданий — конвертуємо у base64
             if (file) {
                 courseData.image = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
             }
 
-            // розпарсити масиви, які прийшли як JSON рядки
             if (courseData.lessons) courseData.lessons = JSON.parse(courseData.lessons);
             if (courseData.users) courseData.users = JSON.parse(courseData.users);
 
@@ -73,7 +71,7 @@ class CourseController {
     }
     static async addUserToCourse(req, res) {
         try {
-            const { id } = req.params;        // courseId
+            const { id } = req.params;
             const { userId } = req.body;
 
             const course = await CourseDBService.getById(id);

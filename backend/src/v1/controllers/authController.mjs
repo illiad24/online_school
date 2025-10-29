@@ -117,9 +117,12 @@ class AuthController {
             if (!user) return res.sendStatus(401)
             // 5. Генеруємо новий accessToken
             const accessToken = generateAccessToken(user)
+
+            const { _id, ...rest } = user;
+
             // 6. Відправляємо новий accessToken і дані користувача у відповідь
             res.json({
-                user: { id: user._id, name: user.name, email: user.email, role: user.role, courses: user.courses },
+                user: { id: _id, ...rest },
                 accessToken,
             })
         } catch {
