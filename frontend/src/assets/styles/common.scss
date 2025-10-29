@@ -43,3 +43,26 @@ img {
     height: 100%;
     object-fit: cover;
 }
+
+// body {
+//     background: rgba(175, 219, 252, 0.212) !important;
+// }
+
+.button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #05070a;
+    color: #fff;
+    transition: all 0.3s;
+    &:hover {
+        text-decoration: none;
+        background-color: hsl(220, 20%, 25%);
+    }
+    &--inherit {
+        color: rgb(71, 83, 107) !important;
+        background-color: inherit;
+        &:hover {
+            background-color: rgb(235, 238, 244);
+        }
+    }
+}

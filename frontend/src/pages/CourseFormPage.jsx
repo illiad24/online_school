@@ -25,7 +25,7 @@ function CourseFormPage() {
                 {mainTitle}
             </Typography>
             <GenericForm
-                onSubmit={handleSubmit}      
+                onSubmit={handleSubmit}
                 register={register}
                 errors={errors}
                 formTitle={mainTitle}
@@ -41,6 +41,7 @@ function CourseFormPage() {
                     { name: 'price', label: 'Ціна', type: 'number', validation: { required: 'Обов’язково', min: 0 } },
                     { type: 'select', name: 'teacher', label: 'Вчитель', options: teachersList.map(t => ({ value: t._id, label: t.name })), validation: { required: 'Обов’язково' } }
                 ]}
+                entiti={course}
             />
         </Container>
     )

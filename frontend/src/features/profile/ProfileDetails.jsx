@@ -21,8 +21,9 @@ function ProfileDetails() {
             <Box sx={{ marginBottom: '32px' }}>
                 <PasswordEdit />
             </Box>
+        
             <Box >
-                <ProfileDelete userEmail={user.email} />
+                <ProfileDelete userEmail={user?.email} />
             </Box>
         </Container>
     );

@@ -1,9 +1,10 @@
 import { Link, NavLink } from 'react-router'
 import { getPagesObjectList } from '@/shared/config/routes/frontRoutes'
-import { List, ListItem, Button } from "@mui/material";
+import { List, ListItem, Button, useTheme } from "@mui/material";
 import { useAuthRole } from '@/shared/hooks/useAuthRole';
 
 export function MainMenu() {
+    const theme = useTheme();
     const { user } = useAuthRole();
 
     const allowedRoutes = getPagesObjectList().filter(({ meta }) => {
@@ -19,35 +20,22 @@ export function MainMenu() {
             <List sx={{ display: "flex", flexDirection: "row", gap: 2, p: 0 }}>
                 {allowedRoutes.map(({ path, meta }) => (
                     <ListItem key={path} disablePadding sx={{ width: "auto" }}>
-                        <Button
-                            component={NavLink}
+                        <NavLink
                             to={path}
-                            variant="text"
-                            color="primary"
-                            sx={{
-                                "&.active": {
-                                    borderBottom: "2px solid",
-                                    borderColor: "primary.main",
-                                    color: 'black'
-
-                                },
-                                backgroundColor: "transparent",
-                                '&:hover': {
-                                    backgroundColor: 'action.hover',
-                                },
-                                '&:active': {
-                                    backgroundColor: 'action.selected',
-                                },
-                                '&:focus-visible': {
-                                    boxShadow: '0 0 0 3px rgba(33,150,243,0.35)'
-                                }
-                            }}
+                            className={({ isActive }) => (isActive ? "active menu-link" : "menu-link")}
+                            style={({ isActive }) => ({
+                                color: isActive
+                                    ? theme.palette.primary.light
+                                    : theme.palette.primary.dark,
+                            })}
                         >
                             {meta.title}
-                        </Button>
+                        </NavLink>
                     </ListItem>
                 ))}
             </List>
         </nav>
     )
 }
+
+

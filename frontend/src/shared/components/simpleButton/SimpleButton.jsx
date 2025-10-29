@@ -3,15 +3,14 @@ import { Link } from 'react-router';
 import AddIcon from '@mui/icons-material/Add';
 import { Button } from '@mui/material';
 
-function SimpleButton({ text, handleClick, type = 'link' }) {
+function SimpleButton({ text, handleClick, type = 'link', bgColor = 'green' }) {
     if (type === 'link') {
         return (
             <Button
                 variant="contained"
-                sx={{ bgcolor: 'green' }}
                 component={Link}
                 to={handleClick}
-                startIcon={<AddIcon />}
+                sx={{ background: bgColor }}
             >
                 {text}
             </Button>
@@ -20,7 +19,7 @@ function SimpleButton({ text, handleClick, type = 'link' }) {
     }
     if (type === 'button') {
         return (
-            <Button variant="contained" sx={{ bgcolor: 'green' }} onClick={handleClick} startIcon={<AddIcon />}>
+            <Button variant="contained" sx={{ background: bgColor }} onClick={handleClick} >
                 {text}
             </Button>
         );

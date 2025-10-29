@@ -6,13 +6,13 @@ import WhySection from '@/widgets/sections/WhySection';
 import { Box, Container } from '@mui/material';
 function HomePage() {
     return (
-        <Container maxWidth="lg" >
+        <Box  >
             <MainSection />
             <WhySection />
             <FeaturedCourses />
             <BenefitsSection />
             <ContactSection />
-        </Container>
+        </Box>
     );
 }
 

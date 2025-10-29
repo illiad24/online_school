@@ -6,7 +6,7 @@ function MainSection() {
             component="section"
             sx={{ display: 'flex', alignItems: 'center', }}
         >
-            <Box sx={{ flex: "0 0 55%", marginRight: '2rem' }}>
+            <Box sx={{ flex: "0 0 55%", paddingRight: '2rem' }}>
                 <Typography
                     variant="h2"
                     component="h1"

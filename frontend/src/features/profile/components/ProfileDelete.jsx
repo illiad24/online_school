@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { useDeleteUserMutation } from "@/entities/user/api/userApi";
-import { Card, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from "@mui/material";
+import { Card, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography, Box } from "@mui/material";
 
 function ProfileDelete({ userEmail }) {
     const { id } = useParams();
@@ -36,8 +36,8 @@ function ProfileDelete({ userEmail }) {
     }
 
     return (
-        <Card >
-            <Button variant="contained" color="error" onClick={handleOpen}>
+        <Box >
+            <Button variant="contained" color="#05070a" onClick={handleOpen}>
                 Видалити акаунт
             </Button>
 
@@ -61,7 +61,7 @@ function ProfileDelete({ userEmail }) {
                     <Button color="error" onClick={handleDelete}>Видалити</Button>
                 </DialogActions>
             </Dialog>
-        </Card>
+        </Box>
     );
 }
 

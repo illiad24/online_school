@@ -10,7 +10,7 @@ function WhySection() {
                     sx={{ width: "100%", maxWidth: 500, mx: "auto", display: "block" }}
                 />
             </Box>
-            <Box sx={{ flex: "0 0 45%", marginLeft: '2rem' }}>
+            <Box sx={{ flex: "0 0 45%", paddingLeft: '2rem' }}>
                 <Typography
                     variant="overline"
                     sx={{

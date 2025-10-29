@@ -23,7 +23,7 @@ export default function GenericForm({
     error,
     selectedImage,
     setSelectedImage,
-    defaultValues = {}
+    defaultValues = {},
 }) {
     const [imagePreview, setImagePreview] = useState(null);
     const fileInputRef = useRef(null);
@@ -89,6 +89,9 @@ export default function GenericForm({
                 </Box>
             )}
 
+
+
+            {/* !!!! FIX селекти не підгружають значення  */}
             {/* Поля */}
             {fields.filter(f => f.type !== 'image').map(field => {
                 if (field.type === 'select') {
@@ -98,9 +101,10 @@ export default function GenericForm({
                             <Select
                                 labelId={`${field.name}-label`}
                                 multiple={field.multiple || false}
-                                defaultValue={defaultValues[field.name]._id || (field.multiple ? [] : '')}
+                                defaultValue={defaultValues[field.name]?._id || (field.multiple ? [] : '')}
                                 {...register(field.name, field.validation)}
                                 renderValue={selected => {
+
                                     if (Array.isArray(selected)) {
                                         return selected
                                             .map(val => {
@@ -109,6 +113,7 @@ export default function GenericForm({
                                             })
                                             .join(', ');
                                     }
+
                                     const option = field.options.find(o => o.value === selected);
                                     return option ? option.label : selected;
                                 }}

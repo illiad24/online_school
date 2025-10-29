@@ -13,9 +13,9 @@ export const courseSchema = yup.object({
         .min(10, 'Опис має містити щонайменше 10 символів')
         .max(500, 'Опис має містити не більше 500 символів'),
 
-    teacher: yup
-        .string()
-        .required('Ідентифікатор вчителя є обов\'язковим'),
+    // teacher: yup
+    //     .string()
+    //     .required('Ідентифікатор вчителя є обов\'язковим'),
 
     price: yup
         .number()
