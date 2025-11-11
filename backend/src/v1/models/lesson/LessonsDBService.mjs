@@ -4,10 +4,21 @@ import Lesson from './Lesson.mjs'
 class LessonsDBService extends MongooseCRUDManager {
     async getList() {
         try {
-            const res = await super.getList()
+            const res = await super.getList({}, null, ['teacher'])
+
             return res
         } catch (error) {
+            console.log(error);
             return []
+        }
+    }
+    async getById(id) {
+        try {
+            const res = await super.getById(id, ['teacher'])
+            return res
+
+        } catch (error) {
+            throw new Error('Error finding data by id: ' + error.message)
         }
     }
 }

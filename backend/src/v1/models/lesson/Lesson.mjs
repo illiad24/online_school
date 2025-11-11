@@ -38,6 +38,9 @@ const lessonSchema = new Schema({
     updatedAt: {
         type: Date,
         default: Date.now,
+    },
+    videoUrl: {
+        type: String
     }
 });
 
