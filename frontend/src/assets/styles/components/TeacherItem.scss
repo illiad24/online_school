@@ -44,12 +44,4 @@
         margin-top: -10px; // Adjust spacing from previous elements
         line-height: 1.4;
     }
-
-    /* --- Елемент: teacher-card__actions --- */
-    &__actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 10px;
-    }
 }

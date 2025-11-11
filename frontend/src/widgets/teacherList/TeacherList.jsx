@@ -6,7 +6,7 @@ import AddButton from "@/shared/components/addButton/AddButton";
 import EditButton from "@/shared/components/editButton/EditButton";
 import { navigateRoutes } from "@/shared/config/routes/navigateRoutes";
 import { useAuthRole } from "@/shared/hooks/useAuthRole";
- 
+
 function TeacherList() {
     const { isAdmin, isSuperAdmin } = useAuthRole();
     const { data: teachers, isLoading, error } = useGetTeachersQuery();

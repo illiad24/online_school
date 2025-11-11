@@ -13,6 +13,8 @@ function LessonsPage() {
 
 
     const { data: lessonsList, isLoading, isError } = useGetLessonsQuery()
+    console.log(lessonsList);
+
     const [deleteLesson] = useDeleteLessonMutation()
 
     const handleDelete = (id) => deleteLesson(id)

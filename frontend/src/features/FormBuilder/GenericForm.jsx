@@ -69,7 +69,7 @@ export default function GenericForm({
                 <Box textAlign="center">
                     <Avatar
                         src={imagePreview || defaultValues.image || ""}
-                        sx={{ width: 100, height: 100, mb: 2, boxShadow: 2 }}
+                        sx={{ width: 100, height: 100, mb: 2, boxShadow: 2, justifySelf: 'center' }}
                     />
                     <input
                         ref={fileInputRef}

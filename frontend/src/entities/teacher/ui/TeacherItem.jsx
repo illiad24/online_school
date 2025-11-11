@@ -11,49 +11,112 @@ function TeacherItem({ teacher, actions }) {
 
 
     return (
-        <Card sx={{ display: 'flex', justifyContent: 'space-between', p: 2, mb: 2, boxShadow: 3 }}>
-            <CardContent sx={{ flex: '1 1 auto' }}>
-                {/* Зображення */}
-                <CardMedia
-                    component="img"
-                    image={teacher?.image}
-                    alt={teacher?.title}
+        <Card
+            sx={{
+                p: { xs: 2, sm: 3 },
+                mb: 3,
+                borderRadius: "20px",
+                background: "linear-gradient(135deg, rgba(2,122,242,0.08), rgba(255,255,255,0.9))",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.05)",
+                transition: "all 0.35s ease",
+                display: "flex",
+                flexDirection: { xs: "column", sm: "row" },
+                alignItems: { xs: "center", sm: "flex-start" },
+                gap: { xs: 2, sm: 3 },
+                border: "1px solid rgba(2,122,242,0.15)",
+                backdropFilter: "blur(8px)",
+                "&:hover": {
+                    transform: "translateY(-4px)",
+                    boxShadow: "0 12px 32px rgba(2,122,242,0.15)",
+                    background: "linear-gradient(135deg, rgba(2,122,242,0.12), rgba(255,255,255,0.95))",
+                },
+            }}
+        >
+            <CardMedia
+                component="img"
+                image={teacher?.image}
+                alt={teacher?.name}
+                sx={{
+                    width: { xs: 100, sm: 130 },
+                    height: { xs: 100, sm: 130 },
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                    border: "4px solid #027af2",
+                    boxShadow: "0 4px 12px rgba(2,122,242,0.3)",
+                    flexShrink: 0,
+                }}
+            />
+
+            <Box
+                sx={{
+                    flex: 1,
+                    textAlign: { xs: "center", sm: "left" },
+                }}
+            >
+                <Typography
+                    variant="h5"
+                    fontWeight="bold"
                     sx={{
-                        maxWidth: '200px',
-                        objectFit: "cover",
-                        padding: 2,
+                        mb: 1,
+                        color: "primary.main",
+                        textShadow: "0 1px 2px rgba(2,122,242,0.15)",
                     }}
-                />
-                <Typography variant="h6">{teacher.name}</Typography>
-                {isAdmin &&
-                    <Box>
-                        <Typography variant="body2" color="text.secondary">
-                            Email: {teacher.email}
+                >
+                    {teacher.name}
+                </Typography>
+
+                {isAdmin && (
+                    <Box sx={{ mb: 1.5 }}>
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                            📧 Email: <strong style={{ color: "#027af2" }}>{teacher.email}</strong>
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Age: {teacher.age}
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                            🎂 Age: <strong style={{ color: "#027af2" }}>{teacher.age}</strong>
                         </Typography>
                     </Box>
-                }
-                <Typography variant="body2" color="text.secondary">
-                    Subject: {teacher.subject}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    Experience: {teacher.experience} years
-                </Typography>
-                <Typography variant="body2" sx={{ mt: 1 }}>
-                    {teacher.bio}
-                </Typography>
-            </CardContent>
+                )}
 
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Stack direction="row" spacing={1}>
+                <Typography variant="body2" sx={{ color: "text.secondary", mb: 0.5 }}>
+                    📘 <strong>Subject:</strong>{" "}
+                    <span style={{ color: "#47536b", fontWeight: 600 }}>{teacher.subject}</span>
+                </Typography>
+
+                <Typography variant="body2" sx={{ color: "text.secondary", mb: 1 }}>
+                    🧠 <strong>Experience:</strong>{" "}
+                    <span style={{ color: "#47536b", fontWeight: 600 }}>
+                        {teacher.experience} years
+                    </span>
+                </Typography>
+
+                <Typography
+                    variant="body2"
+                    sx={{
+                        mt: 1,
+                        color: "text.primary",
+                        lineHeight: 1.6,
+                        fontStyle: "italic",
+                    }}
+                >
+                    “{teacher.bio}”
+                </Typography>
+
+                <Stack
+                    direction="row"
+                    spacing={1.5}
+                    sx={{
+                        mt: 2.5,
+                        justifyContent: { xs: "center", sm: "flex-start" },
+                        flexWrap: "wrap",
+                    }}
+                >
                     {actions.map((action, index) => (
                         <React.Fragment key={index}>{action}</React.Fragment>
                     ))}
                 </Stack>
             </Box>
         </Card>
+
+
     )
 }
 

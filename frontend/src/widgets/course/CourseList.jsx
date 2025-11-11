@@ -1,52 +1,49 @@
-import { useState } from 'react'
-import { Box, Typography, Stack, CircularProgress, Card, CardContent, Snackbar, Alert } from '@mui/material'
+import { useState, useEffect } from 'react'
+import {
+    Box,
+    Typography,
+    Stack,
+    CircularProgress,
+    Snackbar,
+    Alert,
+    ToggleButton,
+    ToggleButtonGroup,
+} from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-
 import { useDeleteCourseMutation, useGetCoursesQuery } from '@/entities/cource/api/courseApi'
 import CourseItem from '@/entities/cource/ui/CourseItem'
 import AddButton from '@/shared/components/addButton/AddButton'
 import DeleteButton from '@/shared/components/deleteButton/DeleteButton'
 import EditButton from '@/shared/components/editButton/EditButton'
-import { navigateRoutes } from '@/shared/config/routes/navigateRoutes'
 import EnrollButton from '@/shared/components/enrollButton/EnrollButton'
 import { useEnrollButton } from '@/shared/components/enrollButton/useEnrollButton'
 import { useAuthRole } from '@/shared/hooks/useAuthRole'
 import { selectAccessToken, setCredentials } from '@/features/auth/api/authSlice'
-import SplitscreenIcon from '@mui/icons-material/Splitscreen';
-import GridViewIcon from '@mui/icons-material/GridView';
+import { navigateRoutes } from '@/shared/config/routes/navigateRoutes'
+import GridViewIcon from '@mui/icons-material/GridView'
+import SplitscreenIcon from '@mui/icons-material/Splitscreen'
+import SimpleButton from '@/shared/components/simpleButton/SimpleButton'
 
 function CourseList() {
-    const { user, isAdmin, isSuperAdmin, isStudent } = useAuthRole();
-
+    const { user, isAdmin, isSuperAdmin, isStudent } = useAuthRole()
     const dispatch = useDispatch()
-
     const accessToken = useSelector(selectAccessToken)
-
     const { data: courses, isLoading, refetch } = useGetCoursesQuery()
-
-
     const { enrollClick } = useEnrollButton()
     const [deleteCourse] = useDeleteCourseMutation()
-
     const [openLessonFormFor, setOpenLessonFormFor] = useState(null)
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' })
 
-    const handleCloseSnackbar = () => setSnackbar(prev => ({ ...prev, open: false }))
-    const [layoutClass, setLayoutClass] = useState('grid-view')
-    function changeLayoutView(type) {
-        switch (type) {
-            case 1:
-                setLayoutClass('grid-view')
-                break;
-            case 2:
-                setLayoutClass('inline-view')
-                break;
+    const [layout, setLayout] = useState(() => localStorage.getItem('layoutView') || 'grid-view')
 
-            default:
-                setLayoutClass('grid-view')
-                break;
+    const handleChangeLayout = (_, newLayout) => {
+        if (newLayout) {
+            setLayout(newLayout)
+            localStorage.setItem('layoutView', newLayout)
         }
     }
+
+    const handleCloseSnackbar = () => setSnackbar(prev => ({ ...prev, open: false }))
 
     if (isLoading) {
         return (
@@ -58,23 +55,33 @@ function CourseList() {
 
     return (
         <Box sx={{ mt: 4 }}>
-            <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
-                <Typography variant="h4">Список курсів</Typography>
-                {isAdmin && (
-                    <AddButton
-                        text="Додати курс"
-                        handleClick={navigateRoutes.navigate.courses.create}
-                    />
-                )}
-                <Box sx={{ display: 'flex', gap: '16px' }}>
-                    <Box  >
-                        <GridViewIcon onClick={() => changeLayoutView(1)} />
-                    </Box>
-                    <Box  >
-                        <SplitscreenIcon onClick={() => changeLayoutView(2)} />
+            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'start', sm: 'center' }} mb={3} spacing={2}>
+                <Typography variant="h4" sx={{ fontWeight: 700 }}>🎓 Наші курси</Typography>
 
-                    </Box>
-                </Box>
+                <Stack direction="row" spacing={2} alignItems="center">
+                    {isAdmin && (
+                        <AddButton
+                            text="Додати курс"
+                            handleClick={navigateRoutes.navigate.courses.create}
+                        />
+                    )}
+                    <ToggleButtonGroup
+                        value={layout}
+                        exclusive
+                        onChange={handleChangeLayout}
+                        size="small"
+                        color="primary"
+                        sx={{
+                            backgroundColor: 'background.paper',
+                            borderRadius: 2,
+                            boxShadow: 2,
+                            '& .MuiToggleButton-root': { border: 'none' },
+                        }}
+                    >
+                        <ToggleButton value="grid-view"><GridViewIcon /></ToggleButton>
+                        <ToggleButton value="inline-view"><SplitscreenIcon /></ToggleButton>
+                    </ToggleButtonGroup>
+                </Stack>
             </Stack>
 
             {(!courses || courses.length === 0) ? (
@@ -82,11 +89,17 @@ function CourseList() {
                     Курси ще не додано.
                 </Typography>
             ) : (
-                <Box spacing={3} className={layoutClass}>
+                <Box className={layout} sx={{
+                    display: 'grid',
+                    gap: 3,
+                    gridTemplateColumns: layout === 'grid-view' ? 'repeat(auto-fill, minmax(320px, 1fr))' : '1fr',
+                    transition: 'all 0.3s ease',
+                }}>
                     {courses.map((course) => (
                         <CourseItem
-                         key={course._id}
+                            key={course._id}
                             course={course}
+                            layout={layout}
                             isAddingLesson={openLessonFormFor === course._id}
                             actions={[
                                 isAdmin && (
@@ -126,14 +139,23 @@ function CourseList() {
                                             }
                                         }}
                                     />
-                                )
-                            ]}
-                        />
+                                ),
+                                <SimpleButton
+                                    key={`detail-${course._id}`} text='Деталі' handleClick={`/courses/${course?._id}`}
 
+                                />
+                            ].filter(Boolean)}
+                        />
                     ))}
                 </Box>
             )}
-            <Snackbar open={snackbar.open} autoHideDuration={3000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={3000}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            >
                 <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: '100%' }}>
                     {snackbar.message}
                 </Alert>

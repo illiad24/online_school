@@ -9,21 +9,6 @@ import PersonIcon from '@mui/icons-material/Person';
 export function UserInfo() {
     const { user } = useAuthRole();
 
-
-
-    console.log(user);
-
-    const navigate = useNavigate()
-
-    const { logoutUser } = useLogout()
-
-    // const onLogout = () => {
-    //     logoutUser()
-    //     navigate('/login')
-    // }
-
-
-
     return (
         <Box className="user-info" >
             {!user ? (
@@ -54,14 +39,6 @@ export function UserInfo() {
                             }
                         </Box>
                     </Box>
-                    {/* <Button
-                        variant="outlined"
-
-                        onClick={onLogout}
-                        sx={{ bgcolor: 'blue' }}
-                    >
-                        Вийти
-                    </Button> */}
                 </>
             )}
         </Box>

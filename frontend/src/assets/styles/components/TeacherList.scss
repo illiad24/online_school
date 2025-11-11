@@ -1,12 +1,6 @@
 /* --- Блок: teacher-list --- */
 .teacher-list {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f9f9f9;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    max-width: 1150px;
     /* --- Елемент: teacher-list__header-container --- */
     &__header-container {
         display: flex;
@@ -27,9 +21,9 @@
 
     /* --- Елемент: teacher-list__item-container --- */
     &__item-container {
-        display: flex;
-        flex-direction: column;
-        gap: 15px; // Space between each teacher item
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
     }
 
     /* --- Елемент: teacher-list__status --- */

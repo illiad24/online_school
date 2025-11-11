@@ -1,6 +1,8 @@
 import { Box, Container, Typography } from "@mui/material";
 
 function Footer() {
+
+    const date = new Date().getDate
     return (
         <Box
             component="footer"

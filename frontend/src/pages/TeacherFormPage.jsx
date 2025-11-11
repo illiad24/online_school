@@ -1,14 +1,11 @@
 import { Container, Typography, Box, CircularProgress, Alert } from '@mui/material'
 import { useGetCoursesQuery } from '@/entities/cource/api/courseApi'
 import { useTeacherForm } from '@/features/teacher/form/model/useTeacherFormSubmit'
-import TeacherForm from '@/features/teacher/form/ui/TeacherForm'
 import GenericForm from '@/features/FormBuilder/GenericForm'
 
 function TeacherFormPage() {
     const { handleSubmit, register, errors, isLoading, isEditMode, teacher, generalError, selectedImage, setSelectedImage } = useTeacherForm()
     const { data: coursesList, isLoading: coursesLoading } = useGetCoursesQuery()
-
-    const mainTitle = isEditMode ? 'Редагувати вчителя' : 'Додати вчителя'
 
     if (isLoading) {
         return <CircularProgress sx={{ display: 'block', mx: 'auto', mt: 4 }} />
@@ -19,9 +16,6 @@ function TeacherFormPage() {
 
     return (
         <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
-            <Typography variant="h4" component="h1" gutterBottom>
-                {mainTitle}
-            </Typography>
 
             {generalError && (
                 <Alert severity="error" sx={{ mb: 2 }}>

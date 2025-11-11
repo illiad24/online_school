@@ -114,6 +114,14 @@ export const frontRoutes = {
                 roles: [roles.admin, roles.manager],
             },
         },
+        AboutPage: {
+            path: 'about',
+            meta: {
+                title: 'Про нас',
+                isInMenu: true,
+                requireAuth: false,
+            },
+        },
 
         Profile: {
             path: '/profile/:id?',
