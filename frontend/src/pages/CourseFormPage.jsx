@@ -21,9 +21,6 @@ function CourseFormPage() {
 
     return (
         <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
-            <Typography variant="h4" component="h1" gutterBottom textAlign="center">
-                {mainTitle}
-            </Typography>
             <GenericForm
                 onSubmit={handleSubmit}
                 register={register}

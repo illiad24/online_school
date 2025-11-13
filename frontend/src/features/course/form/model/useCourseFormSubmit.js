@@ -34,6 +34,9 @@ export function useCourseForm() {
         if (isEditMode && course) {
             reset({
                 ...course,
+                teacher: course.teacher ? course.teacher._id : null,
+                lessons: course.lessons ? course.lessons.map((el) => el._id) : [],
+                users: course.users ? course.users.map((el) => el._id) : [],
                 price: course.price ? Number(course.price) : 0,
             });
         }
