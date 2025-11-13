@@ -37,6 +37,7 @@ export function useTeacherForm() {
         if (isEditMode && teacher) {
             reset({
                 ...teacher,
+                users: teacher.courses ? teacher.courses.map((el) => el._id) : [],
                 experience: teacher.experience ? Number(teacher.experience) : 0,
                 age: teacher.age ? Number(teacher.age) : 0,
             });
