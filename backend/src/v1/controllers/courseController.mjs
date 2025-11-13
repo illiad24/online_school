@@ -25,7 +25,6 @@ class CourseController {
     }
 
     static async createUpdateCourse(req, res) {
-
         try {
             const { id } = req.params;
             const file = req.file;
