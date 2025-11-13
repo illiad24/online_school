@@ -8,7 +8,6 @@ class LessonsDBService extends MongooseCRUDManager {
 
             return res
         } catch (error) {
-            console.log(error);
             return []
         }
     }

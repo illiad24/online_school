@@ -58,7 +58,6 @@ class UserController {
     static async deleteUser(req, res) {
         try {
             const { id } = req.params
-            console.log(id);
 
             const result = await UsersDBService.deleteById(id)
             // try {

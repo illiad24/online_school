@@ -33,15 +33,12 @@ class TeacherController {
             const file = req.file;
             const teacherData = req.body
 
-            console.log(file);
-
 
             if (file) {
                 teacherData.image = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
             }
             if (teacherData.courses) teacherData.courses = JSON.parse(teacherData.courses);
 
-            console.log(teacherData);
             let result
             if (id) {
                 result = await TeacherDBService.update(id, teacherData)
