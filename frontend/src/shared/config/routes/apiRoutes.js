@@ -11,6 +11,7 @@ export const apiRoutes = {
         create: '/users/create',
         changePassword: (id) => `/users/${id}/password`,
         update: (id) => `/users/${id}`,
+        updateRole: (id) => `/users/${id}/role`,
         deleteByAdmin: (id) => `/users/${id}`,
         delete: (id) => `/users/${id}/user`,
         enroll: (id) => `/users/${id}/enroll`,

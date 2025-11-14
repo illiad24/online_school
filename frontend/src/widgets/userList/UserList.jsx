@@ -1,4 +1,4 @@
-import { useDeleteUserMutation, useGetUsersQuery, useUpdateUserMutation } from '@/entities/user/api/userApi'
+import { useDeleteUserMutation, useGetUsersQuery } from '@/entities/user/api/userApi'
 import { UserListItem } from '@/entities/user/ui/UserListItem'
 import ChangeRole from '@/features/user/changeRole/ui/ChangeRole'
 import { useChangeRole } from '@/features/user/changeRole'
@@ -11,8 +11,8 @@ export function UserList() {
     const { user, isSuperAdmin } = useAuthRole();
 
     const { data: usersList, isLoading, error } = useGetUsersQuery()
-    const { changedRole } = useChangeRole()
-    const [updateUser] = useUpdateUserMutation()
+    const { changedRole, handleChange } = useChangeRole()
+
     const [deleteUser] = useDeleteUserMutation()
     const roles = getRolesArray()
 
@@ -39,10 +39,8 @@ export function UserList() {
                                         <ChangeRole
                                             key={userItem._id}
                                             roles={roles}
-                                            selectedValue={userItem.role.title}
-                                            handleChange={async (e) => {
-                                                await updateUser({ id: userItem._id, role: e.target.value })
-                                            }}
+                                            selectedValue={changedRole.role || userItem.role.title}
+                                            handleChange={handleChange(userItem._id)}
                                         />,
                                         <DeleteButton handleSubmit={() => handleDeleteUser(userItem._id)} />
                                     ]
@@ -54,7 +52,7 @@ export function UserList() {
 
                 {changedRole.userId && (
                     <Alert severity="success" sx={{ mt: 2 }}>
-                        Змінив роль користувача {changedRole.userId} на {changedRole.role}
+                        Змінив роль користувача {user.role.title} на {changedRole.role}
                     </Alert>
                 )}
             </Box>
