@@ -9,6 +9,7 @@ router.get('/', requireAuth, requireRoles(['admin']), UserController.usersList)
 router.get('/:id', requireAuth, UserController.getUserById)
 
 router.put('/:id', requireAuth, upload.single('userImage'), UserController.updateUser)
+router.put('/:id/role', requireAuth, requireRoles(['admin']), UserController.changeRole)
 router.post('/:id/enroll', requireAuth, requireRoles(['admin', 'manager', 'student']), UserController.enrollUser)
 router.post('/:id/password', requireAuth, UserController.changePassword)
 

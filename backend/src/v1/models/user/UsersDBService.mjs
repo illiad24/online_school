@@ -18,6 +18,14 @@ class UsersDBService extends MongooseCRUDManager {
             return []
         }
     }
+    async getByIdSimple(id) {
+        try {
+            const res = await super.getById(id, [], { password: 0, })
+            return res
+        } catch (error) {
+            return []
+        }
+    }
     async getByIdFull(id) {
         try {
             const res = await super.getById(id, ['role', 'courses'])

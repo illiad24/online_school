@@ -33,7 +33,6 @@ class TeacherController {
             const file = req.file;
             const teacherData = req.body
 
-
             if (file) {
                 teacherData.image = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
             }
