@@ -65,29 +65,70 @@ class EnrollmentsDBService extends MongooseCRUDManager {
             if (!userId || !courseId || !lessonId) {
                 return res.status(400).json({ message: 'Не всі параметри передані' });
             }
-            const course = await EnrollmentUtils.getUserById({ user: userId, course: courseId }, 'findOne')
 
-            console.log(course);
+            // Отримуємо enrollment запис
+            const enrollment = await EnrollmentUtils.getUserById(
+                { user: userId, course: courseId },
+                'findOne'
+            );
+
+            if (!enrollment) {
+                return res.status(404).json({ message: 'Курс не знайдено для цього користувача' });
+            }
+
+            // 1. Перевірити чи урок уже завершено
+            if (enrollment.completedLessons.includes(lessonId)) {
+                return res.status(400).json({ message: 'Урок вже зараховано пройденим' });
+            }
+
+            // 2. Перевірити чи lessonId існує в курсі
+            const course = await EnrollmentUtils.getCourseWithLessons(courseId);
 
             if (!course) {
-                return res.status(400).json({ message: 'Дані про курс не знайдено ' })
+                return res.status(404).json({ message: 'Курс не знайдено' });
             }
 
-            if (!course.completedLessons.includes(lessonId)) {
-                course.completedLessons.push(lessonId)
-            } else {
-                return res.status(400).json({ message: 'Урок вже зараховано пройденим ' })
+            const lessonExists = course.lessons.some(
+                (lesson) => lesson._id.toString() === lessonId
+            );
+
+            if (!lessonExists) {
+                return res.status(400).json({ message: 'Урок не належить цьому курсу' });
             }
-            console.log(course);
-            await course.save();
+
+            // 3. Додаємо урок у completedLessons
+            enrollment.completedLessons.push(lessonId);
+
+            // 4. Розрахунок прогресу
+            const totalLessons = course.lessons.length;
+            const completedCount = enrollment.completedLessons.length;
+
+            const newProgress = Math.round((completedCount / totalLessons) * 100);
+            enrollment.progress = newProgress;
+
+            // 5. Автоматичне оновлення статусу
+            if (newProgress === 100) {
+                enrollment.status = 'completed';
+            }
+
+            // 6. Оновлюємо час активності
+            enrollment.lastActivityAt = new Date();
+
+            await enrollment.save();
+
             return res.status(200).json({
                 message: 'Урок позначено як завершений',
-                completedLessons: course.completedLessons
+                progress: enrollment.progress,
+                status: enrollment.status,
+                completedLessons: enrollment.completedLessons
             });
+
         } catch (err) {
-            res.status(500).json({ message: 'Server error ' + err })
+            console.error(err);
+            res.status(500).json({ message: 'Server error ' + err });
         }
     }
+
 
     async updateStatus(req, res) {
         try {

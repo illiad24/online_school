@@ -36,6 +36,10 @@ const enrollmentSchema = new Schema({
     enrolledAt: {
         type: Date,
         default: Date.now
+    },
+    lastActivityAt: {
+        type: Date,
+        default: Date.now
     }
 });
 
