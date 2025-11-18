@@ -54,6 +54,8 @@ class MongooseCRUDManager {
     // Пошук одного за фільтром
     async findOne(filters = {}, projection = null, populateFields = []) {
         try {
+            console.log(this.model);
+
             let query = this.model.findOne(filters, projection)
             populateFields.forEach((field) => {
                 if (typeof field === 'string') {

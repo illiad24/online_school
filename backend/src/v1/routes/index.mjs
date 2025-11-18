@@ -5,6 +5,8 @@ import userRoutes from './userRoutes.mjs'
 import teacherRoutes from './teacherRoutes.mjs'
 import courseRoutes from './courseRoutes.mjs'
 import lessonRoutes from './lessonRoutes.mjs'
+import enrollmentRoutes from './enrollmentRoutes.mjs'
+
 
 const router = express.Router()
 
@@ -16,5 +18,6 @@ router.use('/auth', authRoutes)
 router.use('/teachers', teacherRoutes)
 router.use('/courses', courseRoutes)
 router.use('/lessons', lessonRoutes)
+router.use('/enrollments', enrollmentRoutes)
 
 export default router

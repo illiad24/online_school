@@ -15,16 +15,8 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Password is required'],
         minlength: [6, 'Password must be at least 6 characters long'],
-        // validate: {
-        //     validator: function (v) {
-        //         return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-        //             v
-        //         )
-        //     },
-        //     message: (props) =>
-        //         'Password must contain at least one letter, one number, and one special character',
-        // },
     },
+    
     email: {
         type: String,
         required: [true, 'email is required'],

@@ -14,4 +14,4 @@ router.post('/:id/enroll', requireAuth, requireRoles(['admin', 'manager', 'stude
 router.delete('/:id', requireAuth, requireRoles(['admin']), CourseController.deleteById)
 
 router.put('/:id', requireAuth, upload.single('image'), requireRoles(['admin', 'manager']), courseValidator, CourseController.createUpdateCourse)
-export default router 
+export default router
