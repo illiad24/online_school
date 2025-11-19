@@ -10,8 +10,6 @@ function LessonItem({ lesson, actions }) {
     if (!lesson) return null
 
 
-    console.log(lesson);
-
     return (
         <Card sx={{
             mb: 3, borderRadius: 4, boxShadow: 6, background:

@@ -1,31 +1,17 @@
-import { useGetLessonsQuery } from "@/entities/lesson/api/lessonApi";
 import { useGetTeachersQuery } from "@/entities/teacher/api/teacherApi";
 import GenericForm from "@/features/FormBuilder/GenericForm";
 import { useLessonForm } from "@/features/lesson/model/useLessonForm";
 
 function LessonsFormPage() {
     const { handleSubmit, register, errors, isLoading, isEditMode, lesson, generalError } = useLessonForm();
-    const { data: lessonsList, isLoading: isLessonsLoading } = useGetLessonsQuery();
     const { data: teacherList, isLoading: isteacherListLoading } = useGetTeachersQuery();
 
-    console.log(lessonsList);
 
-
-    if (isLoading || isLessonsLoading || isteacherListLoading) {
+    if (isLoading || isteacherListLoading) {
         return <div>Завантаження...</div>;
     }
     return (
         <div>
-            {/* <LessonForm
-                onSubmit={handleSubmit}
-                register={register}
-                errors={errors}
-                isLoading={isLoading}
-                isEditMode={isEditMode}
-                lesson={lesson}
-                lessonsList={lessonsList}
-                generalError={generalError}
-            /> */}
             <GenericForm
                 onSubmit={handleSubmit}
                 register={register}

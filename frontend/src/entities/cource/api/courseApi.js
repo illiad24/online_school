@@ -46,14 +46,7 @@ export const courseApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['Course'],
         }),
-        addUserToCourse: build.mutation({
-            query: ({ courseId, userId }) => ({
-                url: apiRoutes.courses.enroll(courseId),
-                method: 'POST',
-                body: { courseId, userId },
-            }),
-            invalidatesTags: ['Course', 'User']
-        }),
+
     }),
 })
 
@@ -64,5 +57,4 @@ export const {
     useUpdateCourseMutation,
     useDeleteCourseMutation,
     useAddLessonToCourseMutation,
-    useAddUserToCourseMutation
 } = courseApi

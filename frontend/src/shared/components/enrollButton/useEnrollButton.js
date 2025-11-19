@@ -1,23 +1,14 @@
-import { useAddUserToCourseMutation } from "@/entities/cource/api/courseApi";
-import { useEnrollCourseMutation } from "@/entities/user/api/userApi";
-
+import { useEnrollToCourseMutation } from "@/entities/enrollment/enrollmentApi";
 
 export function useEnrollButton() {
-    const [addUserToCourse] = useAddUserToCourseMutation()
-    const [enrollCourse] = useEnrollCourseMutation()
-
-    async function enrollClick(courseId, userId, user) {
-        if (user?.courses?.some(course => course._id === courseId)) {
-            return { success: false, message: "Ви вже записані на цей курс" };
-        }
+    const [enrollToCourse] = useEnrollToCourseMutation()
+    async function enrollClick(userId, courseId) {
 
         try {
-            await enrollCourse({ userId, courseId }).unwrap()
-            await addUserToCourse({ courseId, userId }).unwrap()
+            await enrollToCourse({ userId, courseId })
             return { success: true, message: "Успішно записано на курс" }
         } catch (error) {
-            const message = error?.data?.message || "Сталася помилка під час запису на курс"
-            return { success: false, message }
+            console.log(error);
         }
     }
 

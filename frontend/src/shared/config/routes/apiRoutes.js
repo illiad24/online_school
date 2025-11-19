@@ -40,13 +40,13 @@ export const apiRoutes = {
         delete: (id) => `/lessons/${id}`,
         getById: (id) => `/lessons/${id}`,
     },
-    // enrollments: {
-    //     list: '/enrollments',
-    //     create: '/enrollments/create',
-    //     update: (id) => `/lessons/${id}`,
-    //     delete: (id) => `/lessons/${id}`,
-    //     getById: (id) => `/lessons/${id}`,
-    // },
+    enrollments: {
+        create: '/enrollments',
+        list: (userId) => `/enrollments/user/${userId}`,
+        getEnroll: ({ userId, courseId }) => `/enrollments/user/${userId}/course/${courseId}`,
+        completeLesson: '/enrollments/complete-lesson',
+        updateStatus: ({ userId, courseId }) => `/enrollments/${userId}/${courseId}/status`,
+    },
     roles: {
         list: '/roles'
     }

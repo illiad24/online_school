@@ -14,7 +14,6 @@ import { Link } from "react-router";
 
 export function CourseItem({ course, actions, isAddingLesson, layout }) {
 
-    console.log(actions);
 
 
     return ( 

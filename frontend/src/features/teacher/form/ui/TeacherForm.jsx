@@ -5,13 +5,10 @@ function TeacherForm({ onSubmit, register, errors, coursesList, teacher, error, 
 
     const [imagePreview, setImagePreview] = useState(null);
 
-    console.log(selectedImage);
-
     const fileInputRef = useRef(null);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        console.log(file);
 
         if (file) {
             setSelectedImage(file);

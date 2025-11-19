@@ -47,14 +47,7 @@ export const userApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['User'],
         }),
-        enrollCourse: build.mutation({
-            query: ({ userId, courseId }) => ({
-                url: apiRoutes.users.enroll(userId),
-                method: 'POST',
-                body: { userId, courseId },
-            }),
-            invalidatesTags: ['Course', 'User'],
-        }),
+
         changePassword: build.mutation({
             query: ({ id, data }) => ({
                 url: apiRoutes.users.changePassword(id),
@@ -64,4 +57,4 @@ export const userApi = baseApi.injectEndpoints({
         })
     }),
 })
-export const { useGetUsersQuery, useGetUserByIdQuery, useUpdateUserMutation, useDeleteUserMutation, useDeleteUserByAdminMutation, useEnrollCourseMutation, useChangePasswordMutation, useUpdateUserRoleMutation } = userApi
+export const { useGetUsersQuery, useGetUserByIdQuery, useUpdateUserMutation, useDeleteUserMutation, useDeleteUserByAdminMutation, useChangePasswordMutation, useUpdateUserRoleMutation } = userApi

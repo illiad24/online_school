@@ -7,9 +7,6 @@ function TeacherItem({ teacher, actions }) {
 
     const { isAdmin } = useAuthRole();
 
-    console.log(teacher);
-
-
     return (
         <Card
             sx={{

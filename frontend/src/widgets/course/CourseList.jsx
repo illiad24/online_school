@@ -9,7 +9,6 @@ import {
     ToggleButton,
     ToggleButtonGroup,
 } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
 import { useDeleteCourseMutation, useGetCoursesQuery } from '@/entities/cource/api/courseApi'
 import CourseItem from '@/entities/cource/ui/CourseItem'
 import AddButton from '@/shared/components/addButton/AddButton'
@@ -18,20 +17,33 @@ import EditButton from '@/shared/components/editButton/EditButton'
 import EnrollButton from '@/shared/components/enrollButton/EnrollButton'
 import { useEnrollButton } from '@/shared/components/enrollButton/useEnrollButton'
 import { useAuthRole } from '@/shared/hooks/useAuthRole'
-import { selectAccessToken, setCredentials } from '@/features/auth/api/authSlice'
 import { navigateRoutes } from '@/shared/config/routes/navigateRoutes'
 import GridViewIcon from '@mui/icons-material/GridView'
 import SplitscreenIcon from '@mui/icons-material/Splitscreen'
 import SimpleButton from '@/shared/components/simpleButton/SimpleButton'
+import { useGetUserEnrollmentsQuery } from '@/entities/enrollment/enrollmentApi'
 
 function CourseList() {
     const { user, isAdmin, isSuperAdmin, isStudent } = useAuthRole()
-    const dispatch = useDispatch()
-    const accessToken = useSelector(selectAccessToken)
     const { data: courses, isLoading, refetch } = useGetCoursesQuery()
+    const userId = user?._id || user?.id
+
+    const { data: enrollments } = useGetUserEnrollmentsQuery(
+        userId
+    )
+
+
+
+    function isUserInCourse(courseId) {
+        return enrollments?.some(en => en.course === courseId) ?? false;
+    }
+
     const { enrollClick } = useEnrollButton()
+
     const [deleteCourse] = useDeleteCourseMutation()
+
     const [openLessonFormFor, setOpenLessonFormFor] = useState(null)
+
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' })
 
     const [layout, setLayout] = useState(() => localStorage.getItem('layoutView') || 'grid-view')
@@ -41,6 +53,16 @@ function CourseList() {
             setLayout(newLayout)
             localStorage.setItem('layoutView', newLayout)
         }
+    }
+
+    async function enrollAction(courseId) {
+
+        const result = await enrollClick(userId, courseId)
+        setSnackbar({ open: true, message: result.message, severity: result.success ? 'success' : 'warning' })
+        if (result.success) {
+            refetch()
+        }
+
     }
 
     const handleCloseSnackbar = () => setSnackbar(prev => ({ ...prev, open: false }))
@@ -126,24 +148,22 @@ function CourseList() {
                                         handleClick={navigateRoutes.navigate.courses.edit(course._id)}
                                     />
                                 ),
-                                isStudent && !user?.courses?.some(c => c._id === course._id) && (
+                                isStudent && !isUserInCourse(course._id) && (
                                     <EnrollButton
                                         key={`enroll-${course._id}`}
-                                        handleClick={async () => {
-                                            const result = await enrollClick(course._id, user.id, user)
-                                            setSnackbar({ open: true, message: result.message, severity: result.success ? 'success' : 'warning' })
-                                            if (result.success) {
-                                                const nextUser = { ...user, courses: [...(user?.courses || []), course] }
-                                                dispatch(setCredentials({ user: nextUser, accessToken }))
-                                                refetch()
-                                            }
-                                        }}
+                                        handleClick={() => enrollAction(course._id)}
+                                    />
+                                ),
+                                isStudent && isUserInCourse(course._id) && (
+                                    <SimpleButton
+                                        key={`continue-${course._id}`} text='продовжити навчання' handleClick={navigateRoutes.navigate.courses.course(course?._id)}
                                     />
                                 ),
                                 <SimpleButton
-                                    key={`detail-${course._id}`} text='Деталі' handleClick={`/courses/${course?._id}`}
+                                    key={`detail-${course._id}`} text='Деталі' handleClick={navigateRoutes.navigate.courses.getCourseById(course?._id)}
 
                                 />
+
                             ].filter(Boolean)}
                         />
                     ))}

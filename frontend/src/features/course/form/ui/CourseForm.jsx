@@ -13,9 +13,6 @@ import {
 } from '@mui/material'
 
 function CourseForm({ onSubmit, register, errors, teachersList, course, error, selectedImage, setSelectedImage }) {
-
-    console.log(course);
-
     const [imagePreview, setImagePreview] = useState(null);
     const fileInputRef = useRef(null);
 

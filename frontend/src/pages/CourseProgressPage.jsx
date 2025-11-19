@@ -10,8 +10,8 @@ function CourseProgressPage() {
     const userId = "69137a8af89c0238fea3b559"
     // const courseId = "69162d1127b923462f63b18e"
     const courseId = "6916d9c3c2e3c95320a35412"
-    const lessonId = "6912f651bdced8ca460936fb"
-    // const lessonId = "6912fda1bdced8ca46093797"`
+    // const lessonId = "6912f651bdced8ca460936fb"
+    const lessonId = "6912fda1bdced8ca46093797"
 
     // Отримати всі курси користувача
     const fetchCourses = async () => {
