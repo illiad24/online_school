@@ -1,7 +1,5 @@
 import express from 'express'
 import EnrollmentsDBService from '../models/enrollment/EnrollmentsDBService.mjs'
-import EnrollmentUtils from '../models/enrollment/EnrollmentUtils.mjs'
-
 const router = express.Router()
 
 

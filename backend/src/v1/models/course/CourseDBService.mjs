@@ -6,7 +6,7 @@ import Course from './Course.mjs'
 class CourseDBService extends MongooseCRUDManager {
     async getList() {
         try {
-            const res = await super.getList({}, null, ['teacher', 'lessons', 'users'])
+            const res = await super.getList({}, null, ['teacher', 'lessons'])
             return res
         } catch (error) {
             return []
@@ -14,7 +14,7 @@ class CourseDBService extends MongooseCRUDManager {
     }
     async getById(id) {
         try {
-            const res = await super.getById(id, ['teacher', 'lessons', 'users'])
+            const res = await super.getById(id, ['teacher', 'lessons'])
             return res
 
         } catch (error) {
@@ -35,20 +35,7 @@ class CourseDBService extends MongooseCRUDManager {
         }
 
     }
-    async addUserToCourse(courseId, userId) {
-        try {
-            const course = await this.model.findById(courseId);
-            if (!course) {
-                throw new Error('Course not found');
-            }
-            course.users.push(userId);
-            await course.save();
-            return course;
-        } catch (error) {
-            throw new Error('Error adding lesson to course');
-        }
 
-    }
 }
 
 export default new CourseDBService(Course)

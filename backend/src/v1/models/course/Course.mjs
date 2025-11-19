@@ -31,10 +31,7 @@ const courseSchema = new Schema({
         required: [true, 'Price is required'],
         min: [0, 'Price must be at least 0'],
     },
-    users: [{
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-    }],
+
     category: {
         // Додати колекцію категорій
     },

@@ -9,6 +9,7 @@ class EnrollmentsDBService extends MongooseCRUDManager {
         try {
             const { userId, courseId } = req.body
 
+
             const existing = await EnrollmentUtils.getUserById({ user: userId, course: courseId }, 'findOne')
 
             if (existing) return res.status(400).json({ message: 'Користувач вже записаний на цей курс' })
@@ -25,12 +26,16 @@ class EnrollmentsDBService extends MongooseCRUDManager {
     async getAllUserCourses(req, res) {
         try {
             const { userId } = req.params
+            console.log(userId);
 
             if (!userId) {
                 return res.status(400).json({ message: 'Не вказано userId' })
             }
 
             const enrollments = await EnrollmentUtils.getUserById({ user: userId })
+
+            console.log(enrollments);
+
             return res.json(enrollments)
         } catch (err) {
             console.error('Error in getUserInfo:', err)

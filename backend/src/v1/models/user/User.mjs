@@ -16,7 +16,7 @@ const userSchema = new Schema({
         required: [true, 'Password is required'],
         minlength: [6, 'Password must be at least 6 characters long'],
     },
-    
+
     email: {
         type: String,
         required: [true, 'email is required'],
@@ -28,10 +28,6 @@ const userSchema = new Schema({
     role: {
         type: Schema.Types.ObjectId,
         ref: 'Role',
-    },
-    courses: {
-        type: [Schema.Types.ObjectId],
-        ref: 'Course'
     },
     userImage: {
         type: String

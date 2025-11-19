@@ -10,7 +10,6 @@ router.get('/:id', CourseController.coursesById)
 
 router.post('/create', requireAuth, upload.single('image'), requireRoles(['admin', 'manager']), courseValidator, CourseController.createUpdateCourse)
 router.post('/:id/add-lesson', requireAuth, requireRoles(['admin', 'manager']), CourseController.addLessonToCourse)
-router.post('/:id/enroll', requireAuth, requireRoles(['admin', 'manager', 'student']), CourseController.addUserToCourse)
 router.delete('/:id', requireAuth, requireRoles(['admin']), CourseController.deleteById)
 
 router.put('/:id', requireAuth, upload.single('image'), requireRoles(['admin', 'manager']), courseValidator, CourseController.createUpdateCourse)
