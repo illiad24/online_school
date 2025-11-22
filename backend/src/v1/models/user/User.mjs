@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 const { Schema } = mongoose
 import bcrypt from 'bcryptjs'
+import Enrollment from '../enrollment/Enrollment.mjs'
 
 // Створення схеми користувача
 const userSchema = new Schema({
@@ -51,6 +52,15 @@ userSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, salt)
     next()
 })
-
+userSchema.pre('deleteOne', { document: false, query: true }, async function (next) {
+    try {
+        const filter = this.getFilter(); 
+        const id = filter._id;
+        await Enrollment.deleteMany({ course: id });
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
 const User = mongoose.model('User', userSchema)
 export default User

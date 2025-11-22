@@ -26,7 +26,6 @@ class EnrollmentsDBService extends MongooseCRUDManager {
     async getAllUserCourses(req, res) {
         try {
             const { userId } = req.params
-            console.log(userId);
 
             if (!userId) {
                 return res.status(400).json({ message: 'Не вказано userId' })
@@ -34,7 +33,6 @@ class EnrollmentsDBService extends MongooseCRUDManager {
 
             const enrollments = await EnrollmentUtils.getUserById({ user: userId })
 
-            console.log(enrollments);
 
             return res.json(enrollments)
         } catch (err) {
@@ -54,7 +52,13 @@ class EnrollmentsDBService extends MongooseCRUDManager {
                 return res.status(400).json({ message: 'Не вказано courseId' })
             }
 
-            const enrollment = await EnrollmentUtils.getUserById({ user: userId, course: courseId }, 'findOne')
+            const enrollment = await EnrollmentUtils.getUserById({ user: userId, course: courseId }, 'findOne', ['course', 'user'])
+
+            // Популюємо уроки всередині курсу
+            if (enrollment && enrollment.course) {
+                await enrollment.populate('course.lessons')
+            }
+
             return res.json(enrollment)
         } catch (err) {
             console.error('Error in getUserInfo:', err)
@@ -92,6 +96,7 @@ class EnrollmentsDBService extends MongooseCRUDManager {
             if (!course) {
                 return res.status(404).json({ message: 'Курс не знайдено' });
             }
+            // console.log(course.lessons);
 
             const lessonExists = course.lessons.some(
                 (lesson) => lesson._id.toString() === lessonId

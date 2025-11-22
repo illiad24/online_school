@@ -54,8 +54,6 @@ class MongooseCRUDManager {
     // Пошук одного за фільтром
     async findOne(filters = {}, projection = null, populateFields = []) {
         try {
-            console.log(this.model);
-
             let query = this.model.findOne(filters, projection)
             populateFields.forEach((field) => {
                 if (typeof field === 'string') {
@@ -92,7 +90,7 @@ class MongooseCRUDManager {
     // Видалення за id
     async deleteById(id) {
         try {
-            return await this.model.findByIdAndDelete(id).exec()
+            return await this.model.deleteOne({ _id: id }).exec()
         } catch (error) {
             throw new Error('Error deleting data: ' + error.message)
         }

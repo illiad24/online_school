@@ -9,6 +9,4 @@ router.get('/user/:userId/course/:courseId', EnrollmentsDBService.getUserCourse)
 router.post('/complete-lesson', EnrollmentsDBService.completeLesson) // позначити урок пройденим
 router.patch('/:userId/:courseId/status', EnrollmentsDBService.updateStatus) // оновити статус курсу
 
-
-
 export default router

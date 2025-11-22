@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Enrollment from "../enrollment/Enrollment.mjs";
 
 const { Schema } = mongoose;
 
@@ -37,6 +38,17 @@ const courseSchema = new Schema({
     },
     image: {
         type: String,
+    }
+});
+
+courseSchema.pre('deleteOne', { document: false, query: true }, async function (next) {
+    try {
+        const filter = this.getFilter();
+        const id = filter._id;
+        await Enrollment.deleteMany({ course: id });
+        next();
+    } catch (err) {
+        next(err);
     }
 });
 
