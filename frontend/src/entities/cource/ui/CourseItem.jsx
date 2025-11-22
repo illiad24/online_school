@@ -16,7 +16,7 @@ export function CourseItem({ course, actions, isAddingLesson, layout }) {
 
 
 
-    return ( 
+    return (
         <Card
             sx={{
                 display: layout === "inline-view" ? "flex" : "flex",
@@ -142,7 +142,7 @@ export function CourseItem({ course, actions, isAddingLesson, layout }) {
                 {/* Форма уроків */}
                 {isAddingLesson && (
                     <Box sx={{ mt: 2 }}>
-                        <LessonForm courseId={course._id} />
+                        <LessonForm courseId={course._id} course={course} />
                     </Box>
                 )}
             </CardContent>

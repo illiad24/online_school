@@ -44,7 +44,7 @@ export const courseApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: { lessonId },
             }),
-            invalidatesTags: ['Course'],
+            invalidatesTags: ['Course', 'Enrollment'],
         }),
 
     }),

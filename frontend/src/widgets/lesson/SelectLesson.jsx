@@ -3,10 +3,14 @@ import { useAddLessonToCourseMutation } from "@/entities/cource/api/courseApi"
 import { useGetLessonsQuery } from "@/entities/lesson/api/lessonApi"
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, CircularProgress, Typography } from "@mui/material"
 
-function SelectLesson({ courseId }) {
+function SelectLesson({ courseId, course }) {
     const { data: lessonsList, isLoading, isError } = useGetLessonsQuery()
     const [selectedLesson, setSelectedLesson] = useState("")
     const [addLessonToCourse, { isLoading: isSubmitting }] = useAddLessonToCourseMutation()
+
+
+    const availableLessons = lessonsList?.filter(el => !course.lessons.map(l => l._id).includes(el._id))
+
 
     if (isLoading) {
         return (
@@ -36,7 +40,8 @@ function SelectLesson({ courseId }) {
             await addLessonToCourse({ courseId, lessonId: selectedLesson }).unwrap()
             setSelectedLesson("")
         } catch (error) {
-            alert("Сталася помилка ❌")
+            throw new Error(error);
+
         }
     }
 
@@ -50,7 +55,7 @@ function SelectLesson({ courseId }) {
                     label="Оберіть урок"
                     onChange={(e) => setSelectedLesson(e.target.value)}
                 >
-                    {lessonsList.map((lesson) => (
+                    {availableLessons.map((lesson) => (
                         <MenuItem key={lesson._id} value={lesson._id}>
                             {lesson.title}
                         </MenuItem>
