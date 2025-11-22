@@ -27,7 +27,11 @@ class CourseDBService extends MongooseCRUDManager {
             if (!course) {
                 throw new Error('Course not found');
             }
-            course.lessons.push(lessonId);
+            if (!course.lessons.includes(lessonId)) {
+                course.lessons.push(lessonId);
+            } else {
+                throw new Error('Lesson already exist');
+            }
             await course.save();
             return course;
         } catch (error) {
