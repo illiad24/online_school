@@ -12,7 +12,7 @@ export const navigateRoutes = {
             create: 'form',
             addLesson: (id) => `/courses/${id}/add-lesson`,
             getCourseById: (id) => `/courses/${id}`,
-            course: (id) => `/courses/${id}`,
+            courseLearn: (id) => `/courses/learn/${id}`,
         },
         lessons: {
             list: '/lessons',

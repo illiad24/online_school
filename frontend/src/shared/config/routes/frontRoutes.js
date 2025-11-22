@@ -97,12 +97,11 @@ export const frontRoutes = {
             },
         },
         CourseProgressPage: {
-            path: 'courses/69162d1127b923462f63b18e',
+            path: 'courses/learn/:courseId',
             meta: {
                 title: 'Проходження',
                 isInMenu: true,
                 requireAuth: true,
-                // roles: [roles.admin, roles.manager],
             },
         },
         LessonsPage: {

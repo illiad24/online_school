@@ -28,6 +28,8 @@ function CourseList() {
     const { data: courses, isLoading, refetch } = useGetCoursesQuery()
     const userId = user?._id || user?.id
 
+    console.log(userId);
+
     const { data: enrollments } = useGetUserEnrollmentsQuery(
         userId
     )
@@ -148,15 +150,15 @@ function CourseList() {
                                         handleClick={navigateRoutes.navigate.courses.edit(course._id)}
                                     />
                                 ),
-                                isStudent && !isUserInCourse(course._id) && (
+                                (isAdmin || isSuperAdmin || isStudent) && !isUserInCourse(course._id) && (
                                     <EnrollButton
                                         key={`enroll-${course._id}`}
                                         handleClick={() => enrollAction(course._id)}
                                     />
                                 ),
-                                isStudent && isUserInCourse(course._id) && (
+                                (isAdmin || isSuperAdmin || isStudent) && isUserInCourse(course._id) && (
                                     <SimpleButton
-                                        key={`continue-${course._id}`} text='продовжити навчання' handleClick={navigateRoutes.navigate.courses.course(course?._id)}
+                                        key={`continue-${course._id}`} text='продовжити навчання' handleClick={navigateRoutes.navigate.courses.courseLearn(course?._id)}
                                     />
                                 ),
                                 <SimpleButton
