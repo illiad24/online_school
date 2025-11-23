@@ -77,6 +77,9 @@ function CourseList() {
         )
     }
 
+
+
+
     return (
         <Box sx={{ mt: 4 }}>
             <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'start', sm: 'center' }} mb={3} spacing={2}>
@@ -127,15 +130,8 @@ function CourseList() {
                             isAddingLesson={openLessonFormFor === course._id}
                             actions={[
                                 isAdmin && (
-                                    <AddButton
-                                        key={`add-lesson-${course._id}`}
-                                        text={openLessonFormFor === course._id ? 'Закрити форму' : 'Додати урок'}
-                                        type="button"
-                                        handleClick={() =>
-                                            setOpenLessonFormFor((prev) =>
-                                                prev === course._id ? null : course._id
-                                            )
-                                        }
+                                    <SimpleButton
+                                        key={`lesson-manager-${course._id}`} text='Керувати уроками' handleClick={navigateRoutes.navigate.courses.courseLessonManager(course?._id)}
                                     />
                                 ),
                                 isSuperAdmin && (
@@ -163,7 +159,6 @@ function CourseList() {
                                 ),
                                 <SimpleButton
                                     key={`detail-${course._id}`} text='Деталі' handleClick={navigateRoutes.navigate.courses.getCourseById(course?._id)}
-
                                 />
 
                             ].filter(Boolean)}

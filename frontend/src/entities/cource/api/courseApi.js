@@ -46,6 +46,21 @@ export const courseApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['Course', 'Enrollment'],
         }),
+        removeLessonFromCourse: build.mutation({
+            query: ({ courseId, lessonId }) => ({
+                url: apiRoutes.courses.removeLesson(courseId, lessonId),
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['Course', 'Enrollment'],
+        }),
+        updateLessonsOrder: build.mutation({
+            query: ({ courseId, lessonsOrder }) => ({
+                url: apiRoutes.courses.updateLessonsOrder(courseId),
+                method: 'PUT',
+                body: { lessonsOrder },
+            }),
+            invalidatesTags: ['Course', 'Enrollment'],
+        }),
 
     }),
 })
@@ -57,4 +72,6 @@ export const {
     useUpdateCourseMutation,
     useDeleteCourseMutation,
     useAddLessonToCourseMutation,
+    useRemoveLessonFromCourseMutation,
+    useUpdateLessonsOrderMutation,
 } = courseApi

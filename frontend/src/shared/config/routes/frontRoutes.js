@@ -104,6 +104,15 @@ export const frontRoutes = {
                 requireAuth: true,
             },
         },
+        CourseLessonsManager: {
+            path: 'courses/lessons/:id',
+            meta: {
+                title: 'Управління уроками курсу',
+                isInMenu: false,
+                requireAuth: true,
+                roles: [roles.admin, roles.manager],
+            },
+        },
         LessonsPage: {
             path: 'lessons',
             meta: {

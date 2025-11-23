@@ -13,6 +13,8 @@ export const navigateRoutes = {
             addLesson: (id) => `/courses/${id}/add-lesson`,
             getCourseById: (id) => `/courses/${id}`,
             courseLearn: (id) => `/courses/learn/${id}`,
+            courseLessonManager: (id) => `/courses/lessons/${id}`,
+
         },
         lessons: {
             list: '/lessons',
