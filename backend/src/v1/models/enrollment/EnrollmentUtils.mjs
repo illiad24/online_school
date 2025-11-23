@@ -46,6 +46,53 @@ class EnrollmentUtils {
         return Course.findById(courseId).populate('lessons').exec();
     }
 
+    // Оновлює прогрес для всіх enrollment записів конкретного курсу
+    static async updateProgressForAllEnrollments(courseId) {
+        try {
+            const course = await Course.findById(courseId).populate('lessons').exec();
+            if (!course) {
+                throw new Error('Course not found');
+            }
+
+            const totalLessons = course.lessons.length;
+            const courseLessonIds = course.lessons.map(lesson => lesson._id.toString());
+
+            // Знаходимо всі enrollment для цього курсу
+            const enrollments = await Enrollment.find({ course: courseId });
+
+            // Оновлюємо прогрес для кожного enrollment
+            for (const enrollment of enrollments) {
+                // Видаляємо з completedLessons ті уроки, які більше не існують в курсі
+                enrollment.completedLessons = enrollment.completedLessons.filter(lessonId => {
+                    const lessonIdStr = lessonId.toString();
+                    return courseLessonIds.includes(lessonIdStr);
+                });
+
+                // Перераховуємо прогрес
+                const completedCount = enrollment.completedLessons.length;
+                const newProgress = totalLessons > 0 
+                    ? Math.round((completedCount / totalLessons) * 100) 
+                    : 0;
+
+                enrollment.progress = newProgress;
+
+                // Оновлюємо статус
+                if (newProgress === 100 && enrollment.status !== 'completed') {
+                    enrollment.status = 'completed';
+                } else if (newProgress < 100 && enrollment.status === 'completed') {
+                    enrollment.status = 'active';
+                }
+
+                await enrollment.save();
+            }
+
+            return enrollments;
+        } catch (error) {
+            console.error('Error updating progress for enrollments:', error);
+            throw new Error('Error updating progress for enrollments: ' + error.message);
+        }
+    }
+
 
 }
 

@@ -70,6 +70,30 @@ class CourseController {
         }
     }
 
+    static async removeLessonFromCourse(req, res) {
+        try {
+            const { id, lessonId } = req.params
+            const result = await CourseDBService.removeLessonFromCourse(id, lessonId)
+            res.json(result)
+        } catch (err) {
+            res.status(500).json({ error: err.message })
+        }
+    }
+
+    static async updateLessonsOrder(req, res) {
+        try {
+            const { id } = req.params
+            const { lessonsOrder } = req.body
+            if (!Array.isArray(lessonsOrder)) {
+                return res.status(400).json({ error: 'lessonsOrder must be an array' })
+            }
+            const result = await CourseDBService.updateLessonsOrder(id, lessonsOrder)
+            res.json(result)
+        } catch (err) {
+            res.status(500).json({ error: err.message })
+        }
+    }
+
 }
 
 export default CourseController
