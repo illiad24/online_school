@@ -2,6 +2,7 @@ import BenefitsSection from '@/widgets/sections/BenefitsSection';
 import ContactSection from '@/widgets/sections/ContactSection';
 import FeaturedCourses from '@/widgets/sections/FeaturedCourses';
 import MainSection from '@/widgets/sections/MainSection';
+import Teachers from '@/widgets/sections/Teachers';
 import WhySection from '@/widgets/sections/WhySection';
 import { Box, Container } from '@mui/material';
 function HomePage() {
@@ -12,6 +13,7 @@ function HomePage() {
             <FeaturedCourses />
             <BenefitsSection />
             <ContactSection />
+            <Teachers />
         </Box>
     );
 }

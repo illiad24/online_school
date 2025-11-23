@@ -2,13 +2,13 @@ import React from 'react'
 import { Card, CardContent, Typography, Box, Stack, CardMedia } from '@mui/material'
 import { useAuthRole } from '@/shared/hooks/useAuthRole'
 
-function TeacherItem({ teacher, actions }) {
+function TeacherItem({ teacher, actions, type = 1 }) {
     if (!teacher) return null
 
     const { isAdmin } = useAuthRole();
 
     return (
-        <Card
+        type === 1 ? <Card
             sx={{
                 p: { xs: 2, sm: 3 },
                 mb: 3,
@@ -106,14 +106,59 @@ function TeacherItem({ teacher, actions }) {
                         flexWrap: "wrap",
                     }}
                 >
-                    {actions.map((action, index) => (
+                    {actions?.map((action, index) => (
                         <React.Fragment key={index}>{action}</React.Fragment>
                     ))}
                 </Stack>
             </Box>
-        </Card>
+        </Card> :
+            <Box>
+                <Box sx={{
+                    position: 'relative',
+                    paddingBottom: '69%',
+                    mb: '16px',
+                }}>
+                    <CardMedia
+                        component="img"
+                        image={teacher?.image}
+                        alt={teacher?.name}
+                        sx={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: "cover",
+                            flexShrink: 0,
+                            position: 'absolute',
+                            top: 0,
 
-
+                            left: 0
+                        }}
+                    >
+                    </CardMedia>
+                </Box>
+                <Box
+                    sx={{
+                        textAlign: 'center'
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            color: "text.primary",
+                            lineHeight: 1.6,
+                            fontSize: '32px',
+                            fontWeight: '700'
+                        }}
+                    >
+                        {teacher.name}
+                    </Typography>
+                    <Typography
+                        sx={{
+                            color: '#787a80'
+                        }}
+                    >
+                        {teacher.subject}
+                    </Typography>
+                </Box>
+            </Box >
     )
 }
 

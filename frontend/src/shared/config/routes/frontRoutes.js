@@ -74,7 +74,7 @@ export const frontRoutes = {
                 title: 'Вчителі',
                 isInMenu: true,
                 requireAuth: true,
-                roles: [roles.admin, roles.manager, roles.student],
+                roles: [roles.admin, roles.manager],
             },
         },
         TeacherFormPage: {
@@ -100,7 +100,7 @@ export const frontRoutes = {
             path: 'courses/learn/:courseId',
             meta: {
                 title: 'Проходження',
-                isInMenu: true,
+                isInMenu: false,
                 requireAuth: true,
             },
         },
