@@ -1,6 +1,6 @@
-import CourseItem from "@/entities/cource/ui/CourseItem";
 import { useGetUserEnrollmentsQuery } from "@/entities/enrollment/enrollmentApi";
 import { useAuthRole } from "@/shared/hooks/useAuthRole";
+import MyCourseItem from "./components/MyCourseItem";
 
 function ProfileCourses() {
     const { user } = useAuthRole();
@@ -19,7 +19,7 @@ function ProfileCourses() {
             ProfileCourses
             <div>
                 {data?.map((enrollment) =>
-                    <CourseItem course={enrollment.course} key={enrollment.course._id} />
+                    <MyCourseItem enrollment={enrollment} key={enrollment.course._id} />
                 )}
             </div>
         </div>
