@@ -1,103 +1,161 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent, Typography, TextField, Button, Stack, Box, Snackbar, Alert } from "@mui/material";
-import passwordSchema from "@/shared/validationSchema/passwordSchema";
+import {
+    Card,
+    CardContent,
+    Typography,
+    TextField,
+    Button,
+    Stack,
+    Box,
+    Snackbar,
+    Alert,
+    CircularProgress,
+    useTheme
+} from "@mui/material";
+import passwordSchema from "@/shared/validationSchema/passwordSchema"; // Припускаємо, що це коректний шлях
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
-import { useChangePasswordMutation } from "@/entities/user/api/userApi";
+import { useChangePasswordMutation } from "@/entities/user/api/userApi"; // Припускаємо, що це коректний шлях
 
 function PasswordEdit() {
-    const { id } = useParams()
-    const { register, handleSubmit, formState: { errors }, reset } = useForm({
+    const { id } = useParams();
+    const theme = useTheme();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset
+    } = useForm({
         resolver: yupResolver(passwordSchema),
-    })
+    });
 
-    const [changePassword, { isLoading, isError, isSuccess, error }] = useChangePasswordMutation()
+    const [changePassword, { isLoading, isError, isSuccess, error }] = useChangePasswordMutation();
 
-    const [snackbarOpen, setSnackbarOpen] = useState(false)
-    const [serverErrorMessage, setServerErrorMessage] = useState("")
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [serverErrorMessage, setServerErrorMessage] = useState("");
 
     useEffect(() => {
         if (isSuccess) {
-            setServerErrorMessage("")
-            setSnackbarOpen(true)
+            setServerErrorMessage("");
+            setSnackbarOpen(true);
+            // Скидаємо поля форми після успішної зміни
+            reset({ oldPassword: "", newPassword: "" });
         } else if (isError) {
-            const backendMessage = error?.data?.message || "Сталася помилка при відправці"
-            setServerErrorMessage(backendMessage)
+            const backendMessage = error?.data?.message || error?.error || "Сталася помилка при зміні паролю.";
+            setServerErrorMessage(backendMessage);
         }
-    }, [isSuccess, isError, error])
+    }, [isSuccess, isError, error, reset]);
 
     const onSubmit = async (data) => {
-        setServerErrorMessage("")
+        setServerErrorMessage("");
         try {
-            await changePassword({ id, data }).unwrap()
+            await changePassword({ id, data }).unwrap();
         } catch {
-            // помилку покажемо біля форми
+            // Помилка обробляється в useEffect через isError
         }
-        reset({ oldPassword: "", newPassword: "" })
-    }
+        // Паролі скидаються тільки в разі успіху в useEffect
+    };
 
     return (
         <Card
             variant="outlined"
-            sx={{ mx: "auto", mt: 5, p: 3, borderRadius: 3, boxShadow: 3, bgcolor: "#fafafa" }}
+            sx={{
+                p: { xs: 2, sm: 4 },
+                borderRadius: 2,
+                boxShadow: theme.shadows[5], // Вищий рівень тіні
+                maxWidth: 800, // Обмеження ширини форми
+                mx: "auto",
+                bgcolor: theme.palette.background.paper, // Білий фон
+                mt: 4,
+            }}
         >
-            <Box
-                component="form"
-                onSubmit={handleSubmit(onSubmit)}
-            >
+            <CardContent sx={{ p: 0, '&:last-child': { pb: 0 } }}>
                 <Typography
                     variant="h5"
                     gutterBottom
-                    sx={{ fontWeight: 600, mb: 3, textAlign: "center", color: "#333" }}
+                    sx={{
+                        fontWeight: 700,
+                        mb: 4,
+                        textAlign: "left",
+                        color: theme.palette.primary.main,
+                        borderBottom: `2px solid ${theme.palette.divider}`,
+                        pb: 1
+                    }}
                 >
-                    Change Password
+                    Зміна паролю
                 </Typography>
 
-                <Stack spacing={2}>
-                    <TextField
-                        label="Current Password"
-                        type="password"
-                        fullWidth
-                        variant="outlined"
-                        size="medium"
-                        {...register("oldPassword")}
-                        error={!!errors.oldPassword}
-                        helperText={errors.oldPassword?.message}
-                    />
-                    <TextField
-                        label="New Password"
-                        type="password"
-                        fullWidth
-                        variant="outlined"
-                        size="medium"
-                        {...register("newPassword")}
-                        error={!!errors.newPassword}
-                        helperText={errors.newPassword?.message}
-                    />
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        disabled={isLoading}
-                        sx={{ bgcolor: "#4caf50", "&:hover": { bgcolor: "#45a045" }, mt: 1, textTransform: "none", fontWeight: 600 }}
-                    >
-                        {isLoading ? "Saving..." : "Change Password"}
-                    </Button>
-                    {serverErrorMessage && (
-                        <Alert severity="error" sx={{ mt: 1 }}>
-                            {serverErrorMessage}
-                        </Alert>
-                    )}
-                </Stack>
-            </Box>
+                <Box
+                    component="form"
+                    onSubmit={handleSubmit(onSubmit)}
+                >
+                    <Stack spacing={3}>
+                        <TextField
+                            label="Поточний пароль"
+                            type="password"
+                            fullWidth
+                            variant="outlined"
+                            size="medium"
+                            {...register("oldPassword")}
+                            error={!!errors.oldPassword}
+                            helperText={errors.oldPassword?.message}
+                            disabled={isLoading}
+                        />
+                        <TextField
+                            label="Новий пароль"
+                            type="password"
+                            fullWidth
+                            variant="outlined"
+                            size="medium"
+                            {...register("newPassword")}
+                            error={!!errors.newPassword}
+                            helperText={errors.newPassword?.message}
+                            disabled={isLoading}
+                        />
+
+                        {serverErrorMessage && (
+                            <Alert severity="error" sx={{ mt: 1 }}>
+                                {serverErrorMessage}
+                            </Alert>
+                        )}
+
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            disabled={isLoading}
+                            sx={{
+                                mt: 3,
+                                py: 1.5,
+                                textTransform: "uppercase",
+                                fontWeight: 700,
+                                borderRadius: 1
+                            }}
+                        >
+                            {isLoading ? (
+                                <CircularProgress size={24} color="inherit" />
+                            ) : (
+                                "Зберегти новий пароль"
+                            )}
+                        </Button>
+                    </Stack>
+                </Box>
+            </CardContent>
+
             <Snackbar
                 open={snackbarOpen}
-                autoHideDuration={3000}
+                autoHideDuration={4000}
                 onClose={() => setSnackbarOpen(false)}
                 anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-                <Alert onClose={() => setSnackbarOpen(false)} severity="success" sx={{ width: '100%', fontWeight: 500 }}>
-                    Пароль успішно змінено
+                <Alert
+                    onClose={() => setSnackbarOpen(false)}
+                    severity="success"
+                    sx={{ width: '100%', fontWeight: 500 }}
+                >
+                    Пароль успішно змінено!
                 </Alert>
             </Snackbar>
         </Card>

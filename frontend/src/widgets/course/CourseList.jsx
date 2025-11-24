@@ -28,11 +28,7 @@ function CourseList() {
     const { data: courses, isLoading, refetch } = useGetCoursesQuery()
     const userId = user?._id || user?.id
 
-    const { data: enrollments } = useGetUserEnrollmentsQuery(
-        userId
-    )
-
-
+    const { data: enrollments } = useGetUserEnrollmentsQuery(userId)
 
     function isUserInCourse(courseId) {
         return enrollments?.some(en => en.course._id === courseId) ?? false;

@@ -16,7 +16,7 @@ function ProfileCourses() {
 
     return (
         <div>
-            ProfileCourses
+            <h1>Мої курси</h1>
             <div>
                 {data?.map((enrollment) =>
                     <MyCourseItem enrollment={enrollment} key={enrollment.course._id} />
