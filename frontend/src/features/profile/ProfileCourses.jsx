@@ -1,12 +1,16 @@
 import CourseItem from "@/entities/cource/ui/CourseItem";
+import { useGetUserEnrollmentsQuery } from "@/entities/enrollment/enrollmentApi";
 import { useAuthRole } from "@/shared/hooks/useAuthRole";
 
 function ProfileCourses() {
     const { user } = useAuthRole();
-    const userCourses = user?.courses
-    if (!userCourses) return (
+
+
+    const { data, isLoading } = useGetUserEnrollmentsQuery(user.id)
+
+    if (isLoading) return (
         <div>
-            Не має курсів
+            Завантаження...
         </div>
     );
 
@@ -14,8 +18,8 @@ function ProfileCourses() {
         <div>
             ProfileCourses
             <div>
-                {userCourses.map((course) =>
-                    <CourseItem course={course} key={course._id} />
+                {data?.map((enrollment) =>
+                    <CourseItem course={enrollment.course} key={enrollment.course._id} />
                 )}
             </div>
         </div>

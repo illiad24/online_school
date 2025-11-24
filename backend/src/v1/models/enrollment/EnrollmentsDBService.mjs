@@ -31,9 +31,12 @@ class EnrollmentsDBService extends MongooseCRUDManager {
                 return res.status(400).json({ message: 'Не вказано userId' })
             }
 
-            const enrollments = await EnrollmentUtils.getUserById({ user: userId })
+            const enrollments = await EnrollmentUtils.getUserById({ user: userId }, 'find', ['course', 'user'])
 
-
+            // Популюємо уроки всередині курсу
+            if (enrollments && enrollments.course) {
+                await enrollments.populate('course.lessons')
+            }
             return res.json(enrollments)
         } catch (err) {
             console.error('Error in getUserInfo:', err)

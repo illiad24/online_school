@@ -12,7 +12,7 @@ import {
 import LessonForm from "@/widgets/lesson/SelectLesson";
 import { Link } from "react-router";
 
-export function CourseItem({ course, actions, isAddingLesson, layout }) {
+export function CourseItem({ course, actions, layout }) {
 
 
 
@@ -56,7 +56,7 @@ export function CourseItem({ course, actions, isAddingLesson, layout }) {
                     }}
                 />
 
-                <Chip
+                {/* <Chip
                     label={course?.category || "General"}
                     color="primary"
                     size="small"
@@ -69,7 +69,7 @@ export function CourseItem({ course, actions, isAddingLesson, layout }) {
                         backgroundColor: "rgba(25,118,210,0.9)",
                         color: "white",
                     }}
-                />
+                /> */}
             </Box>
 
             {/* Контент */}
@@ -137,13 +137,6 @@ export function CourseItem({ course, actions, isAddingLesson, layout }) {
                             <Box key={i}>{action}</Box>
                         ))}
                     </Stack>
-                )}
-
-                {/* Форма уроків */}
-                {isAddingLesson && (
-                    <Box sx={{ mt: 2 }}>
-                        <LessonForm courseId={course._id} course={course} />
-                    </Box>
                 )}
             </CardContent>
         </Card>

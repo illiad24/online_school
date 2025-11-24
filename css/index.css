@@ -1,0 +1,577 @@
+@charset "UTF-8";
+#root {
+  min-height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow: hidden;
+}
+@supports (overflow: clip) {
+  #root {
+    overflow: clip;
+  }
+}
+#root > main {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+#root > * {
+  min-width: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.container-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 24px;
+  min-height: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
+:root {
+  --color-primary: #34495e;
+  --color-secondary: #2c3e50;
+  --color-accent: #3498db;
+  --color-error: #e74c3c;
+  --color-text-dark: #2c3e50;
+  --color-text-light: #7f8c8d;
+  --color-white: #ffffff;
+  --color-light-gray: #ecf0f1;
+  --border-radius-sm: 4px;
+  --border-radius-lg: 8px;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.footer {
+  background-color: #222;
+  color: #fff;
+  padding: 20px 0;
+  font-size: 14px;
+}
+.footer__container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  padding: 0 24px;
+}
+.footer__nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 15px;
+}
+.footer__nav a {
+  color: #fff;
+  text-decoration: none;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+}
+.footer__nav a:hover {
+  color: #007bff;
+}
+
+.main-title {
+  font-size: 40px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+body {
+  background-color: linear-gradient(135deg, #f9fafb, #eef3f9);
+}
+
+img {
+  margin: 0 !important;
+}
+
+.grid-view {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+@media (max-width: 992px) {
+  .grid-view {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .grid-view {
+    grid-template-columns: auto;
+  }
+}
+
+.inline-view {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 32px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.course-wrapper-image {
+  position: relative;
+  padding-bottom: 40%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
+.course-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #05070a;
+  color: #fff;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.button--inherit {
+  background-color: inherit;
+}
+.button:hover {
+  text-decoration: none;
+  background-color: rgb(235, 238, 244);
+}
+
+.select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #fff;
+  cursor: pointer;
+  -webkit-transition: border-color 0.2s ease, -webkit-box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, -webkit-box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, -webkit-box-shadow 0.2s ease;
+}
+.select:hover {
+  border-color: #888;
+}
+.select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  -webkit-box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+          box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+}
+.select__option {
+  padding: 8px;
+  font-size: 14px;
+  background: #fff;
+  color: #333;
+}
+.select__option:checked, .select__option:selected {
+  background: #4a90e2;
+  color: #fff;
+}
+
+/* --- Блок: form --- */
+.form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 15px;
+  /* --- Елемент: form__title --- */
+  /* --- Елемент: form__group --- */
+  /* --- Елемент: form__label --- */
+  /* --- Елемент: form__input --- */
+  /* --- Елемент: form__button --- */
+  /* --- Елемент: form__error --- */
+}
+.form--margin {
+  max-width: 700px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+.form__title {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 5px;
+  color: #333;
+}
+.form__group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 8px;
+}
+.form__group:not(:last-child) {
+  margin-bottom: 16px;
+}
+.form__label {
+  font-weight: 500;
+  color: #555;
+}
+.form__input {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  /* --- Модифікатор: form__input--textarea --- */
+}
+.form__input:focus {
+  border-color: #007bff;
+}
+.form__input--textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+.form__button {
+  padding: 12px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+  /* --- Модифікатор: form__button--disabled --- */
+}
+.form__button:hover {
+  background-color: #0056b3;
+}
+.form__button--disabled {
+  background-color: #a0c4ff;
+  cursor: not-allowed;
+}
+.form__error {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+  margin-top: -5px;
+}
+
+/* --- Блок: teacher-card --- */
+.teacher-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  -webkit-transition: -webkit-transform 0.3s ease, -webkit-box-shadow 0.3s ease;
+  transition: -webkit-transform 0.3s ease, -webkit-box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, -webkit-transform 0.3s ease, -webkit-box-shadow 0.3s ease;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* --- Елемент: teacher-card__details --- */
+  /* --- Елемент: teacher-card__detail-item --- */
+  /* --- Елемент: teacher-card__bio --- */
+  /* --- Елемент: teacher-card__actions --- */
+}
+.teacher-card:hover {
+  -webkit-transform: translateY(-5px);
+      -ms-transform: translateY(-5px);
+          transform: translateY(-5px);
+  -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+.teacher-card__details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.teacher-card__detail-item {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+}
+.teacher-card__detail-item span {
+  font-weight: 600;
+  color: #333;
+}
+.teacher-card__bio {
+  font-style: italic;
+  color: #777;
+  font-size: 14px;
+  margin-top: -10px;
+  line-height: 1.4;
+}
+.teacher-card__actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* --- Блок: teacher-list --- */
+.teacher-list {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  /* --- Елемент: teacher-list__header-container --- */
+  /* --- Елемент: teacher-list__header --- */
+  /* --- Елемент: teacher-list__item-container --- */
+  /* --- Елемент: teacher-list__status --- */
+}
+.teacher-list__header-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 25px;
+}
+.teacher-list__header {
+  font-size: 2.5em;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  margin-bottom: 25px;
+  letter-spacing: -0.5px;
+}
+.teacher-list__item-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 15px;
+}
+.teacher-list__status {
+  text-align: center;
+  font-size: 1.2em;
+  color: #666;
+  padding: 50px 0;
+}
+
+/* --- Блок: delete-button --- */
+.delete-button {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #e74c3c; /* Червоний колір для видалення */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.2s ease, -webkit-transform 0.1s ease;
+  transition: background-color 0.2s ease, -webkit-transform 0.1s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease, -webkit-transform 0.1s ease;
+}
+.delete-button:hover {
+  background-color: #c0392b; /* Темніший відтінок при наведенні */
+}
+.delete-button:active {
+  -webkit-transform: translateY(1px);
+      -ms-transform: translateY(1px);
+          transform: translateY(1px); /* Ефект натискання */
+}
+.delete-button:disabled {
+  background-color: #f1948a;
+  cursor: not-allowed;
+}
+
+.course-list__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 2.5rem;
+}
+.course-list__title {
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.course-item {
+  padding: 2rem 2.5rem;
+  background-color: var(--color-card-bg);
+  border-radius: var(--border-radius-md);
+  -webkit-box-shadow: var(--shadow-sm);
+          box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
+  -webkit-transition: -webkit-transform 0.3s ease, -webkit-box-shadow 0.3s ease;
+  transition: -webkit-transform 0.3s ease, -webkit-box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, -webkit-transform 0.3s ease, -webkit-box-shadow 0.3s ease;
+}
+.course-item:hover {
+  -webkit-transform: translateY(-5px);
+      -ms-transform: translateY(-5px);
+          transform: translateY(-5px);
+  -webkit-box-shadow: var(--shadow-md);
+          box-shadow: var(--shadow-md);
+}
+.course-item__content {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+.course-item__title {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+.course-item__description {
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+  margin-bottom: 0.75rem;
+}
+.course-item__price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+.course-item__actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.user-card {
+  padding: 15px 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  background-color: #fff;
+  -webkit-transition: -webkit-box-shadow 0.2s ease;
+  transition: -webkit-box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, -webkit-box-shadow 0.2s ease;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 30px;
+}
+.user-card:hover {
+  -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+.user-card__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 4px;
+}
+.user-card__name {
+  font-weight: 600;
+  font-size: 18px;
+}
+.user-card__email {
+  font-size: 14px;
+  color: #666;
+}
+.user-card__role {
+  font-size: 14px;
+  color: #888;
+}

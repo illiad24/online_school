@@ -1,0 +1,40 @@
+@charset "UTF-8";
+/* --- Блок: teacher-list --- */
+.teacher-list {
+  max-width: 1150px;
+  /* --- Елемент: teacher-list__header-container --- */
+  /* --- Елемент: teacher-list__header --- */
+  /* --- Елемент: teacher-list__item-container --- */
+  /* --- Елемент: teacher-list__status --- */
+}
+.teacher-list__header-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 25px;
+}
+.teacher-list__header {
+  font-size: 2.5em;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  margin-bottom: 25px;
+  letter-spacing: -0.5px;
+}
+.teacher-list__item-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+.teacher-list__status {
+  text-align: center;
+  font-size: 1.2em;
+  color: #666;
+  padding: 50px 0;
+}

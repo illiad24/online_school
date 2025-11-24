@@ -28,8 +28,6 @@ function CourseList() {
     const { data: courses, isLoading, refetch } = useGetCoursesQuery()
     const userId = user?._id || user?.id
 
-    console.log(userId);
-
     const { data: enrollments } = useGetUserEnrollmentsQuery(
         userId
     )
@@ -37,7 +35,7 @@ function CourseList() {
 
 
     function isUserInCourse(courseId) {
-        return enrollments?.some(en => en.course === courseId) ?? false;
+        return enrollments?.some(en => en.course._id === courseId) ?? false;
     }
 
     const { enrollClick } = useEnrollButton()

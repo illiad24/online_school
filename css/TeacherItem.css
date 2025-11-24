@@ -1,0 +1,53 @@
+@charset "UTF-8";
+/* --- Блок: teacher-card --- */
+.teacher-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  -webkit-transition: -webkit-transform 0.3s ease, -webkit-box-shadow 0.3s ease;
+  transition: -webkit-transform 0.3s ease, -webkit-box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, -webkit-transform 0.3s ease, -webkit-box-shadow 0.3s ease;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* --- Елемент: teacher-card__details --- */
+  /* --- Елемент: teacher-card__detail-item --- */
+  /* --- Елемент: teacher-card__bio --- */
+}
+.teacher-card:hover {
+  -webkit-transform: translateY(-5px);
+      -ms-transform: translateY(-5px);
+          transform: translateY(-5px);
+  -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+.teacher-card__details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.teacher-card__detail-item {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+}
+.teacher-card__detail-item span {
+  font-weight: 600;
+  color: #333;
+}
+.teacher-card__bio {
+  font-style: italic;
+  color: #777;
+  font-size: 14px;
+  margin-top: -10px;
+  line-height: 1.4;
+}
