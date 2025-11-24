@@ -52,7 +52,6 @@ function CourseList() {
     }
 
     async function enrollAction(courseId) {
-
         const result = await enrollClick(userId, courseId)
         setSnackbar({ open: true, message: result.message, severity: result.success ? 'success' : 'warning' })
         if (result.success) {

@@ -10,9 +10,6 @@ function ProfileDetails() {
     const { user } = useAuthRole();
     return (
         <Container sx={{ py: 3 }}>
-            <Typography variant="h5" gutterBottom>
-                Налаштування профілю
-            </Typography>
             <Grid container spacing={2}>
             </Grid>
             <Box sx={{ marginBottom: '32px' }} >
@@ -21,7 +18,7 @@ function ProfileDetails() {
             <Box sx={{ marginBottom: '32px' }}>
                 <PasswordEdit />
             </Box>
-        
+
             <Box >
                 <ProfileDelete userEmail={user?.email} />
             </Box>
