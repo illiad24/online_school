@@ -16,7 +16,7 @@ export function UserInfo() {
                     <MuiLink component={Link} to="/login" className='button button--inherit' >
                         Увійти
                     </MuiLink>
-                    <MuiLink component={Link} to="/signup" className='button ' >
+                    <MuiLink component={Link} to="/signup" className='button' >
                         Зареєструватись
                     </MuiLink>
                 </>

@@ -32,10 +32,29 @@ function Profile() {
 
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-    const activeRoute = menuItems.find(item =>
-        location.pathname.includes(navigateRoutes.navigate.profile[item.routeKey](user?.id))
-    )?.routeKey || 'main';
+    const activeRoute = menuItems.find(item => {
+        const route = navigateRoutes.navigate.profile[item.routeKey];
 
+        const url = typeof route === "function"
+            ? route(user?.id)
+            : route;
+
+        if (item.routeKey === "main") {
+            return location.pathname === url;
+        } else {
+            return location.pathname.endsWith(url);
+        }
+    })?.routeKey || "main";
+
+
+    console.log(activeRoute);
+
+
+
+    // profile: {
+    //     main: (id) => `/profile/${id}`,
+    //     courses: 'courses'
+    // }
 
     const onLogout = () => {
         logoutUser();
