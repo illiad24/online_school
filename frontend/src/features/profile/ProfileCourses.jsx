@@ -1,6 +1,7 @@
 import { useGetUserEnrollmentsQuery } from "@/entities/enrollment/enrollmentApi";
 import { useAuthRole } from "@/shared/hooks/useAuthRole";
 import MyCourseItem from "./components/MyCourseItem";
+import { Box } from "@mui/material";
 
 function ProfileCourses() {
     const { user } = useAuthRole();
@@ -16,12 +17,11 @@ function ProfileCourses() {
 
     return (
         <div>
-            <h1>Мої курси</h1>
-            <div>
+            <Box  >
                 {data?.map((enrollment) =>
                     <MyCourseItem enrollment={enrollment} key={enrollment.course._id} />
                 )}
-            </div>
+            </Box>
         </div>
     );
 }

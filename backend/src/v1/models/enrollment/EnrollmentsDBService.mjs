@@ -51,6 +51,7 @@ class EnrollmentsDBService extends MongooseCRUDManager {
             if (!userId) {
                 return res.status(400).json({ message: 'Не вказано userId' })
             }
+
             if (!courseId) {
                 return res.status(400).json({ message: 'Не вказано courseId' })
             }

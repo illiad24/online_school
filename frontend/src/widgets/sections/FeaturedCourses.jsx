@@ -150,19 +150,6 @@ export default function FeaturedCourses() {
                     {data.map(course => (
                         <SwiperSlide key={course._id}>
                             <CourseItem course={course} type={2}
-
-                                actions={[
-
-                                    (isAdmin || isSuperAdmin || isStudent) && isUserEnrolled(course._id) && (
-                                        <SimpleButton
-                                            key={`continue-${course._id}`} text='продовжити навчання' handleClick={navigateRoutes.navigate.courses.courseLearn(course?._id)}
-                                        />
-                                    ),
-                                    <SimpleButton
-                                        key={`detail-${course._id}`} text='Деталі' handleClick={navigateRoutes.navigate.courses.getCourseById(course?._id)}
-                                    />
-
-                                ].filter(Boolean)}
                             />
                         </SwiperSlide>
                     ))}

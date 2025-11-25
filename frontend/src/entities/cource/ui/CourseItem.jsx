@@ -47,7 +47,6 @@ export function CourseItem({ course, actions, layout }) {
         border: `1px solid ${BORDER_COLOR}`,
 
         "&:hover": {
-            transform: "translateY(-8px)", // Трохи менший підйом, ніж у Dark Mode
             boxShadow: `0 15px 45px rgba(0,0,0,0.15), 0 0 10px ${ACCENT_COLOR}10`,
         },
     };
@@ -79,12 +78,11 @@ export function CourseItem({ course, actions, layout }) {
                         transition: "transform 0.5s ease",
                         "&:hover": {
                             transform: "scale(1.1)",
-                            filter: "brightness(1.05) contrast(1.05)" // Легке освітлення при наведенні
+                            filter: "brightness(1.05) contrast(1.05)"
                         },
                     }}
                 />
 
-                {/* Badge: Category & Certification (Glassmorphism Light) */}
                 <Stack
                     direction="row"
                     spacing={1}
@@ -122,7 +120,6 @@ export function CourseItem({ course, actions, layout }) {
                 </Stack>
 
 
-                {/* Price / Lessons (Bottom Bar) */}
                 <Box
                     sx={{
                         position: "absolute",
@@ -130,7 +127,6 @@ export function CourseItem({ course, actions, layout }) {
                         left: 0,
                         right: 0,
                         p: 2,
-                        // Білий/світлий оверлей для елегантності
                         background: `linear-gradient(to top, ${BACKGROUND_COLOR}99, ${BACKGROUND_COLOR}00)`,
                         borderTop: `1px solid ${BORDER_COLOR}`,
                         pt: 4,
@@ -196,7 +192,6 @@ export function CourseItem({ course, actions, layout }) {
                             color: theme.palette.text.secondary,
                             mt: 1,
                             lineHeight: 1.6,
-                            // Обмеження опису
                             display: '-webkit-box',
                             overflow: 'hidden',
                             WebkitBoxOrient: 'vertical',
@@ -218,28 +213,12 @@ export function CourseItem({ course, actions, layout }) {
                         sx={{
                             flexWrap: "wrap",
                             "& > *": {
-                                flexGrow: 1,
                                 minWidth: isCard ? '140px' : '180px'
                             }
                         }}
                     >
                         {actions.map((action, i) => (
-                            // Замінюємо кнопку на більш чисту з іконкою
-                            <Box key={i} sx={{
-                                '& button': {
-                                    borderRadius: '12px',
-                                    textTransform: 'none',
-                                    fontWeight: 700,
-                                    py: 1.2,
-                                    // Стиль кнопки - чистий, акцентний
-                                    background: ACCENT_COLOR,
-                                    color: 'white',
-                                    boxShadow: `0 4px 15px ${ACCENT_COLOR}40`,
-                                    '&:hover': {
-                                        background: theme.palette.primary.dark,
-                                    }
-                                }
-                            }}>
+                            <Box key={i}>
                                 {action}
                             </Box>
                         ))}

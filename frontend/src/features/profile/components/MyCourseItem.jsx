@@ -47,6 +47,7 @@ function MyCourseItem({ enrollment }) {
                 flexDirection: isMobile ? "column" : "row",
                 borderRadius: "20px",
                 overflow: "hidden",
+                marginBottom: 4,
                 // Сучасний фон з легким градієнтом та тінь
                 background: "#ffffff",
                 boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
@@ -54,7 +55,6 @@ function MyCourseItem({ enrollment }) {
                 position: "relative",
                 border: "1px solid #f0f0f5",
                 "&:hover": {
-                    transform: "translateY(-5px)",
                     boxShadow: "0 15px 40px rgba(0,0,0,0.15)",
                 },
             }}

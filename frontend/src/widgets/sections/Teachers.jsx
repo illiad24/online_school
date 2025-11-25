@@ -69,7 +69,7 @@ function Teachers() {
             </Grid>
             <Swiper
                 spaceBetween={50}
-                slidesPerView={2}
+                slidesPerView={3}
                 navigation={{
                     prevEl: ".custom-prev",
                     nextEl: ".custom-next",
@@ -86,6 +86,10 @@ function Teachers() {
                     },
                     768: {   // планшети
                         slidesPerView: 2,
+                        spaceBetween: 30,
+                    },
+                    1100: {   // планшети
+                        slidesPerView: 3,
                         spaceBetween: 30,
                     }
                 }}

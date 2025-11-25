@@ -21,7 +21,6 @@ import { AccountCircle, School, Logout, Settings, Dashboard } from "@mui/icons-m
 const menuItems = [
     { title: 'Налаштування', routeKey: 'main', icon: Settings },
     { title: 'Мої курси', routeKey: 'courses', icon: School },
-    // Тут можна додати інші посилання, наприклад, для адміна/менеджера
 ];
 
 function Profile() {
@@ -31,10 +30,8 @@ function Profile() {
     const location = useLocation();
     const theme = useTheme();
 
-    // Перевірка адаптивності: якщо екран менший за 'md' (планшет), використовуємо мобільний режим
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-    // Визначаємо активний маршрут для стилізації
     const activeRoute = menuItems.find(item =>
         location.pathname.includes(navigateRoutes.navigate.profile[item.routeKey](user?.id))
     )?.routeKey || 'main';
