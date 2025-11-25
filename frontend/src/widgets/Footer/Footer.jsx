@@ -2,7 +2,7 @@ import { Box, Container, Typography } from "@mui/material";
 
 function Footer() {
 
-    const date = new Date().getDate
+    const date = new Date().getFullYear()
     return (
         <Box
             component="footer"
@@ -20,7 +20,7 @@ function Footer() {
         >
             <Container className="footer__container">
                 <Typography variant="body2" color="text.white">
-                    © 2025 Онлайн школа. Всі права захищені.
+                    © {date} Онлайн школа. Всі права захищені.
                 </Typography>
             </Container>
         </Box>

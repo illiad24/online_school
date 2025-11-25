@@ -12,8 +12,8 @@ function HomePage() {
             <WhySection />
             <FeaturedCourses />
             <BenefitsSection />
-            <ContactSection />
             <Teachers />
+            <ContactSection />
         </Box>
     );
 }

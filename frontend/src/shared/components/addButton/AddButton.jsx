@@ -9,7 +9,7 @@ function AddButton({ text, handleClick, type = 'link' }) {
         return (
             <Button
                 variant="contained"
-                sx={{ bgcolor: 'green' }}
+                className='button'
                 component={Link}
                 to={handleClick}
                 startIcon={<AddIcon />}
@@ -21,7 +21,7 @@ function AddButton({ text, handleClick, type = 'link' }) {
     }
     if (type === 'button') {
         return (
-            <Button variant="contained" sx={{ bgcolor: 'green' }} onClick={handleClick} startIcon={<AddIcon />}>
+            <Button variant="contained" className='button' sx={{ bgcolor: 'green' }} onClick={handleClick} startIcon={<AddIcon />}>
                 {text}
             </Button>
         );

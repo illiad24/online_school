@@ -184,10 +184,6 @@ class EnrollmentsDBService extends MongooseCRUDManager {
             res.status(500).json({ message: 'Server error ' + err });
         }
     }
-
-
-
-
 }
 
 export default new EnrollmentsDBService(Enrollment)

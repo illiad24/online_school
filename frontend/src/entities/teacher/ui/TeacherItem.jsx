@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardContent, Typography, Box, Stack, CardMedia } from '@mui/material'
+import { Card, CardContent, Typography, Box, Stack, CardMedia, Paper } from '@mui/material'
 import { useAuthRole } from '@/shared/hooks/useAuthRole'
 
 function TeacherItem({ teacher, actions, type = 1 }) {
@@ -112,53 +112,81 @@ function TeacherItem({ teacher, actions, type = 1 }) {
                 </Stack>
             </Box>
         </Card> :
-            <Box>
-                <Box sx={{
-                    position: 'relative',
-                    paddingBottom: '69%',
-                    mb: '16px',
-                }}>
-                    <CardMedia
-                        component="img"
-                        image={teacher?.image}
-                        alt={teacher?.name}
-                        sx={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: "cover",
-                            flexShrink: 0,
-                            position: 'absolute',
-                            top: 0,
+            <Box
+                sx={{
+                    borderRadius: '16px',
+                    transition: 'transform 0.3s, box-shadow 0.3s',
+                    cursor: 'pointer',
+                    overflow: 'hidden',
+                    height: '100%'
 
-                            left: 0
-                        }}
-                    >
-                    </CardMedia>
-                </Box>
-                <Box
-                    sx={{
-                        textAlign: 'center'
-                    }}
-                >
-                    <Typography
+                }}
+            >
+                <Box>
+                    {/* 1. Використовуємо aspectRatio для збереження пропорцій (3:4, що відповідає 100/138.8% або близько до вашого 69%)
+                2. Прибираємо position: 'relative' та position: 'absolute'
+                */}
+                    <Box sx={{
+                        // 16/9, 4/3, 3/4 і т.д. Використовуємо 3/4 для вертикального портрета.
+                        aspectRatio: '1/1',
+                        overflow: 'hidden',
+                    }}>
+                        <CardMedia
+                            component="img"
+                            image={teacher?.image}
+                            alt={teacher?.name}
+                            sx={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: "cover",
+                                display: 'block',
+                            }}
+                        />
+                    </Box>
+
+                    {/* Інформація про викладача */}
+                    <Box
                         sx={{
-                            color: "text.primary",
-                            lineHeight: 1.6,
-                            fontSize: '32px',
-                            fontWeight: '700'
+                            textAlign: 'center',
+                            py: 3, // Внутрішній відступ зверху/знизу
+                            px: 1,
+                            // Стилізуємо задній фон
+                            background: 'linear-gradient(180deg, #ffffff 0%, #f0f4f8 100%)',
                         }}
                     >
-                        {teacher.name}
-                    </Typography>
-                    <Typography
-                        sx={{
-                            color: '#787a80'
-                        }}
-                    >
-                        {teacher.subject}
-                    </Typography>
-                </Box>
-            </Box >
+                        <Typography
+                            variant="h5" // Змінюємо на h5 для відповідності розміру
+                            sx={{
+                                color: "text.primary",
+                                lineHeight: 1.3, // Менший інтерліньяж
+                                fontSize: '1.75rem', // ~28px, для більшої гармонії
+                                fontWeight: '800', // Дуже жирний
+                                mb: 0.5,
+                            }}
+                        >
+                            {teacher.name}
+                        </Typography>
+                        <Typography
+                            variant="body1" // Стандартний розмір для опису
+                            color="primary.main" // Основний колір для предмета
+                            fontWeight={600}
+                            sx={{
+                                fontSize: '1.05rem',
+                            }}
+                        >
+                            {teacher.subject}
+                        </Typography>
+
+                        {/* Додаткова інформація чи кнопка (опціонально) */}
+                        <Box sx={{ mt: 1.5 }}>
+                            <Typography variant="caption" color="text.secondary">
+                                {/* Заглушка для досвіду */}
+                                Досвід: 10+ років
+                            </Typography>
+                        </Box>
+                    </Box>
+                </Box >
+            </Box>
     )
 }
 

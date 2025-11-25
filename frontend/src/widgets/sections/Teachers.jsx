@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from "swiper/modules";
 import 'swiper/css';
 import "swiper/css/navigation";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import TeacherItem from "@/entities/teacher/ui/TeacherItem";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -18,7 +18,7 @@ function Teachers() {
         )
     }
     return (
-        <Box component="section" sx={{ py: 8 }}>
+        <Container maxWidth='lg' component="section" sx={{ py: 8 }}>
             <Grid
                 container
                 alignItems="center"
@@ -101,7 +101,7 @@ function Teachers() {
                     </SwiperSlide>
                 )}
             </Swiper>
-        </Box>
+        </Container>
     );
 }
 

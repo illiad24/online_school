@@ -1,16 +1,51 @@
-import { Box, Button, Typography } from "@mui/material";
+import { navigateRoutes } from "@/shared/config/routes/navigateRoutes";
+import { Box, Button, Container, Typography } from "@mui/material";
+import { Link } from "react-router";
+
 function WhySection() {
     return (
-        <Box sx={{ display: 'flex', alignItems: 'center', py: '5rem' }}>
-            <Box sx={{ flex: "0 0 55%" }}>
+        <Container maxWidth='lg'
+            sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexDirection: { xs: "column-reverse", md: "row" },
+                gap: { xs: 4, md: 0 },
+                py: "5rem",
+            }}
+        >
+            {/* Image block */}
+            <Box
+                sx={{
+                    flex: { md: "0 0 55%" },
+                    width: { xs: "100%", md: "55%" },
+                    paddingRight: { xs: '0', md: '2rem' },
+                    display: "flex",
+                    justifyContent: "center",
+                }}
+            >
                 <Box
                     component="img"
-                    src="../../../public/why.jpg"
+                    src="/why.jpg"
                     alt="Онлайн школа VT"
-                    sx={{ width: "100%", maxWidth: 500, mx: "auto", display: "block" }}
+                    sx={{
+                        width: "100%",
+                        maxWidth: 500,
+                        borderRadius: 2,
+                        display: "block",
+                    }}
                 />
             </Box>
-            <Box sx={{ flex: "0 0 45%", paddingLeft: '2rem' }}>
+
+            {/* Text block */}
+            <Box
+                sx={{
+                    flex: { md: "0 0 45%" },
+                    width: { xs: "100%", md: "45%" },
+                    paddingLeft: { xs: 0, md: "2rem" },
+                    textAlign: { xs: "center", md: "left" },
+                }}
+            >
                 <Typography
                     variant="overline"
                     sx={{
@@ -51,22 +86,15 @@ function WhySection() {
                     увагою та мотивацією, щоб зробити освітній процес цікавим і доступним для всіх.
                 </Typography>
 
-                <Button
-                    variant="contained"
-                    size="large"
-                    sx={{
-                        textTransform: "none",
-                        fontWeight: 600,
-                        px: 4,
-                        py: 1.5,
-                    }}
+                <Link
+                    className="button"
+                    to={navigateRoutes.navigate.about.main}
                 >
                     Дізнатися більше про нас
-                </Button>
+                </Link>
             </Box>
-        </Box>
+        </Container>
     );
 }
-
 
 export default WhySection;

@@ -24,6 +24,9 @@ export const navigateRoutes = {
         profile: {
             main: (id) => `/profile/${id}`,
             courses: 'courses'
+        },
+        about:{
+            main:'/about'
         }
     }
 }

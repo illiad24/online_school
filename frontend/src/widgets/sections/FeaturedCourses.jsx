@@ -73,7 +73,7 @@ export default function FeaturedCourses() {
     // ----------------------------------------------------
 
     return (
-        <Box component="section" sx={{ py: 8, background: '#ffffff' }}>
+        <Container maxWidth='lg' component="section" sx={{ py: 8, background: '#ffffff' }}>
             {/* Блок Заголовка та Кнопки */}
             <Grid
                 container
@@ -199,6 +199,6 @@ export default function FeaturedCourses() {
                     <ArrowForwardIos fontSize="small" sx={{ mr: 0.5 }} />
                 </Box>
             </Box>
-        </Box>
+        </Container>
     );
 }

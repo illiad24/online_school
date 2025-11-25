@@ -7,10 +7,9 @@ export function MainLayout() {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <Header />
-            <Box component="main" sx={{ flex: 1, py: 4, paddingTop: '100px' }}>
-                <Container maxWidth="lg" >
-                    <Outlet />
-                </Container>
+            <Box component="main" sx={{ flex: 1, py: 4, paddingTop: '120px' }}>
+              
+                <Outlet />
             </Box>
             <Footer />
         </Box>

@@ -20,7 +20,8 @@
 
 html,
 body {
-    height: 100%; // щоб body розтягувалось
+    background-color: #f5f6f7 radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 90%), #f5f6f7) !important;
+    height: 100%;
 }
 
 .container {

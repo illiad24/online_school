@@ -4,7 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Button } from '@mui/material';
 function EditButton({ handleClick }) {
     return (
-        <Button variant="contained" component={Link} sx={{ bgcolor: 'blue' }} to={handleClick} startIcon={<EditIcon />}>
+        <Button variant="contained" component={Link} className='button' to={handleClick} startIcon={<EditIcon />}>
             Редагувати
         </Button>
     );
