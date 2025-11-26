@@ -12,7 +12,10 @@ const __dirname = path.dirname(__filename)
 const middleware = (app) => {
     // Middleware для підтримки CORS (Cross-Origin Resource Sharing)
     app.use(cors({
-        origin: 'http://localhost:5173', // 👈 твій фронт
+        origin: [
+            "https://school-test-deploy-1.netlify.app",
+            "http://localhost:5173" // можна залишити для dev
+        ], // 👈 твій фронт
         credentials: true,               // 👈 дозволяє кукі
     }));
 

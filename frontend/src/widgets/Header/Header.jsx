@@ -5,7 +5,6 @@ import CloseIcon from '@mui/icons-material/Close'; // Додаємо іконк�
 
 import { UserInfo } from "./UserInfo";
 import { MainMenu } from "./MainMenu";
-import { NavLink } from 'react-router'; // Потрібно для посилань у мобільному меню
 
 export default function Header() {
     const theme = useTheme();

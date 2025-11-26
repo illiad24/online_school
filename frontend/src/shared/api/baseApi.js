@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'http://localhost:3000/',
+    // baseUrl: 'http://localhost:3000/',
+    baseUrl: 'https://online-school-4.onrender.com/',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth?.accessToken;
