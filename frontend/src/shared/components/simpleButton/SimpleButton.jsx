@@ -1,19 +1,16 @@
 
-import { Link } from 'react-router';
-import AddIcon from '@mui/icons-material/Add';
 import { Button } from '@mui/material';
+import { Link } from 'react-router';
 
 function SimpleButton({ text, handleClick, type = 'link' }) {
     if (type === 'link') {
         return (
-            <Button
-                variant="contained"
-                component={Link}
+            <Link
                 to={handleClick}
                 className='button'
             >
                 {text}
-            </Button>
+            </Link>
 
         );
     }

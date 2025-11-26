@@ -34,7 +34,7 @@ function MyCourseItem({ enrollment }) {
     const lastActive = enrollment?.lastActivityAt ? new Date(enrollment.lastActivityAt) : null;
     const certificateAvailable = course?.certificate === true;
 
-    const isMobile = useMediaQuery("(max-width:800px)");
+    const isMobile = useMediaQuery("(max-width:1100px)");
     const isSmallMobile = useMediaQuery("(max-width:450px)");
 
     // Визначаємо колір для прогресу/кнопки

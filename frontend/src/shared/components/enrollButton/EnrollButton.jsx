@@ -1,16 +1,13 @@
-import { Button } from "@mui/material";
+import { Box } from "@mui/material";
 
 function EnrollButton({ handleClick, disabled = false }) {
     return (
-        <Button
-            variant="contained"
-            color="primary"
-            size="large"
+        <Box
             className='button'
             onClick={handleClick}
         >
             {disabled ? "Ви вже записані" : "Записатись"}
-        </Button>
+        </Box>
     );
 }
 

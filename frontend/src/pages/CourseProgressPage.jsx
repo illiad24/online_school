@@ -2,7 +2,8 @@ import { useParams } from 'react-router'
 import { useState, useEffect } from 'react'
 import {
     Box, Typography, Button, LinearProgress, List, ListItemButton,
-    Paper, Fade, Drawer, useMediaQuery, useTheme, IconButton
+    Paper, Fade, Drawer, useMediaQuery, useTheme, IconButton,
+    Container
 } from '@mui/material'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
@@ -217,7 +218,7 @@ export default function CourseProgressPage() {
     )
 
     return (
-        <Box sx={{ display: 'flex', height: '100vh', bgcolor: mainBg }}>
+        <Container maxWidth='lg' sx={{ display: 'flex', height: '100vh', bgcolor: mainBg }}>
 
             {/* БІЧНА ПАНЕЛЬ (НАВІГАЦІЯ) - ДЕСКТОП */}
             {!isMobile && (
@@ -390,6 +391,6 @@ export default function CourseProgressPage() {
                     </Button>
                 </Box>
             </Box>
-        </Box>
+        </Container>
     )
 }

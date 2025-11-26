@@ -12,7 +12,8 @@ import {
     useTheme,
     useMediaQuery,
     Stack,
-    Button as MuiButton
+    Button as MuiButton,
+    Container
 } from "@mui/material";
 import { Link, Outlet, useNavigate, useLocation } from "react-router";
 import { AccountCircle, School, Logout, Settings, Dashboard } from "@mui/icons-material";
@@ -222,28 +223,31 @@ function Profile() {
     // ------------------------------------------------------------------
 
     return (
-        <Box display="flex" minHeight="100vh" bgcolor={theme.palette.grey[50]} flexDirection={isMobile ? 'column' : 'row'}>
+        <Container maxWidth="lg" >
+            <Box display="flex" minHeight="100vh" bgcolor={theme.palette.grey[50]} flexDirection={isMobile ? 'column' : 'row'}>
 
-            {/* Навігація */}
-            <Sidebar />
-            <MobileNav />
 
-            {/* Основний Контент */}
-            <Box
-                flex={1}
-                p={isMobile ? 2 : 4}
-                sx={{ overflowY: 'auto', width: isMobile ? '100%' : 'auto' }}
-            >
-                {/* Хлібні крихти або заголовок поточної секції тут */}
-                <Box mb={4}>
-                    <Typography variant="h4" fontWeight={800} color="text.primary">
-                        {menuItems.find(item => item.routeKey === activeRoute)?.title || 'Загальна Інформація'}
-                    </Typography>
+                {/* Навігація */}
+                <Sidebar />
+                <MobileNav />
+
+                {/* Основний Контент */}
+                <Box
+                    flex={1}
+                    p={isMobile ? 2 : 4}
+                    sx={{ overflowY: 'auto', width: isMobile ? '100%' : 'auto' }}
+                >
+                    {/* Хлібні крихти або заголовок поточної секції тут */}
+                    <Box mb={4}>
+                        <Typography variant="h4" fontWeight={800} color="text.primary">
+                            {menuItems.find(item => item.routeKey === activeRoute)?.title || 'Загальна Інформація'}
+                        </Typography>
+                    </Box>
+
+                    <Outlet />
                 </Box>
-
-                <Outlet />
             </Box>
-        </Box>
+        </Container>
     );
 }
 

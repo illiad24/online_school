@@ -127,7 +127,6 @@ function TeacherItem({ teacher, actions, type = 1 }) {
                 2. Прибираємо position: 'relative' та position: 'absolute'
                 */}
                     <Box sx={{
-                        // 16/9, 4/3, 3/4 і т.д. Використовуємо 3/4 для вертикального портрета.
                         aspectRatio: '1/1',
                         overflow: 'hidden',
                     }}>

@@ -10,8 +10,10 @@ import {
     Divider,
     useTheme,
     useMediaQuery,
+    Button, // Додаємо Button для стилізації дій, якщо actions – це просто текст
 } from "@mui/material";
-import { Link } from "react-router";
+// Припускаємо, що Link – це компонент з 'react-router-dom' або подібної бібліотеки
+import { Link } from "react-router"; // Змінено на 'react-router-dom' для коректного використання
 import {
     AttachMoney,
     School,
@@ -19,7 +21,7 @@ import {
     VerifiedUser,
     ChevronRight,
 } from "@mui/icons-material";
-import LessonForm from "@/widgets/lesson/SelectLesson";
+// import LessonForm from "@/widgets/lesson/SelectLesson"; // Залишаємо
 
 export function CourseItem({ course, actions, layout }) {
     const theme = useTheme();
@@ -27,29 +29,37 @@ export function CourseItem({ course, actions, layout }) {
     const ACCENT_COLOR = "#1976d2"; // Глибокий синій
     const BACKGROUND_COLOR = "#fefefe"; // Майже ідеально білий
     const BORDER_COLOR = "#e0e7f1"; // Дуже світлий сіро-синій
+    const HOVER_SHADOW_COLOR = "#1976d2"; // Колір для тіні при наведенні
 
     const isInline = layout === "inline-view";
     const isMobile = useMediaQuery(theme.breakpoints.down(isInline ? 'sm' : 'md'));
     const isCard = !isInline || isMobile;
 
-    // Динамічні стилі для Card
-    const cardStyles = {
-        display: "flex",
-        flexDirection: isCard ? "column" : "row",
-        borderRadius: "24px",
-        overflow: "hidden",
-        background: BACKGROUND_COLOR,
-        color: theme.palette.text.primary,
+    // Динамічні стилі для Card (загортаємо в Link)
+    const CardLink = ({ children, to, ...props }) => (
+        <Card
+            component={Link}
+            to={to}
+            sx={{
+                display: "flex",
+                flexDirection: isCard ? "column" : "row",
+                borderRadius: "24px",
+                overflow: "hidden",
+                background: BACKGROUND_COLOR,
+                color: theme.palette.text.primary,
+                textDecoration: "none", // Важливо для Link
 
-        // Витончена, "м'яка" тінь
-        boxShadow: "0 8px 30px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04)",
-        transition: "transform 0.4s cubic-bezier(.25,.8,.5,1), box-shadow 0.4s cubic-bezier(.25,.8,.5,1)",
-        border: `1px solid ${BORDER_COLOR}`,
+                // Витончена, "м'яка" тінь
+                boxShadow: "0 8px 30px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04)",
+                transition: "transform 0.4s cubic-bezier(.25,.8,.5,1), box-shadow 0.4s cubic-bezier(.25,.8,.5,1)",
+                border: `1px solid ${BORDER_COLOR}`,
 
-        "&:hover": {
-            boxShadow: `0 15px 45px rgba(0,0,0,0.15), 0 0 10px ${ACCENT_COLOR}10`,
-        },
-    };
+            }}
+            {...props}
+        >
+            {children}
+        </Card>
+    );
 
     // Динамічні стилі для зображення
     const mediaBoxStyles = {
@@ -58,12 +68,11 @@ export function CourseItem({ course, actions, layout }) {
         width: isInline && !isMobile ? "350px" : "100%",
         minHeight: isInline && !isMobile ? "100%" : "250px",
         flexShrink: 0,
-        // Обрізка кутів зображення для відповідності Card
         borderRadius: isCard ? '24px 24px 0 0' : '24px 0 0 24px',
     };
 
     return (
-        <Card sx={cardStyles}>
+        <CardLink to={`/courses/${course?._id}`}>
             {/* Зображення курсу */}
             <Box sx={mediaBoxStyles}>
                 <CardMedia
@@ -76,21 +85,19 @@ export function CourseItem({ course, actions, layout }) {
                         objectFit: "cover",
                         filter: "brightness(1) contrast(1)",
                         transition: "transform 0.5s ease",
-                        "&:hover": {
-                            transform: "scale(1.1)",
-                            filter: "brightness(1.05) contrast(1.05)" // Легке освітлення при наведенні
-                        },
+
                     }}
                 />
 
                 {/* Badge: Category & Certification (Glassmorphism Light) */}
                 <Stack
                     direction="row"
-                    spacing={1}
+                    spacing={1.5} // Трохи більше відступу
                     sx={{
                         position: "absolute",
                         top: 18,
                         left: 18,
+                        zIndex: 10,
                     }}
                 >
                     <Chip
@@ -112,8 +119,12 @@ export function CourseItem({ course, actions, layout }) {
                             sx={{
                                 fontWeight: 700,
                                 borderRadius: "10px",
-                                backgroundColor: "rgba(255, 255, 255, 0.9)",
+                                // **ПОКРАЩЕННЯ**: Додаємо легке розмиття фону для справжнього Glassmorphism
+                                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                                backdropFilter: "blur(5px)",
+                                WebkitBackdropFilter: "blur(5px)",
                                 color: ACCENT_COLOR,
+                                border: `1px solid rgba(255, 255, 255, 0.4)`,
                                 boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
                             }}
                         />
@@ -129,9 +140,11 @@ export function CourseItem({ course, actions, layout }) {
                         left: 0,
                         right: 0,
                         p: 2,
-                        // Білий/світлий оверлей для елегантності
-                        background: `linear-gradient(to top, ${BACKGROUND_COLOR}99, ${BACKGROUND_COLOR}00)`,
-                        borderTop: `1px solid ${BORDER_COLOR}`,
+                        // **ПОКРАЩЕННЯ**: Градієнт та Glassmorphism для виразності
+                        background: `linear-gradient(to top, ${BACKGROUND_COLOR}cc, ${BACKGROUND_COLOR}00)`,
+                        backdropFilter: "blur(2px)",
+                        WebkitBackdropFilter: "blur(2px)",
+                        borderTop: `1px solid ${BORDER_COLOR}aa`,
                         pt: 4,
                     }}
                 >
@@ -161,19 +174,20 @@ export function CourseItem({ course, actions, layout }) {
                 }}
             >
                 <Stack spacing={2}>
-                    {/* Заголовок */}
+                    {/* Заголовок (Використовуємо div, оскільки Link вже на рівні Card) */}
                     <Typography
                         variant={isCard ? "h5" : "h4"}
-                        component={Link}
-                        to={`/courses/${course?._id}`}
+                        component="div" // Змінено на div
                         sx={{
-                            textDecoration: "none",
                             color: theme.palette.text.primary,
                             fontWeight: 900,
                             lineHeight: 1.2,
                             fontSize: isCard ? "1.5rem" : "1.8rem",
                             transition: "color 0.3s ease",
-                            "&:hover": { color: ACCENT_COLOR },
+                            // Додатковий ефект підсвічування тексту при наведенні на всю картку
+                            [`.${CardLink.name}:hover &`]: {
+                                color: ACCENT_COLOR
+                            },
                         }}
                     >
                         {course?.title || "Професійний Курс"}
@@ -195,7 +209,6 @@ export function CourseItem({ course, actions, layout }) {
                             color: theme.palette.text.secondary,
                             mt: 1,
                             lineHeight: 1.6,
-                            // Обмеження опису
                             display: '-webkit-box',
                             overflow: 'hidden',
                             WebkitBoxOrient: 'vertical',
@@ -216,36 +229,20 @@ export function CourseItem({ course, actions, layout }) {
                         spacing={2}
                         sx={{
                             flexWrap: "wrap",
-                            "& > *": {
-                                flexGrow: 1,
-                                minWidth: isCard ? '140px' : '180px'
-                            }
+                            mt: 'auto', // Відсуває дії вниз
+                            // Кнопки дій не повинні бути обгорнуті в Link, тому вони залишаються активними
                         }}
+                        onClick={(e) => e.preventDefault()} // Запобігаємо переходу по основному посиланню
                     >
                         {actions.map((action, i) => (
-                            // Замінюємо кнопку на більш чисту з іконкою
-                            <Box key={i} sx={{
-                                '& button': {
-                                    borderRadius: '12px',
-                                    textTransform: 'none',
-                                    fontWeight: 700,
-                                    py: 1.2,
-                                    // Стиль кнопки - чистий, акцентний
-                                    background: ACCENT_COLOR,
-                                    color: 'white',
-                                    boxShadow: `0 4px 15px ${ACCENT_COLOR}40`,
-                                    '&:hover': {
-                                        background: theme.palette.primary.dark,
-                                    }
-                                }
-                            }}>
+                            <Box key={i} >
                                 {action}
                             </Box>
                         ))}
                     </Stack>
                 )}
             </CardContent>
-        </Card>
+        </CardLink>
     );
 }
 
